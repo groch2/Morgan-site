@@ -1,8 +1,21 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: { index: './src/index.js' },
+    devServer: {
+        port: 8080,
+        writeToDisk: true
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            inject: true,
+            chunks: ['index'],
+            filename: 'index.html'
+        })
+    ],
     output: {
         path: path.resolve(__dirname, 'dist')
     },
