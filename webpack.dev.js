@@ -1,3 +1,4 @@
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 
@@ -9,9 +10,10 @@ module.exports = {
         writeToDisk: true
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html',
-            inject: true,
+            inject: 'head',
             chunks: ['index'],
             filename: 'index.html'
         })
