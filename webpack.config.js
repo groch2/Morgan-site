@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = ({ mode }) => {
     const pathToIndexHtml = require.resolve("./index.html");
 
@@ -9,27 +10,14 @@ module.exports = ({ mode }) => {
         module: {
             rules: [{
                     test: pathToIndexHtml,
-                    use: [
-                        "file-loader",
-                        "extract-loader",
-                        {
-                            loader: "html-loader",
+                    use: [{
+                            loader: "file-loader",
                             options: {
-                                attributes: {
-                                    list: [{
-                                            tag: 'img',
-                                            attribute: 'src',
-                                            type: 'src',
-                                        },
-                                        {
-                                            tag: 'link',
-                                            attribute: 'href',
-                                            type: 'src',
-                                        }
-                                    ],
-                                }
+                                name: "[name].[ext]"
                             }
-                        }
+                        },
+                        "extract-loader",
+                        "html-loader",
                     ]
                 },
                 {
