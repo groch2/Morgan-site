@@ -1,5 +1,4 @@
-const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 function DisableOutputWebpackPlugin(...exclude) {
     this.exclude = exclude;
@@ -36,16 +35,16 @@ module.exports = ({ mode }) => {
                     ]
                 },
                 {
-                    test: /\.css$/,
-                    use: [
-                        "file-loader",
-                        "extract-loader",
-                        {
-                            loader: "css-loader",
+                    test: /\.s[ac]ss$/i,
+                    use: [{
+                            loader: "file-loader",
                             options: {
-                                sourceMap: true
+                                name: "[hash].css"
                             }
-                        }
+                        },
+                        "extract-loader",
+                        "css-loader",
+                        "sass-loader",
                     ]
                 },
                 {
