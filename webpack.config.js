@@ -44,7 +44,14 @@ module.exports = ({ mode }) => {
                         },
                         "extract-loader",
                         "css-loader",
-                        "sass-loader",
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                sassOptions: {
+                                    includePaths: "./node_modules/w3-css/"
+                                }
+                            }
+                        },
                     ]
                 },
                 {
