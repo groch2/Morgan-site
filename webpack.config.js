@@ -1,6 +1,7 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 var fs = require('fs');
 var path = require('path');
+const pug = require('pug');
 
 function DisableOutputWebpackPlugin(...exclude) {
     this.exclude = exclude;
@@ -31,24 +32,39 @@ const homeLinks = directories.map(n => /(?<=^\d+\s).+$/.exec(n)[0]);
 homeLinks.unshift("Home");
 
 module.exports = ({ mode }) => {
-    const pathToIndexHtml = require.resolve("./index.html");
+    const pathToIndex = require.resolve("./index.pug");
     return {
         mode,
         entry: [
-            pathToIndexHtml,
-            "./file.ejs"
+            pathToIndex
         ],
         module: {
             rules: [{
-                    test: pathToIndexHtml,
+                    test: pathToIndex,
                     use: [{
                             loader: "file-loader",
                             options: {
-                                name: "[name].[ext]"
+                                name: "[name].html"
                             }
                         },
                         "extract-loader",
-                        "html-loader",
+                        {
+                            loader: "html-loader",
+                            options: {
+                                preprocessor: (content, loaderContext) => {
+                                    try {
+                                        console.log(content);
+                                        const html = pug.render(content, { homeLinks, pretty: true });
+                                        console.log(html);
+                                        return html;
+                                    } catch (error) {
+                                        console.log(error);
+                                        loaderContext.emitError(error);
+                                        return content;
+                                    }
+                                },
+                            }
+                        }
                     ]
                 },
                 {
@@ -74,28 +90,6 @@ module.exports = ({ mode }) => {
                 {
                     test: /\.jpg$/,
                     use: "file-loader"
-                },
-                {
-                    test: /\.ejs$/,
-                    use: [{
-                            loader: "file-loader",
-                            options: {
-                                name: "[name].html",
-                                context: "./src/",
-                                outputPath: "/"
-                            }
-                        },
-                        {
-                            loader: "extract-loader"
-                        },
-                        {
-                            loader: "ejs-webpack-loader",
-                            options: {
-                                data: { slideByDirectory },
-                                htmlmin: false
-                            }
-                        }
-                    ]
                 }
             ]
         },
