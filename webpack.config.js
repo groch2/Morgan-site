@@ -53,14 +53,9 @@ module.exports = ({ mode }) => {
                             options: {
                                 preprocessor: (content, loaderContext) => {
                                     try {
-                                        console.log(content);
-                                        const html = pug.render(content, { homeLinks, pretty: true });
-                                        console.log(html);
-                                        return html;
+                                        return pug.render(content, { homeLinks, pretty: true });
                                     } catch (error) {
-                                        console.log(error);
                                         loaderContext.emitError(error);
-                                        return content;
                                     }
                                 },
                             }
