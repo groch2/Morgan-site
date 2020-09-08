@@ -1,0 +1,15 @@
+doctype html
+html
+    head
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet" href="style.css")
+    body
+        div(id="myModal" class="modal")
+        span(class="close cursor" onclick="closeModal()")="&times;"
+        div(class="modal-content")
+            each s in slides
+                div(class="mySlides")
+                    img(src=s style="max-height:100vh;" onclick="imgClick()")
+            a(class="prev" onclick="plusSlides(-1)")="<"
+            a(class="next" onclick="plusSlides(+1)")=">"
+    script(src="script.js")
