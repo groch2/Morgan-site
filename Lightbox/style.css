@@ -66,6 +66,7 @@ body {
 
 .mySlides {
     display: none;
+    position: relative;
 }
 
 .cursor {
