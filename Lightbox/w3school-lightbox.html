@@ -7,19 +7,27 @@
     .mySlides {
         display: none;
     }
+
+    @media (orientation: landscape) {
+        .mySlides {
+            max-height: 100vh;
+        }
+    }
+
+    @media (orientation: portrait) {
+        .mySlides {
+            max-width: 100vw;
+        }
+    }
 </style>
 
 <body class="w3-container">
     <div class="w3-display-middle">
-        <img class="mySlides" src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\20180627120825190_0005.jpg"
-            style="width:100%">
+        <img class="mySlides" src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\20180627120825190_0005.jpg">
         <img class="mySlides"
-            src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\Etude pour Composition diurne, fusain sur papier 50x40cm, 2013.jpg"
-            style="width:100%">
-        <img class="mySlides" src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\Fusain papier bleu.jpg"
-            style="width:100%">
-        <img class="mySlides" src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\Grand fusain 100x80cm.jpg"
-            style="width:100%">
+            src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\Etude pour Composition diurne, fusain sur papier 50x40cm, 2013.jpg">
+        <img class="mySlides" src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\Fusain papier bleu.jpg">
+        <img class="mySlides" src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\Grand fusain 100x80cm.jpg">
 
         <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
         <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
