@@ -6,27 +6,28 @@
         font-family: Verdana, sans-serif;
         margin: 0;
     }
-    
+
     * {
         box-sizing: border-box;
     }
-    
+
     .row>.column {
         padding: 0 8px;
     }
-    
+
     .row:after {
         content: "";
         display: table;
         clear: both;
     }
-    
+
     .column {
         float: left;
         width: 25%;
     }
+
     /* The Modal (background) */
-    
+
     .modal {
         display: none;
         position: fixed;
@@ -39,8 +40,9 @@
         overflow: auto;
         background-color: black;
     }
+
     /* Modal Content */
-    
+
     .modal-content {
         position: relative;
         background-color: #fefefe;
@@ -49,8 +51,9 @@
         width: 90%;
         max-width: 1200px;
     }
+
     /* The Close Button */
-    
+
     .close {
         color: white;
         position: absolute;
@@ -59,23 +62,24 @@
         font-size: 35px;
         font-weight: bold;
     }
-    
+
     .close:hover,
     .close:focus {
         color: #999;
         text-decoration: none;
         cursor: pointer;
     }
-    
+
     .mySlides {
         display: none;
     }
-    
+
     .cursor {
         cursor: pointer;
     }
+
     /* Next & previous buttons */
-    
+
     .prev,
     .next {
         cursor: pointer;
@@ -92,20 +96,23 @@
         user-select: none;
         -webkit-user-select: none;
     }
+
     /* Position the "next button" to the right */
-    
+
     .next {
         right: 0;
         border-radius: 3px 0 0 3px;
     }
+
     /* On hover, add a black background color with a little bit see-through */
-    
+
     .prev:hover,
     .next:hover {
         background-color: rgba(0, 0, 0, 0.8);
     }
+
     /* Number text (1/3 etc) */
-    
+
     .numbertext {
         color: #f2f2f2;
         font-size: 12px;
@@ -113,31 +120,31 @@
         position: absolute;
         top: 0;
     }
-    
+
     img {
         margin-bottom: -4px;
     }
-    
+
     .caption-container {
         text-align: center;
         background-color: black;
         padding: 2px 16px;
         color: white;
     }
-    
+
     .demo {
         opacity: 0.6;
     }
-    
+
     .active,
     .demo:hover {
         opacity: 1;
     }
-    
+
     img.hover-shadow {
         transition: 0.3s;
     }
-    
+
     .hover-shadow:hover {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
@@ -149,16 +156,20 @@
 
     <div class="row">
         <div class="column">
-            <img src="https://www.w3schools.com/howto/img_nature.jpg" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+            <img src="https://www.w3schools.com/howto/img_nature.jpg" style="width:100%"
+                onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
         </div>
         <div class="column">
-            <img src="https://www.w3schools.com/howto/img_snow.jpg" style="width:100%" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
+            <img src="https://www.w3schools.com/howto/img_snow.jpg" style="width:100%"
+                onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
         </div>
         <div class="column">
-            <img src="https://www.w3schools.com/howto/img_mountains.jpg" style="width:100%" onclick="openModal();currentSlide(3)" class="hover-shadow cursor">
+            <img src="https://www.w3schools.com/howto/img_mountains.jpg" style="width:100%"
+                onclick="openModal();currentSlide(3)" class="hover-shadow cursor">
         </div>
         <div class="column">
-            <img src="https://www.w3schools.com/howto/img_lights.jpg" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor">
+            <img src="https://www.w3schools.com/howto/img_lights.jpg" style="width:100%"
+                onclick="openModal();currentSlide(4)" class="hover-shadow cursor">
         </div>
     </div>
 
@@ -168,22 +179,26 @@
 
             <div class="mySlides">
                 <div class="numbertext">1 / 4</div>
-                <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%">
+                <img src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\20180627120825190_0005.jpg"
+                    style="width:100%">
             </div>
 
             <div class="mySlides">
                 <div class="numbertext">2 / 4</div>
-                <img src="https://www.w3schools.com/howto/img_snow_wide.jpg" style="width:100%">
+                <img src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\Etude pour Composition diurne, fusain sur papier 50x40cm, 2013.jpg"
+                    style="width:100%">
             </div>
 
             <div class="mySlides">
                 <div class="numbertext">3 / 4</div>
-                <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%">
+                <img src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\Fusain papier bleu.jpg"
+                    style="width:100%">
             </div>
 
             <div class="mySlides">
                 <div class="numbertext">4 / 4</div>
-                <img src="https://www.w3schools.com/howto/img_lights_wide.jpg" style="width:100%">
+                <img src="C:\Users\deschaseauxr\Documents\Morgan-site\2 Dessins\Grand fusain 100x80cm.jpg"
+                    style="width:100%">
             </div>
 
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -195,16 +210,20 @@
 
 
             <div class="column">
-                <img class="demo cursor" src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%" onclick="currentSlide(1)" alt="Nature and sunrise">
+                <img class="demo cursor" src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%"
+                    onclick="currentSlide(1)" alt="Nature and sunrise">
             </div>
             <div class="column">
-                <img class="demo cursor" src="https://www.w3schools.com/howto/img_snow_wide.jpg" style="width:100%" onclick="currentSlide(2)" alt="Snow">
+                <img class="demo cursor" src="https://www.w3schools.com/howto/img_snow_wide.jpg" style="width:100%"
+                    onclick="currentSlide(2)" alt="Snow">
             </div>
             <div class="column">
-                <img class="demo cursor" src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
+                <img class="demo cursor" src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%"
+                    onclick="currentSlide(3)" alt="Mountains and fjords">
             </div>
             <div class="column">
-                <img class="demo cursor" src="https://www.w3schools.com/howto/img_lights_wide.jpg" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
+                <img class="demo cursor" src="https://www.w3schools.com/howto/img_lights_wide.jpg" style="width:100%"
+                    onclick="currentSlide(4)" alt="Northern Lights">
             </div>
         </div>
     </div>
