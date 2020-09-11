@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html>
-<title>W3.CSS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-    .mySlides {
-        display: none;
-    }
+<html lang="en">
 
-    @media (orientation: landscape) {
+<head>
+    <title>W3.CSS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
         .mySlides {
-            max-height: 100vh;
+            display: none;
         }
-    }
-</style>
+
+        @media (orientation: landscape) {
+            .mySlides {
+                max-height: 100vh;
+            }
+        }
+    </style>
+</head>
 
 <body>
     <div class="w3-container">
@@ -31,6 +34,7 @@
     </div>
 
     <script>
+        const x = document.getElementsByClassName("mySlides");
         var slideIndex = 1;
         showDivs(slideIndex);
 
@@ -39,21 +43,18 @@
         }
 
         function showDivs(n) {
-            var i;
-            var x = document.getElementsByClassName("mySlides");
             if (n > x.length) {
                 slideIndex = 1;
             }
             if (n < 1) {
                 slideIndex = x.length;
             }
-            for (i = 0; i < x.length; i++) {
+            for (var i = 0; i < x.length; i++) {
                 x[i].style.display = "none";
             }
             x[slideIndex - 1].style.display = "block";
         }
     </script>
-
 </body>
 
 </html>
