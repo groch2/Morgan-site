@@ -13,7 +13,9 @@ html(lang="en")
 
     body
         div(class="w3-display-container" id="home-container")
-            div(class="w3-display-topmiddle" id="home-links-container")
-                each link in homeLinks
-                    a(href="#" class="home-link")= link
+            div(class="w3-display-topmiddle" style="max-width: 100vw; z-index: 1;")
+                h1(class="" id="home-header")= "Morgan Bancon"
+                div(class="" id="home-links-container")
+                    each link in homeLinks
+                        a(href="#" class="home-link")= link
             img(src="./1 Peintures/Nordique, ht, 33x41cm, 2019.jpg" id="home-image")
