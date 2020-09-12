@@ -5,15 +5,20 @@
     @extend .w3-hover-none
     color: white
     @extend .w3-xlarge
-    @extend .w3-mobile
+    display: flex
+    justify-content: center
+#home-links-container
+    display: flex
+    max-width: 100vw
 @media (orientation: portrait)
-    #home-image
-        height: 100vh
-        transform: translate(-50%)
     #home-container
         overflow-x: hidden
+    #home-image
+        height: 100vh
+        transform: translate(-50vw)
     #home-links-container
         z-index: 1
+        flex-direction: column
 @media (orientation: landscape)
     #home-container
         height: 100vh
@@ -21,3 +26,6 @@
     #home-image
         max-width: 100%
         height: auto
+    #home-links-container
+        z-index: 1
+        flex-direction: row
