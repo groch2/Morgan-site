@@ -12,8 +12,8 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href="./style.sass")
 
     body
-        div(class="w3-display-container" style="overflow-x: hidden;")
-            div(class="w3-display-topmiddle")
+        div(class="w3-display-container" id="home-container")
+            div(class="w3-display-topmiddle" id="home-links-container")
                 each link in homeLinks
                     a(href="#" class="home-link")= link
             img(src="./1 Peintures/Nordique, ht, 33x41cm, 2019.jpg" id="home-image")

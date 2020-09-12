@@ -6,6 +6,18 @@
     color: white
     @extend .w3-xlarge
     @extend .w3-mobile
-#home-image
-    height: 100vh
-    transform: translate(-50%)
+@media (orientation: portrait)
+    #home-image
+        height: 100vh
+        transform: translate(-50%)
+    #home-container
+        overflow-x: hidden
+    #home-links-container
+        z-index: 1
+@media (orientation: landscape)
+    #home-container
+        height: 100vh
+        overflow-y: hidden
+    #home-image
+        max-width: 100%
+        height: auto
