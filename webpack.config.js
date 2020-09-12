@@ -29,7 +29,7 @@ for (let directory of directories) {
 }
 
 const homeLinks = directories.map(n => /(?<=^\d+\s).+$/.exec(n)[0]);
-homeLinks.unshift("Home");
+homeLinks.unshift("Accueil");
 
 module.exports = ({ mode }) => {
     const pathToIndex = require.resolve("./index.pug");
