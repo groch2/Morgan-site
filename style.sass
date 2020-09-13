@@ -14,12 +14,13 @@
     width: 100vw
     :first-child
         color: black
+#home-container
+    position: static
+    top: 0
+    background-color: transparent
 @media (orientation: portrait)
     #home-container
         overflow-x: hidden
-    #home-image
-        height: 100vh
-        transform: translate(-50vw)
     #home-links-container
         z-index: 1
         flex-direction: column
@@ -27,12 +28,19 @@
     #home-container
         height: 100vh
         overflow-y: hidden
-    #home-image
-        max-width: 100%
-        height: auto
     #home-links-container
         flex-direction: row
 #home-header
     color: white
     width: max-content
     margin: auto
+body, html
+  height: 100%
+  margin: 0
+  overflow: hidden
+#home-background 
+    background-image: url("./pictures/home-background.jpg")
+    height: 100%
+    background-position: center top
+    background-repeat: no-repeat
+    background-size: cover
