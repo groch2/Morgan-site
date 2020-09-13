@@ -3,7 +3,7 @@
 </Query>
 
 var pictureDirectories = new [] {"1 Peintures", "2 Dessins", "3 Estampes", "4 Prado & Co"};
-var pictureFiles = pictureDirectories.SelectMany(d => Directory.GetFiles(Path.Combine(@"C:\Users\deschaseauxr\Documents\Morgan-site", d)));
+var pictureFiles = pictureDirectories.SelectMany(d => Directory.GetFiles(Path.Combine(@"C:\Users\deschaseauxr\Documents\Morgan-site\pictures", d)));
 var getImageSize = new Func<string, (double, double)>(file => {
     using (Stream stream = File.OpenRead(file))
     using (Image sourceImage = Image.FromStream(stream, false, false))

@@ -17,18 +17,19 @@ function DisableOutputWebpackPlugin(...exclude) {
     };
 }
 
-const slideByDirectory = {};
-const directories = ["1 Peintures", "2 Dessins", "3 Estampes", "4 Prado & Co"];
-for (let directory of directories) {
-    slideByDirectory[directory] = [];
-    const dir = fs.readdirSync(directory);
+const picturesBySection = {};
+const picturesSections = ["1 Peintures", "2 Dessins", "3 Estampes", "4 Prado & Co"];
+for (let picturesSection of picturesSections) {
+    picturesBySection[picturesSection] = [];
+    const directoryPath = path.join("pictures", picturesSection);
+    const dir = fs.readdirSync(directoryPath);
     for (let picture of dir) {
-        const picturePath = path.join(directory, picture);
-        slideByDirectory[directory].push(picturePath);
+        const picturePath = path.join(directoryPath, picture);
+        picturesBySection[picturesSection].push(picturePath);
     }
 }
 
-const homeLinks = directories.map(n => /(?<=^\d+\s).+$/.exec(n)[0]);
+const homeLinks = picturesSections.map(n => /(?<=^\d+\s).+$/.exec(n)[0]);
 homeLinks.unshift("Accueil");
 
 module.exports = ({ mode }) => {
@@ -40,52 +41,52 @@ module.exports = ({ mode }) => {
         ],
         module: {
             rules: [{
-                    test: pathToIndex,
-                    use: [{
-                            loader: "file-loader",
-                            options: {
-                                name: "[name].html"
-                            }
-                        },
-                        "extract-loader",
-                        {
-                            loader: "html-loader",
-                            options: {
-                                preprocessor: (content, loaderContext) => {
-                                    try {
-                                        return pug.render(content, { homeLinks, pretty: true });
-                                    } catch (error) {
-                                        loaderContext.emitError(error);
-                                    }
-                                },
-                            }
-                        }
-                    ]
+                test: pathToIndex,
+                use: [{
+                    loader: "file-loader",
+                    options: {
+                        name: "[name].html"
+                    }
                 },
+                    "extract-loader",
                 {
-                    test: /\.s[ac]ss$/i,
-                    use: [{
-                            loader: "file-loader",
-                            options: {
-                                name: "[hash].css"
+                    loader: "html-loader",
+                    options: {
+                        preprocessor: (content, loaderContext) => {
+                            try {
+                                return pug.render(content, { homeLinks, pretty: true });
+                            } catch (error) {
+                                loaderContext.emitError(error);
                             }
                         },
-                        "extract-loader",
-                        "css-loader",
-                        {
-                            loader: "sass-loader",
-                            options: {
-                                sassOptions: {
-                                    includePaths: "./node_modules/w3-css/"
-                                }
-                            }
-                        },
-                    ]
-                },
-                {
-                    test: /\.jpg$/,
-                    use: "file-loader"
+                    }
                 }
+                ]
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [{
+                    loader: "file-loader",
+                    options: {
+                        name: "[hash].css"
+                    }
+                },
+                    "extract-loader",
+                    "css-loader",
+                {
+                    loader: "sass-loader",
+                    options: {
+                        sassOptions: {
+                            includePaths: "./node_modules/w3-css/"
+                        }
+                    }
+                },
+                ]
+            },
+            {
+                test: /\.jpg$/,
+                use: "file-loader"
+            }
             ]
         },
         plugins: [
