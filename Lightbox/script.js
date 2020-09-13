@@ -1,36 +1,20 @@
-function openModal() {
-    document.getElementById("myModal").style.display = "block";
-}
-
-function closeModal() {
-    document.getElementById("myModal").style.display = "none";
-}
-
+const x = document.getElementsByClassName("mySlides");
 var slideIndex = 1;
-showSlides(slideIndex);
+showDivs(slideIndex);
 
-function plusSlides(n) {
-    showSlides(slideIndex += n);
+function plusDivs(n) {
+    showDivs(slideIndex += n);
 }
 
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-    var slides = document.getElementsByClassName("mySlides");
-    if (n > slides.length) {
+function showDivs(n) {
+    if (n > x.length) {
         slideIndex = 1;
     }
     if (n < 1) {
-        slideIndex = slides.length;
+        slideIndex = x.length;
     }
-    for (var i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+    for (var i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
     }
-    slides[slideIndex - 1].style.display = "block";
-}
-
-function imgClick() {
-    return;
+    x[slideIndex - 1].style.display = "block";
 }
