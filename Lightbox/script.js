@@ -1,4 +1,4 @@
-const x = document.getElementsByClassName("mySlides");
+const sildes = document.getElementsByClassName("mySlides");
 var slideIndex = 1;
 showDivs(slideIndex);
 
@@ -7,14 +7,14 @@ function plusDivs(n) {
 }
 
 function showDivs(n) {
-    if (n > x.length) {
+    if (n > sildes.length) {
         slideIndex = 1;
     }
     if (n < 1) {
-        slideIndex = x.length;
+        slideIndex = sildes.length;
     }
-    for (var i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
+    for (var i = 0; i < sildes.length; i++) {
+        sildes[i].style.display = "none";
     }
-    x[slideIndex - 1].style.display = "block";
+    sildes[slideIndex - 1].style.display = "block";
 }

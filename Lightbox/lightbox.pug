@@ -6,20 +6,30 @@ html(lang="en")
         style.
             .mySlides {
                 display: none;
+                position: relative;
+                max-height: 100%;
             }
-            @media (orientation: landscape) {
-                .mySlides {
-                    max-height: 100vh;
-                }
+            #container {
+                display: flex;
+                justify-content: space-between;
+                height: 100vh;
+            }
+            .btn-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             }
     body
-        div(class="w3-container")
-            |
-            |
-            each picture in picturesFiles
-                img(src=picture class="mySlides w3-image w3-display-middle")
+        div(id="container")
+            div(class="btn-container")
+                button(class="w3-button w3-black" onclick="plusDivs(-1)")="❮"
+            div(id="img-container" class="w3-container")
                 |
                 |
-            button(class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)")="❮"
-            button(class="w3-button w3-black w3-display-right" onclick="plusDivs(+1)")="❯"
+                each picture in picturesFiles
+                    img(src=picture class="mySlides w3-image w3-display-middle")
+                    |
+                    |
+            div(class="btn-container")
+                button(class="w3-button w3-black" onclick="plusDivs(+1)")="❯"
         script(src="script.js")
