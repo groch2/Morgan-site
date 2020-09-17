@@ -92,6 +92,9 @@ module.exports = ({ mode }) => {
         plugins: [
             new CleanWebpackPlugin(),
             new DisableOutputWebpackPlugin(/^main\.js$/i)
-        ]
+        ],
+        output: {
+            path: path.resolve(__dirname, 'dist', 'public')
+        }
     }
 }
