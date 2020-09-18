@@ -32,6 +32,8 @@ for (let picturesSection of picturesSections) {
 const homeLinks = picturesSections.map(n => /(?<=^\d+\s).+$/.exec(n)[0]);
 homeLinks.unshift("Accueil");
 
+Object.entries(new Array(10).fill(0)).forEach(([i, _]) => homeLinks.push(i));
+
 module.exports = ({ mode }) => {
     const pathToIndex = require.resolve("./index.pug");
     return {
