@@ -5,6 +5,8 @@
     @extend .w3-hover-none
     color: white
     @extend .w3-xlarge
+    display: flex
+    justify-content: center
 #home-links-container
     display: flex
     flex-wrap: wrap
@@ -12,18 +14,30 @@
     width: 100vw
     :first-child
         color: black
+#home-container
+    position: static
+    top: 0
+    background-color: transparent
 @media (orientation: portrait)
+    #home-container
+        overflow-x: hidden
     #home-links-container
+        z-index: 1
         flex-direction: column
 @media (orientation: landscape)
+    #home-container
+        height: 100vh
+        overflow-y: hidden
     #home-links-container
         flex-direction: row
 #home-header
-    text-align: center
+    color: white
+    width: max-content
     margin: auto
 body, html
-    height: 100%
-    overflow-y: hidden
+  height: 100%
+  margin: 0
+  overflow: hidden
 #home-background 
     background-image: url("./pictures/home-background.jpg")
     height: 100%

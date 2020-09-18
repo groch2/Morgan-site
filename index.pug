@@ -12,14 +12,14 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href="./style.sass")
 
     body
-        h1(id="home-header")= "Morgan Bancon"
         div(id="home-background")
-            div(class="w3-display-container" id="home-container")
-                div(class="w3-display-topmiddle")
-                    div(class="" id="home-links-container")
+        div(class="w3-display-container" id="home-container")
+            div(class="w3-display-topmiddle" style="max-width: 100vw; z-index: 1;")
+                h1(class="" id="home-header")= "Morgan Bancon"
+                div(class="" id="home-links-container")
+                    |
+                    |
+                    each link in homeLinks
+                        a(href="#" class="home-link")= link
                         |
                         |
-                        each link in homeLinks
-                            a(href="#" class="home-link")= link
-                            |
-                            |
