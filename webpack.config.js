@@ -54,7 +54,7 @@ module.exports = ({ mode }) => {
                     options: {
                         preprocessor: (content, loaderContext) => {
                             try {
-                                return pug.render(content, { homeLinks, pretty: true });
+                                return pug.render(content, { homeLinks, picturesBySection });
                             } catch (error) {
                                 loaderContext.emitError(error);
                             }
@@ -80,14 +80,12 @@ module.exports = ({ mode }) => {
                             includePaths: "./node_modules/w3-css/"
                         }
                     }
-                },
-                ]
+                }]
             },
             {
                 test: /\.jpg$/,
                 use: "file-loader"
-            }
-            ]
+            }]
         },
         plugins: [
             new CleanWebpackPlugin(),
