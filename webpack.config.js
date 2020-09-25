@@ -1,5 +1,4 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyPlugin = require('copy-webpack-plugin');
 var fs = require('fs');
 var path = require('path');
 const pug = require('pug');
@@ -63,7 +62,7 @@ module.exports = ({ mode }) => {
                         },
                         attributes: {
                             urlFilter: (_, value) => {
-                                return value !== "./slideshow.js";
+                                return !/\.js$/i.test(value);
                             }
                         }
                     },
