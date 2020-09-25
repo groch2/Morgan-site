@@ -1,4 +1,5 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 var fs = require('fs');
 var path = require('path');
 const pug = require('pug');
@@ -44,13 +45,6 @@ module.exports = ({ mode }) => {
             rules: [{
                 test: pathToIndex,
                 use: [{
-                    loader: "file-loader",
-                    options: {
-                        name: "[name].html"
-                    }
-                },
-                    "extract-loader",
-                {
                     loader: "html-loader",
                     options: {
                         preprocessor: (content, loaderContext) => {
@@ -58,11 +52,6 @@ module.exports = ({ mode }) => {
                                 return pug.render(content, { homeLinks, picturesBySection });
                             } catch (error) {
                                 loaderContext.emitError(error);
-                            }
-                        },
-                        attributes: {
-                            urlFilter: (_, value) => {
-                                return !/\.js$/i.test(value);
                             }
                         }
                     },
@@ -93,6 +82,12 @@ module.exports = ({ mode }) => {
             }]
         },
         plugins: [
+            new HtmlWebpackPlugin({
+                template: pathToIndex,
+                inject: true,
+                chunks: ['slideshow'],
+                filename: 'index.html'
+            }),
             new CleanWebpackPlugin(),
             new DisableOutputWebpackPlugin(/^main\.js$/i)
         ],
