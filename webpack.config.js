@@ -1,4 +1,5 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 var fs = require('fs');
 var path = require('path');
 const pug = require('pug');
@@ -36,9 +37,10 @@ module.exports = ({ mode }) => {
     const pathToIndex = require.resolve("./index.pug");
     return {
         mode,
-        entry: [
-            pathToIndex
-        ],
+        entry: {
+            main: pathToIndex,
+            slideshow: "./slideshow.js"
+        },
         module: {
             rules: [{
                 test: pathToIndex,
@@ -54,14 +56,18 @@ module.exports = ({ mode }) => {
                     options: {
                         preprocessor: (content, loaderContext) => {
                             try {
-                                return pug.render(content, { homeLinks, pretty: true });
+                                return pug.render(content, { homeLinks, picturesBySection });
                             } catch (error) {
                                 loaderContext.emitError(error);
                             }
                         },
-                    }
-                }
-                ]
+                        attributes: {
+                            urlFilter: (_, value) => {
+                                return value !== "./slideshow.js";
+                            }
+                        }
+                    },
+                }]
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -80,14 +86,12 @@ module.exports = ({ mode }) => {
                             includePaths: "./node_modules/w3-css/"
                         }
                     }
-                },
-                ]
+                }]
             },
             {
                 test: /\.jpg$/,
                 use: "file-loader"
-            }
-            ]
+            }]
         },
         plugins: [
             new CleanWebpackPlugin(),
