@@ -96,7 +96,14 @@ module.exports = ({ mode }) => {
             },
             {
                 test: /\.jpg$/,
-                use: "file-loader"
+                use: [{
+                    loader: "webpack-image-resize-loader",
+                    options: {
+                        width: 1000,
+                        format: "webp",
+                        quality: 80,
+                    },
+                }]
             }]
         },
         plugins: [
