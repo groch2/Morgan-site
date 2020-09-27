@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const pug = require('pug');
 
-const directory = "C:\\Users\\deschaseauxr\\Documents\\Morgan-site\\pictures\\2 Dessins";
+const directory = "..\\pictures\\2 Dessins";
 const dir = fs.readdirSync(directory);
 const picturesFiles = [];
 for (let picture of dir) {

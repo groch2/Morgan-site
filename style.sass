@@ -4,7 +4,7 @@
     @extend .w3-button
     @extend .w3-hover-none
     @extend .w3-xlarge
-#home-links-container
+.home-links-container
     display: flex
     flex-wrap: wrap
     justify-content: center
@@ -22,8 +22,24 @@
     display: block
     margin-left: auto
     margin-right: auto
-footer
+
+.modal
     display: flex
-footer > h2
-    width: 50%
-    text-align: center
+    justify-content: space-between
+    height: 100%
+    width: 100%
+    margin: 0
+    position: absolute
+    top: 50%
+    -ms-transform: translateY(-50%)
+    transform: translateY(-50%)
+.mySlides
+    display: none
+    position: relative
+    max-height: 100vh
+.modal button
+    height: fit-content
+.modal > .btn-container
+    display: flex
+    flex-direction: column
+    justify-content: center

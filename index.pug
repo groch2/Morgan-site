@@ -12,15 +12,24 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href="./style.sass")
 
     body
-        h1(id="home-header")= "Morgan Bancon"
+        header
+            h1(id="home-header")= "Morgan Bancon"
         img(src="./pictures/home-background.jpg" id="home-image")
-        div(class="" id="home-links-container")
-            |
-            |
+        div(class="home-links-container")
             each link in homeLinks
                 a(href="#" class="home-link")= link
-                |
-                |
-        footer
-            h2="Bio"
-            h2="Contact"
+        footer(class="home-links-container")
+            each link in ['Bio', 'Contact']
+                a(href="#" class="home-link")= link
+
+        div(id="drawings-slideshow" class="modal" style="display: none;")
+            span(class="w3-button w3-display-topright cursor" onclick="closeModal()")="×"
+            div(class="btn-container")
+                button(class="w3-button w3-round w3-black" onclick="plusDivs(-1)")="❮"
+            div(id="img-container" class="w3-container")
+                each picture in picturesBySection["2 Dessins"]
+                    img(src=picture class="mySlides w3-image w3-display-middle")
+            div(class="btn-container")
+                button(class="w3-button w3-round w3-black" onclick="plusDivs(+1)")="❯"
+        
+        //- script(src="./src/slideshow.js")
