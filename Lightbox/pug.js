@@ -10,5 +10,5 @@ for (let picture of dir) {
     picturesFiles.push(file);
 }
 
-var html = pug.renderFile('lightbox.pug', { picturesFiles, pretty: true });
+var html = pug.renderFile('lightbox.pug', { picturesFiles });
 fs.writeFile("lightbox.html", html, 'utf8', () => {});

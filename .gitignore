@@ -2,3 +2,4 @@ node_modules
 dist
 pictures
 *.gif
+Lightbox/lightbox.html
