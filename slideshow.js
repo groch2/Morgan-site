@@ -1,5 +1,5 @@
 function openModal() {
-    document.getElementById('slideshow').style.display = "block";
+    document.getElementById('slideshow').style.display = "flex";
 }
 
 function closeModal() {
