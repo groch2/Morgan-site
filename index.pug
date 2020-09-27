@@ -17,10 +17,10 @@ html(lang="en")
         img(src="./pictures/home-background.jpg" id="home-image")
         div(class="home-links-container")
             each link in homeLinks
-                a(href="#" class="home-link")= link
+                a(href=link class="home-link")= link
         footer(class="home-links-container")
             each link in ['Bio', 'Contact']
-                a(href="#" class="home-link")= link
+                a(href=link class="home-link")= link
 
         div(id="drawings-slideshow" class="modal" style="display: none;")
             span(class="w3-button w3-display-topright cursor" onclick="closeModal()")="×"

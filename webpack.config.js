@@ -19,19 +19,20 @@ function DisableOutputWebpackPlugin(...exclude) {
 }
 
 const picturesBySection = {};
-const picturesSections = ["1 Peintures", "2 Dessins", "3 Estampes", "4 Prado & Co"];
-for (let picturesSection of picturesSections) {
-    picturesBySection[picturesSection] = [];
-    const directoryPath = path.join("pictures", picturesSection);
-    const dir = fs.readdirSync(directoryPath);
+const picturesDirectories = ["1 Peintures", "2 Dessins", "3 Estampes", "4 Prado & Co"];
+for (let picturesDirectory of picturesDirectories) {
+    picturesBySection[picturesDirectory] = [];
+    const picturesDirectoryPath = path.join("pictures", picturesDirectory);
+    const dir = fs.readdirSync(picturesDirectoryPath);
     for (let picture of dir) {
-        const picturePath = path.join(directoryPath, picture);
-        picturesBySection[picturesSection].push(picturePath);
+        const picturePath = path.join(picturesDirectoryPath, picture);
+        picturesBySection[picturesDirectory].push(picturePath);
     }
 }
 
-const homeLinks = picturesSections.map(n => /(?<=^\d+\s).+$/.exec(n)[0]);
-homeLinks.unshift("Accueil");
+const picturesSections = picturesDirectories.map(n => /(?<=^\d+\s).+$/.exec(n)[0]);
+
+const homeLinks = ["Accueil", ...picturesSections];
 
 module.exports = ({ mode }) => {
     const pathToIndex = require.resolve("./index.pug");
