@@ -36,6 +36,7 @@ const homeLinks = ["Accueil", ...picturesSections];
 
 module.exports = ({ mode }) => {
     const pathToIndex = require.resolve("./index.pug");
+    const pathToPicturesSection = require.resolve("./picturesSection.pug");
     return {
         mode,
         entry: {
@@ -50,7 +51,23 @@ module.exports = ({ mode }) => {
                     options: {
                         preprocessor: (content, loaderContext) => {
                             try {
-                                return pug.render(content, { homeLinks, picturesBySection });
+                                return pug.render(content, { homeLinks });
+                            } catch (error) {
+                                loaderContext.emitError(error);
+                            }
+                        }
+                    },
+                }]
+            },
+            {
+                test: pathToPicturesSection,
+                use: [{
+                    loader: "html-loader",
+                    options: {
+                        preprocessor: (content, loaderContext) => {
+                            // console.debug({ test: loaderContext.resourcePath });
+                            try {
+                                return pug.render(content, { picturesBySection });
                             } catch (error) {
                                 loaderContext.emitError(error);
                             }
@@ -85,9 +102,13 @@ module.exports = ({ mode }) => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: pathToIndex,
+                filename: "index.html"
+            }),
+            new HtmlWebpackPlugin({
+                template: pathToPicturesSection,
                 inject: true,
-                chunks: ['slideshow'],
-                filename: 'index.html'
+                chunks: ["slideshow"],
+                filename: "dessins.html"
             }),
             new CleanWebpackPlugin(),
             new DisableOutputWebpackPlugin(/^main\.js$/i)

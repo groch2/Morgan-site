@@ -1,15 +1,9 @@
-import $ from "jquery";
-
-$(() => {
-    console.log('hello jquery my old friend');
-});
-
 function openModal() {
-    document.getElementById('myModal').style.display = "block";
+    document.getElementById('slideshow').style.display = "block";
 }
 
 function closeModal() {
-    document.getElementById('myModal').style.display = "none";
+    document.getElementById('slideshow').style.display = "none";
 }
 
 const slides = document.getElementsByClassName("mySlides");
@@ -32,3 +26,9 @@ function showDivs(n) {
     }
     slides[slideIndex - 1].style.display = "block";
 }
+
+document.getElementById("openBtn").addEventListener("click", openModal);
+document.getElementById("closeBtn").addEventListener("click", closeModal);
+
+document.getElementById("plusBtn").addEventListener("click", function () { plusDivs(+1); });
+document.getElementById("minusBtn").addEventListener("click", function () { plusDivs(-1); });
