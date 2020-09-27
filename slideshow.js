@@ -1,9 +1,11 @@
 function openModal() {
-    document.getElementById('slideshow').style.display = "flex";
+    document.getElementById("slideshow").style.display = "flex";
+    document.getElementById("miniaturesMosaic").style.display = "none";
 }
 
 function closeModal() {
-    document.getElementById('slideshow').style.display = "none";
+    document.getElementById("slideshow").style.display = "none";
+    document.getElementById("miniaturesMosaic").style.display = "initial";
 }
 
 const slides = document.getElementsByClassName("mySlides");
