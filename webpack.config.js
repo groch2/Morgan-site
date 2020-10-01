@@ -19,24 +19,35 @@ function DisableOutputWebpackPlugin(...exclude) {
 }
 
 const picturesBySection = {};
+const picturesSections = [];
 const picturesDirectories = ["1 Peintures", "2 Dessins", "3 Estampes", "4 Prado & Co"];
 for (let picturesDirectory of picturesDirectories) {
-    picturesBySection[picturesDirectory] = [];
+    const pictureSection = /(?<=^\d+\s).+$/.exec(picturesDirectory)[0];
+    picturesSections.push(pictureSection);
+    picturesBySection[pictureSection] = [];
     const picturesDirectoryPath = path.join("pictures", picturesDirectory);
     const dir = fs.readdirSync(picturesDirectoryPath);
     for (let picture of dir) {
         const picturePath = path.join(picturesDirectoryPath, picture);
-        picturesBySection[picturesDirectory].push(picturePath);
+        picturesBySection[pictureSection].push(picturePath);
     }
 }
-
-const picturesSections = picturesDirectories.map(n => /(?<=^\d+\s).+$/.exec(n)[0]);
-
-const homeLinks = ["Accueil", ...picturesSections];
 
 module.exports = ({ mode }) => {
     const pathToIndex = require.resolve("./index.pug");
     const pathToPicturesSection = require.resolve("./picturesSection.pug");
+    const htmlPagesForPicuresSections =
+        picturesSections
+            .map(pictureSection =>
+                new HtmlWebpackPlugin({
+                    template: pathToPicturesSection,
+                    inject: true,
+                    chunks: ["slideshow"],
+                    filename: `${pictureSection}.html`,
+                    templateParameters: {
+                        pictures: picturesBySection[pictureSection]
+                    },
+                }));
     return {
         mode,
         entry: {
@@ -51,6 +62,7 @@ module.exports = ({ mode }) => {
                     options: {
                         preprocessor: (content, loaderContext) => {
                             try {
+                                const homeLinks = ["Accueil", ...picturesSections];
                                 return pug.render(content, { homeLinks });
                             } catch (error) {
                                 loaderContext.emitError(error);
@@ -61,19 +73,7 @@ module.exports = ({ mode }) => {
             },
             {
                 test: pathToPicturesSection,
-                use: [{
-                    loader: "html-loader",
-                    options: {
-                        preprocessor: (content, loaderContext) => {
-                            // console.debug({ test: loaderContext.resourcePath });
-                            try {
-                                return pug.render(content, { picturesBySection });
-                            } catch (error) {
-                                loaderContext.emitError(error);
-                            }
-                        }
-                    },
-                }]
+                use: ["pug-loader"]
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -111,12 +111,7 @@ module.exports = ({ mode }) => {
                 template: pathToIndex,
                 filename: "index.html"
             }),
-            new HtmlWebpackPlugin({
-                template: pathToPicturesSection,
-                inject: true,
-                chunks: ["slideshow"],
-                filename: "dessins.html"
-            }),
+            ...htmlPagesForPicuresSections,
             new CleanWebpackPlugin(),
             new DisableOutputWebpackPlugin(/^main\.js$/i)
         ],
