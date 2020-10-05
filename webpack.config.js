@@ -1,5 +1,6 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin');
 var fs = require('fs');
 var path = require('path');
 const pug = require('pug');
@@ -18,20 +19,23 @@ function DisableOutputWebpackPlugin(...exclude) {
     };
 }
 
-const picturesBySection = {};
-const picturesSections = [];
-const picturesDirectories = ["1 Peintures", "2 Dessins", "3 Estampes", "4 Prado & Co"];
-for (let picturesDirectory of picturesDirectories) {
-    const pictureSection = /(?<=^\d+\s).+$/.exec(picturesDirectory)[0];
-    picturesSections.push(pictureSection);
-    picturesBySection[pictureSection] = [];
-    const picturesDirectoryPath = path.join("pictures", picturesDirectory);
-    const dir = fs.readdirSync(picturesDirectoryPath);
-    for (let picture of dir) {
-        const picturePath = path.join(picturesDirectoryPath, picture);
-        picturesBySection[pictureSection].push(picturePath);
-    }
-}
+const { picturesSections, picturesBySection } =
+    (function (picturesDirectories) {
+        const picturesBySection = {};
+        const picturesSections = [];
+        for (let picturesDirectory of picturesDirectories) {
+            const pictureSection = /(?<=^\d+\s).+$/.exec(picturesDirectory)[0];
+            picturesSections.push(pictureSection);
+            picturesBySection[pictureSection] = [];
+            const picturesDirectoryPath = path.join("pictures", picturesDirectory);
+            const dir = fs.readdirSync(picturesDirectoryPath);
+            for (let picture of dir) {
+                const picturePath = path.join(picturesDirectoryPath, picture);
+                picturesBySection[pictureSection].push(picturePath);
+            }
+        }
+        return { picturesSections, picturesBySection };
+    })(["1 Peintures", "2 Dessins", "3 Estampes"]);
 
 module.exports = ({ mode }) => {
     const pathToIndex = require.resolve("./index.pug");
@@ -45,7 +49,7 @@ module.exports = ({ mode }) => {
                     chunks: ["slideshow"],
                     filename: `${pictureSection}.html`,
                     templateParameters: {
-                        pictures: picturesBySection[pictureSection]
+                        pictures: picturesBySection[pictureSection].map(f => path.parse(f).base)
                     },
                 }));
     return {
@@ -73,7 +77,7 @@ module.exports = ({ mode }) => {
             },
             {
                 test: pathToPicturesSection,
-                use: ["pug-loader"]
+                use: "pug-loader"
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -101,7 +105,7 @@ module.exports = ({ mode }) => {
                     options: {
                         width: 1000,
                         format: "webp",
-                        quality: 80,
+                        quality: 80
                     },
                 }]
             }]
@@ -113,7 +117,21 @@ module.exports = ({ mode }) => {
             }),
             ...htmlPagesForPicuresSections,
             new CleanWebpackPlugin(),
-            new DisableOutputWebpackPlugin(/^main\.js$/i)
+            new DisableOutputWebpackPlugin(/^main\.js$/i),
+            new CopyPlugin({
+                patterns:
+                    Object
+                        .entries(picturesBySection)
+                        .flatMap(s => s[1])
+                        .map(picture => (
+                            {
+                                from: picture,
+                                to: "."
+                            })),
+                options: {
+                    concurrency: 100,
+                }
+            })
         ],
         output: {
             path: path.resolve(__dirname, 'dist', 'public')
