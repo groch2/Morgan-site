@@ -37,21 +37,22 @@ const { picturesSections, picturesBySection } =
         return { picturesSections, picturesBySection };
     })(["1 Peintures", "2 Dessins", "3 Estampes"]);
 
+const pathToIndex = require.resolve("./index.pug");
+const pathToPicturesSection = require.resolve("./picturesSection.pug");
+const htmlPagesForPicuresSections =
+    picturesSections
+        .map(pictureSection =>
+            new HtmlWebpackPlugin({
+                template: pathToPicturesSection,
+                inject: true,
+                chunks: ["slideshow"],
+                filename: `${pictureSection}.html`,
+                templateParameters: {
+                    pictures: picturesBySection[pictureSection].map(f => path.parse(f).base)
+                },
+            }));
+
 module.exports = ({ mode }) => {
-    const pathToIndex = require.resolve("./index.pug");
-    const pathToPicturesSection = require.resolve("./picturesSection.pug");
-    const htmlPagesForPicuresSections =
-        picturesSections
-            .map(pictureSection =>
-                new HtmlWebpackPlugin({
-                    template: pathToPicturesSection,
-                    inject: true,
-                    chunks: ["slideshow"],
-                    filename: `${pictureSection}.html`,
-                    templateParameters: {
-                        pictures: picturesBySection[pictureSection].map(f => path.parse(f).base)
-                    },
-                }));
     return {
         mode,
         entry: {
