@@ -4,6 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 var fs = require('fs');
 var path = require('path');
 const pug = require('pug');
+const sharp = require('sharp');
 
 function DisableOutputWebpackPlugin(...exclude) {
     this.exclude = exclude;
@@ -48,7 +49,7 @@ const htmlPagesForPicuresSections =
                 chunks: ["slideshow"],
                 filename: `${pictureSection}.html`,
                 templateParameters: {
-                    pictures: picturesBySection[pictureSection].map(f => path.parse(f).base)
+                    pictures: picturesBySection[pictureSection].map(f => `${path.parse(f).name}.webp`)
                 },
             }));
 
@@ -127,7 +128,15 @@ module.exports = ({ mode }) => {
                         .map(picture => (
                             {
                                 from: picture,
-                                to: "."
+                                to: "[name].webp",
+                                async transform(content) {
+                                    return new Promise(resolve => {
+                                        resolve(sharp(content)
+                                            .resize({ width: 1000 })
+                                            .webp()
+                                            .toBuffer());
+                                    });
+                                },
                             })),
                 options: {
                     concurrency: 100,
