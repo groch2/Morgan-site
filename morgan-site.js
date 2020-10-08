@@ -15,4 +15,4 @@ app.use(basicAuth({
 
 app.use(express.static(path.resolve(__dirname, 'dist')));
 
-app.listen('0.0.0.0', parseInt(process.env.PORT));
+app.listen(parseInt(process.env.PORT), '0.0.0.0');
