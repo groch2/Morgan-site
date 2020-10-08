@@ -144,7 +144,7 @@ module.exports = ({ mode }) => {
             })
         ],
         output: {
-            path: path.resolve(__dirname, 'dist', 'public')
+            path: path.resolve(__dirname, 'dist')
         }
     }
 }

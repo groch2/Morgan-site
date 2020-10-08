@@ -14,6 +14,6 @@ app.use(basicAuth({
     realm: '812CAF04F8514B26BCF2D0029733DCA7',
 }));
 
-app.use(express.static(path.resolve(__dirname, 'dist/public')));
+app.use(express.static(path.resolve(__dirname, 'dist')));
 
 app.listen(parseInt(argv.port));
