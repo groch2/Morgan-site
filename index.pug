@@ -17,7 +17,7 @@ html(lang="en")
         img(src="./pictures/home-background.jpg" id="home-image")
         div(class="home-links-container")
             each link in homeLinks
-                a(href=`${link}.html` class="home-link")= link
+                a(href=link.href class="home-link")= link.text
         footer(class="home-links-container")
             each link in ['Bio', 'Contact']
                 a(href="#" class="home-link")= link

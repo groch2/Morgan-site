@@ -67,7 +67,7 @@ module.exports = ({ mode }) => {
                     options: {
                         preprocessor: (content, loaderContext) => {
                             try {
-                                const homeLinks = ["Accueil", ...picturesSections];
+                                const homeLinks = [{ href: "#", text: "Accueil" }, ...(picturesSections.map(ps => ({ href: `${ps}.html`, text: ps })))];
                                 return pug.render(content, { homeLinks });
                             } catch (error) {
                                 loaderContext.emitError(error);
