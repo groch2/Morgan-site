@@ -1,7 +1,10 @@
+'use strict';
+
 const express = require('express');
 const basicAuth = require('express-basic-auth')
 const path = require('path');
 const app = express();
+const { argv } = require('yargs')
 
 app.use(basicAuth({
     users: {
@@ -11,6 +14,6 @@ app.use(basicAuth({
     realm: '812CAF04F8514B26BCF2D0029733DCA7',
 }));
 
-app.use(express.static(path.resolve(__dirname, 'public')));
+app.use(express.static(path.resolve(__dirname, 'dist/public')));
 
-app.listen(80);
+app.listen(parseInt(argv.port));
