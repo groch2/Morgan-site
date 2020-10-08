@@ -15,3 +15,17 @@
 
 # Node.js dependencies:
 node_modules/
+
+.gcloudignore
+app.yaml
+Chiara\ Gaggiotti.url
+developement\ ressources/
+dist
+HOME.lnk
+Lightbox
+Lightbox.url
+Pug syntax.url
+scripts/
+spec.txt
+Test/
+Test\ thumbnails/
