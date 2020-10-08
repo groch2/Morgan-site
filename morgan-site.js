@@ -15,4 +15,5 @@ app.use(basicAuth({
 
 app.use(express.static(path.resolve(__dirname, 'dist')));
 
-app.listen(parseInt(process.env.PORT), '0.0.0.0');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0');
