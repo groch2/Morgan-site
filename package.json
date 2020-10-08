@@ -34,5 +34,8 @@
         "webpack-cli": "^3.3.12",
         "webpack-dev-server": "^3.11.0",
         "webpack-image-resize-loader": "^3.0.0"
+    },
+    "engines": {
+        "node": "12.x"
     }
 }

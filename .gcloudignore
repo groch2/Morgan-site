@@ -17,7 +17,6 @@
 node_modules/
 
 .gcloudignore
-app.yaml
 Chiara\ Gaggiotti.url
 developement\ ressources/
 dist
