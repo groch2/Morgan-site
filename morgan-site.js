@@ -4,7 +4,6 @@ const express = require('express');
 const basicAuth = require('express-basic-auth')
 const path = require('path');
 const app = express();
-const { argv } = require('yargs')
 
 app.use(basicAuth({
     users: {
@@ -16,4 +15,4 @@ app.use(basicAuth({
 
 app.use(express.static(path.resolve(__dirname, 'dist')));
 
-app.listen(parseInt(argv.port));
+app.listen('0.0.0.0', parseInt(process.env.PORT));
