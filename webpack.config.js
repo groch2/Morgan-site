@@ -57,7 +57,6 @@ module.exports = ({ mode }) => {
     return {
         mode,
         entry: {
-            main: pathToIndex,
             slideshow: "./slideshow.js"
         },
         module: {
@@ -115,7 +114,8 @@ module.exports = ({ mode }) => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: pathToIndex,
-                filename: "index.html"
+                filename: "index.html",
+                inject: false
             }),
             ...htmlPagesForPicuresSections,
             new CleanWebpackPlugin(),
