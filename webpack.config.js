@@ -6,10 +6,10 @@ var path = require('path');
 const pug = require('pug');
 const sharp = require('sharp');
 
-function DisableOutputWebpackPlugin(...exclude) {
+function DeleteOutputWebpackPlugin(...exclude) {
     this.exclude = exclude;
     this.apply = compiler => {
-        compiler.hooks.emit.tapAsync("x", (compilation, callback) => {
+        compiler.hooks.emit.tapAsync("deleteOutput", (compilation, callback) => {
             Object.keys(compilation.assets).forEach(asset => {
                 if (this.exclude.find(expression => expression.test(asset))) {
                     delete compilation.assets[asset];
@@ -53,98 +53,95 @@ const htmlPagesForPicuresSections =
                 },
             }));
 
-module.exports = ({ mode }) => {
-    return {
-        mode,
-        entry: {
-            slideshow: "./slideshow.js"
-        },
-        module: {
-            rules: [{
-                test: pathToIndex,
-                use: [{
-                    loader: "html-loader",
-                    options: {
-                        preprocessor: (content, loaderContext) => {
-                            try {
-                                const homeLinks = [{ href: "#", text: "Accueil" }, ...(picturesSections.map(ps => ({ href: `${ps}.html`, text: ps })))];
-                                return pug.render(content, { homeLinks });
-                            } catch (error) {
-                                loaderContext.emitError(error);
-                            }
+module.exports = {
+    entry: {
+        slideshow: "./slideshow.js"
+    },
+    module: {
+        rules: [{
+            test: pathToIndex,
+            use: [{
+                loader: "html-loader",
+                options: {
+                    preprocessor: (content, loaderContext) => {
+                        try {
+                            const homeLinks = [{ href: "#", text: "Accueil" }, ...(picturesSections.map(ps => ({ href: `${ps}.html`, text: ps })))];
+                            return pug.render(content, { homeLinks });
+                        } catch (error) {
+                            loaderContext.emitError(error);
                         }
-                    },
-                }]
-            },
-            {
-                test: pathToPicturesSection,
-                use: "pug-loader"
-            },
-            {
-                test: /\.s[ac]ss$/i,
-                use: [{
-                    loader: "file-loader",
-                    options: {
-                        name: "[hash].css"
                     }
                 },
-                    "extract-loader",
-                    "css-loader",
-                {
-                    loader: "sass-loader",
-                    options: {
-                        sassOptions: {
-                            includePaths: "./node_modules/w3-css/"
-                        }
-                    }
-                }]
-            },
-            {
-                test: /\.jpg$/,
-                use: [{
-                    loader: "webpack-image-resize-loader",
-                    options: {
-                        width: 1000,
-                        format: "webp",
-                        quality: 80
-                    },
-                }]
             }]
         },
-        plugins: [
-            new HtmlWebpackPlugin({
-                template: pathToIndex,
-                filename: "index.html",
-                inject: false
-            }),
-            ...htmlPagesForPicuresSections,
-            new CleanWebpackPlugin(),
-            new DisableOutputWebpackPlugin(/^main\.js$/i),
-            new CopyPlugin({
-                patterns:
-                    Object
-                        .entries(picturesBySection)
-                        .flatMap(s => s[1])
-                        .map(picture => (
-                            {
-                                from: picture,
-                                to: "[name].webp",
-                                async transform(content) {
-                                    return new Promise(resolve => {
-                                        resolve(sharp(content)
-                                            .resize({ width: 1000 })
-                                            .webp()
-                                            .toBuffer());
-                                    });
-                                },
-                            })),
+        {
+            test: pathToPicturesSection,
+            use: "pug-loader"
+        },
+        {
+            test: /\.s[ac]ss$/i,
+            use: [{
+                loader: "file-loader",
                 options: {
-                    concurrency: 100,
+                    name: "[hash].css"
                 }
-            })
-        ],
-        output: {
-            path: path.resolve(__dirname, 'dist')
-        }
+            },
+                "extract-loader",
+                "css-loader",
+            {
+                loader: "sass-loader",
+                options: {
+                    sassOptions: {
+                        includePaths: "./node_modules/w3-css/"
+                    }
+                }
+            }]
+        },
+        {
+            test: /\.jpg$/,
+            use: [{
+                loader: "webpack-image-resize-loader",
+                options: {
+                    width: 1000,
+                    format: "webp",
+                    quality: 80
+                },
+            }]
+        }]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: pathToIndex,
+            filename: "index.html",
+            inject: false
+        }),
+        ...htmlPagesForPicuresSections,
+        new CleanWebpackPlugin(),
+        new DeleteOutputWebpackPlugin(/^main\.js$/i),
+        new CopyPlugin({
+            patterns:
+                Object
+                    .entries(picturesBySection)
+                    .flatMap(s => s[1])
+                    .map(picture => (
+                        {
+                            from: picture,
+                            to: "[name].webp",
+                            async transform(content) {
+                                return new Promise(resolve => {
+                                    resolve(sharp(content)
+                                        .resize({ width: 1000 })
+                                        .webp()
+                                        .toBuffer());
+                                });
+                            },
+                        })),
+            options: {
+                concurrency: 100,
+            }
+        })
+    ],
+    output: {
+        path: path.resolve(__dirname, 'dist')
     }
 }
