@@ -17,14 +17,7 @@
 node_modules/
 
 .gcloudignore
-Chiara\ Gaggiotti.url
 developement\ ressources/
 dist/
-HOME.lnk
-Lightbox/
-Lightbox.url
-Pug syntax.url
-scripts/
-spec.txt
-Test/
+spec/
 Test\ thumbnails/
