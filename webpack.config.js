@@ -23,22 +23,21 @@ function DeleteOutputWebpackPlugin(...exclude) {
 }
 
 const { picturesSections, picturesBySection } =
-    (function (picturesDirectories) {
-        const picturesBySection = {};
-        const picturesSections = [];
-        for (let picturesDirectory of picturesDirectories) {
-            const pictureSection = /(?<=^\d+\s).+$/.exec(picturesDirectory)[0];
-            picturesSections.push(pictureSection);
-            picturesBySection[pictureSection] = [];
-            const picturesDirectoryPath = path.join("pictures", picturesDirectory);
-            const dir = fs.readdirSync(picturesDirectoryPath);
-            for (let picture of dir) {
-                const picturePath = path.join(picturesDirectoryPath, picture);
-                picturesBySection[pictureSection].push(picturePath);
-            }
-        }
-        return { picturesSections, picturesBySection };
-    })(["1 Peintures", "2 Dessins", "3 Estampes"]);
+    (() =>
+        fs.readdirSync("./pictures", { withFileTypes: true })
+            .filter(dirent => dirent.isDirectory())
+            .map(dirent => (
+                {
+                    sectionName: /(?<=^\d+\s).+$/.exec(dirent.name)[0],
+                    directory: path.join("pictures", dirent.name)
+                }))
+            .reduce(({ picturesSections, picturesBySection }, { sectionName, directory }) => {
+                picturesSections.push(sectionName);
+                picturesBySection[sectionName] =
+                    fs.readdirSync(directory)
+                        .map(picture => path.join(directory, picture));
+                return { picturesSections, picturesBySection };
+            }, { picturesSections: [], picturesBySection: {} }))();
 
 const pathToIndex = require.resolve("./index.pug");
 const pathToPicturesSection = require.resolve("./picturesSection.pug");
