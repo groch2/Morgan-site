@@ -25,7 +25,7 @@ spec/
 Test\ thumbnails/
 index.pug
 picturesSection.pug
-slideshow.js
+/slideshow.js
 slideshow.sass
 style.sass
 webpack.config.js
