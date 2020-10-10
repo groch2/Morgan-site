@@ -18,5 +18,14 @@ node_modules/
 
 .gcloudignore
 developement\ ressources/
+node_modules/
+pictures/
+scripts/
 spec/
 Test\ thumbnails/
+index.pug
+picturesSection.pug
+slideshow.js
+slideshow.sass
+style.sass
+webpack.config.js
