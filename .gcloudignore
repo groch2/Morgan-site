@@ -18,6 +18,5 @@ node_modules/
 
 .gcloudignore
 developement\ ressources/
-dist/
 spec/
 Test\ thumbnails/
