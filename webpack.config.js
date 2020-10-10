@@ -1,12 +1,12 @@
 "use strict"
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin');
-var fs = require('fs');
-var path = require('path');
-const pug = require('pug');
-const sharp = require('sharp');
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const CopyPlugin = require("copy-webpack-plugin");
+var fs = require("fs");
+var path = require("path");
+const pug = require("pug");
+const sharp = require("sharp");
 
 function DeleteOutputWebpackPlugin(...exclude) {
     this.exclude = exclude;
@@ -144,6 +144,6 @@ module.exports = {
         })
     ],
     output: {
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, "dist")
     }
 }
