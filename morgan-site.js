@@ -2,7 +2,7 @@
 
 const express = require('express');
 const basicAuth = require('express-basic-auth')
-const path = require('path');
+
 const app = express();
 
 app.use(basicAuth({
@@ -13,7 +13,7 @@ app.use(basicAuth({
     realm: '812CAF04F8514B26BCF2D0029733DCA7',
 }));
 
-app.use(express.static(path.resolve(__dirname, 'dist')));
+app.use(express.static('dist'));
 
 const port = process.env.PORT || 8080;
 app.listen(port);
