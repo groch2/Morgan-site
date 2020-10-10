@@ -16,7 +16,6 @@
 # Node.js dependencies:
 node_modules/
 
-.gcloudignore
 developement\ ressources/
 node_modules/
 pictures/
