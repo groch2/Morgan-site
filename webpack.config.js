@@ -144,8 +144,5 @@ module.exports = {
                 concurrency: 100,
             }
         })
-    ],
-    output: {
-        path: path.resolve(__dirname, "dist")
-    }
+    ]
 }
