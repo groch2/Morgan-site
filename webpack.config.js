@@ -50,7 +50,10 @@ const htmlPagesForPicuresSections =
                 chunks: ["slideshow"],
                 filename: `${pictureSection}.html`,
                 templateParameters: {
-                    pictures: picturesBySection[pictureSection].map(f => `${path.parse(f).name}.webp`)
+                    pictures: picturesBySection[pictureSection].map(f => {
+                        const name = path.parse(f).name;
+                        return { file: `${name}.webp`, name };
+                    })
                 },
             }));
 

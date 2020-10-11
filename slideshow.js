@@ -8,7 +8,7 @@ function closeModal() {
     document.getElementById("miniaturesMosaic").style.display = "initial";
 }
 
-const slides = document.getElementsByClassName("mySlides");
+const slides = document.getElementsByClassName("slide");
 var slideIndex = 1;
 showDivs(slideIndex);
 
@@ -26,7 +26,7 @@ function showDivs(n) {
     for (var i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
-    slides[slideIndex - 1].style.display = "block";
+    slides[slideIndex - 1].style.display = "flex";
 }
 
 document.getElementById("openBtn").addEventListener("click", openModal);
