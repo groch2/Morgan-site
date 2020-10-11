@@ -1,0 +1,30 @@
+@use 'w3.css'
+.modal
+    display: flex
+    justify-content: space-between
+    height: 100%
+    width: 100%
+    margin: 0
+    position: absolute
+    top: 50%
+    -ms-transform: translateY(-50%)
+    transform: translateY(-50%)
+.slide
+    flex: 1
+    display: none
+    flex-direction: column
+    & > img
+        height: 0
+        flex: 1
+        object-fit: scale-down
+    & > label
+        text-align: center
+.modal button
+    height: fit-content
+.modal > .btn-container
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+#miniaturesMosaic > *
+    display: block
