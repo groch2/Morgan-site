@@ -1,0 +1,16 @@
+.main-container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr auto;
+  justify-content: space-between;
+}
+
+.main-container > label {
+  grid-area: 2 / 1 / span 1 / span 3;
+  text-align: center;
+}
+
+.btn-container {
+  align-self: center;
+}
