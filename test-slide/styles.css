@@ -1,12 +1,28 @@
-.main-container {
+body {
   display: grid;
+  width: 100vw;
+  max-width: 100vw;
   height: 100vh;
+  max-height: 100vh;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   justify-content: space-between;
 }
 
-.main-container > label {
+.picture-container {
+  display: flex;
+}
+
+img {
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+label {
   grid-area: 2 / 1 / span 1 / span 3;
   text-align: center;
 }
