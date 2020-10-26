@@ -11,13 +11,13 @@ html(lang="en")
         div(id="miniaturesMosaic")
             a(href="./index.html")= "home"
             button(id="openBtn")="open slideshow"
-        div(id="slideshow" class="modal" style="display: none;")
+        div(id="slideshow" style="display: none;")
             span(id="closeBtn" class="w3-button w3-display-topright cursor")!="&#xD7;" 
             div(class="btn-container")
                 button(id="plusBtn" class="w3-button w3-round w3-black")!="&#x276E;" 
             each picture in pictures
-                div(class="slide")
-                    img(src=picture.file)
-                    label= picture.name
+                img(class="picture" src=picture.file)
             div(class="btn-container")
                 button(id="minusBtn" class="w3-button w3-round w3-black")!="&#x276F;" 
+            each picture in pictures
+                label(class="picture-label")= picture.name

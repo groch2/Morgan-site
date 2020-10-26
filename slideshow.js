@@ -1,5 +1,5 @@
 function openModal() {
-    document.getElementById("slideshow").style.display = "flex";
+    document.getElementById("slideshow").style.display = "grid";
     document.getElementById("miniaturesMosaic").style.display = "none";
 }
 
@@ -8,7 +8,8 @@ function closeModal() {
     document.getElementById("miniaturesMosaic").style.display = "initial";
 }
 
-const slides = document.getElementsByClassName("slide");
+const pictures = document.getElementsByClassName("picture");
+const pictureLabels = document.getElementsByClassName("picture-label");
 var slideIndex = 1;
 showDivs(slideIndex);
 
@@ -17,16 +18,18 @@ function plusDivs(n) {
 }
 
 function showDivs(n) {
-    if (n > slides.length) {
+    if (n > pictures.length) {
         slideIndex = 1;
     }
     if (n < 1) {
-        slideIndex = slides.length;
+        slideIndex = pictures.length;
     }
-    for (var i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+    for (var i = 0; i < pictures.length; i++) {
+        pictures[i].style.display = "none";
+        pictureLabels[i].style.display = "none";
     }
-    slides[slideIndex - 1].style.display = "flex";
+    pictures[slideIndex - 1].style.display = "block";
+    pictureLabels[slideIndex - 1].style.display = "block";
 }
 
 document.getElementById("openBtn").addEventListener("click", openModal);
