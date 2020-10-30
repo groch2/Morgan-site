@@ -17,7 +17,7 @@ html(lang="en")
                 button(id="plusBtn" class="w3-button w3-round w3-black")!="&#x276E;" 
             each picture in pictures
                 img(class="picture" src=picture.file)
+                label(class="picture-label")= picture.name
             div(class="btn-container")
                 button(id="minusBtn" class="w3-button w3-round w3-black")!="&#x276F;" 
-            each picture in pictures
-                label(class="picture-label")= picture.name
+                
