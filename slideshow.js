@@ -25,11 +25,11 @@ function showDivs(n) {
         slideIndex = pictures.length;
     }
     for (var i = 0; i < pictures.length; i++) {
-        pictures[i].style.display = "none";
-        pictureLabels[i].style.display = "none";
+        [pictures, pictureLabels]
+            .forEach(
+                htmlElements =>
+                    htmlElements[i].style.display = i === slideIndex - 1 ? "block" : "none");
     }
-    pictures[slideIndex - 1].style.display = "block";
-    pictureLabels[slideIndex - 1].style.display = "block";
 }
 
 document.getElementById("openBtn").addEventListener("click", openModal);
