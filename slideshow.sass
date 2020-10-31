@@ -1,22 +1,24 @@
 @use 'w3.css'
-
-#slideshow
-    display: grid
-    height: 100vh
-    grid-template-columns: auto 1fr auto
-    grid-template-rows: 1fr auto
-
-img
-  width: 100%
-  height: 100%
-  object-fit: contain
-
-#slideshow > label
-    grid-area: 2 / 1 / span 1 / span 3
-    text-align: center
-
-.btn-container
-    align-self: center
+@use 'swiper-bundle.css'
 
 #miniaturesMosaic > *
     display: block
+
+.swiper-container
+    width: 100vw
+    height: 100vh
+
+.swiper-slide
+    display: flex
+    flex-direction: column
+
+.picture
+    object-fit: scale-down
+    height: 0
+    flex: 1
+
+.picture-label
+    text-align: center
+
+#closeBtn
+    z-index: 2

@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.swiper-container {
+  width: 100vw;
+}
+.swiper-slide > img {
+  max-width: 100%;
+  object-fit: scale-down;
+}
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

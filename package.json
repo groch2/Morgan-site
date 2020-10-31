@@ -15,7 +15,8 @@
     "license": "ISC",
     "dependencies": {
         "express": "^4.17.1",
-        "express-basic-auth": "^1.2.0"
+        "express-basic-auth": "^1.2.0",
+        "swiper": "^6.3.5"
     },
     "devDependencies": {
         "babel-loader": "^8.1.0",
