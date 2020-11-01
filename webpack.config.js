@@ -59,7 +59,9 @@ const htmlPagesForPicuresSections = picturesSections.map(
     })
 );
 
-module.exports = () => {
+module.exports = (_, { mode }) => {
+  const isProductionMode = /^production$/i.test(mode);
+  console.debug({ isProductionMode: isProductionMode });
   return {
     entry: {
       slideshow: "./slideshow.js",
@@ -162,26 +164,30 @@ module.exports = () => {
         inject: false,
       }),
       ...htmlPagesForPicuresSections,
-      new CleanWebpackPlugin(),
-      new DeleteOutputWebpackPlugin(/^main\.js$/i),
-      new CopyPlugin({
-        patterns: Object.entries(picturesBySection)
-          .flatMap((s) => s[1])
-          .map((picture) => ({
-            from: picture,
-            to: "[name].webp",
-            async transform(content) {
-              return new Promise((resolve) => {
-                resolve(
-                  sharp(content).resize({ width: 1000 }).webp().toBuffer()
-                );
-              });
-            },
-          })),
-        options: {
-          concurrency: 100,
-        },
+      new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns: isProductionMode ? [] : ["!*.webp"],
       }),
-    ],
+      new DeleteOutputWebpackPlugin(/^main\.js$/i),
+      isProductionMode
+        ? new CopyPlugin({
+            patterns: Object.entries(picturesBySection)
+              .flatMap((s) => s[1])
+              .map((picture) => ({
+                from: picture,
+                to: "[name].webp",
+                async transform(content) {
+                  return new Promise((resolve) => {
+                    resolve(
+                      sharp(content).resize({ width: 1000 }).webp().toBuffer()
+                    );
+                  });
+                },
+              })),
+            options: {
+              concurrency: 100,
+            },
+          })
+        : null,
+    ].filter((plugin) => plugin),
   };
 };
