@@ -1,13 +1,3 @@
-function openModal() {
-    document.getElementById("slideshow").style.display = "grid";
-    document.getElementById("miniaturesMosaic").style.display = "none";
-}
-
-function closeModal() {
-    document.getElementById("slideshow").style.display = "none";
-    document.getElementById("miniaturesMosaic").style.display = "initial";
-}
-
 const pictures = document.getElementsByClassName("picture");
 const pictureLabels = document.getElementsByClassName("picture-label");
 let slideIndex = 0;
@@ -32,8 +22,7 @@ function showDivs(n) {
     }
 }
 
-document.getElementById("openBtn").addEventListener("click", openModal);
-document.getElementById("closeBtn").addEventListener("click", closeModal);
+document.getElementById("closeBtn").addEventListener("click", function () { window.location.href = "./index.html"; });
 
 document.getElementById("plusBtn").addEventListener("click", function () { plusDivs(1); });
 document.getElementById("minusBtn").addEventListener("click", function () { plusDivs(-1); });
