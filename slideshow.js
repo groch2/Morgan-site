@@ -1,33 +1,26 @@
 import Swiper from "swiper";
 
-new Swiper(".swiper-container", {
-  loop: true,
-  keyboard: {
-    enabled: true,
-    onlyInViewport: false,
-  },
-});
+const swiper = new Swiper(".swiper-container", { loop: true });
 
 document
   .querySelector(".swiper-button-prev")
-  .addEventListener(
-    "click",
-    () =>
-      document
-        .querySelector(".swiper-container")
-        .swiper.slidePrev());
+  .addEventListener("click", () => swiper.slidePrev());
 
 document
   .querySelector(".swiper-button-next")
-  .addEventListener(
-    "click",
-    () =>
-      document
-        .querySelector(".swiper-container")
-        .swiper.slideNext());
+  .addEventListener("click", () => swiper.slideNext());
+
+document.addEventListener("keydown", (event) => {
+  switch (event.code) {
+    case "ArrowRight":
+      swiper.slideNext();
+      return;
+    case "ArrowLeft":
+      swiper.slidePrev();
+      return;
+  }
+});
 
 document
   .getElementById("closeBtn")
-  .addEventListener(
-    "click",
-    () => window.location.href = "./index.html");
+  .addEventListener("click", () => (window.location.href = "./index.html"));

@@ -6,8 +6,5 @@ new Swiper(".swiper-container", {
     prevEl: ".swiper-button-prev",
   },
 
-  keyboard: {
-    enabled: true,
-    onlyInViewport: false,
-  },
+  keyboard: true,
 });
