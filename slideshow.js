@@ -2,13 +2,13 @@ import Swiper from "swiper";
 
 const activeIndexSection = `${pictureSection}-activeIndex`;
 
-const activeIndex = localStorage.getItem(activeIndexSection);
+const activeIndex = sessionStorage.getItem(activeIndexSection);
 
 const swiper = new Swiper(".swiper-container", {
   loop: true,
   on: {
     slideChange: ({ activeIndex }) =>
-      localStorage.setItem(activeIndexSection, activeIndex),
+    sessionStorage.setItem(activeIndexSection, activeIndex),
   },
 });
 
