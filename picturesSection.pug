@@ -8,11 +8,8 @@ html(lang="en")
         meta(name="viewport" content="width=device-width, initial-scale=1")
         link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
     body
-        div(id="miniaturesMosaic")
-            a(href="./index.html")= "home"
-            button(id="openBtn")="open slideshow"
-        div(id="slideshow" class="swiper-container" style="display: none;")
-            span(id="closeBtn" class="w3-button w3-display-topright cursor")!="&#xD7;" 
+        div(class="swiper-container")
+            span(id="closeBtn" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
             div(class="swiper-wrapper")
                 each picture in pictures
                     div(class="swiper-slide")
