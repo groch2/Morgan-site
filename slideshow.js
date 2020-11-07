@@ -1,6 +1,20 @@
 import Swiper from "swiper";
 
-const swiper = new Swiper(".swiper-container", { loop: true });
+const activeIndexSection = `${pictureSection}-activeIndex`;
+
+const activeIndex = localStorage.getItem(activeIndexSection);
+
+const swiper = new Swiper(".swiper-container", {
+  loop: true,
+  on: {
+    slideChange: ({ activeIndex }) =>
+      localStorage.setItem(activeIndexSection, activeIndex),
+  },
+});
+
+if (activeIndex) {
+  swiper.slideTo(parseInt(activeIndex));
+}
 
 document
   .querySelector(".swiper-button-prev")
