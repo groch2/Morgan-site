@@ -25,11 +25,9 @@ Directory
 			var half = filesWithSizeRatio.Length / 2;
 			var medianRatio = filesWithSizeRatio[half].Ratio;
 			return
-				filesWithSizeRatio.Length % 2 == 0 ?
-				(medianRatio + filesWithSizeRatio[half + 1].Ratio) / 2 :
-				medianRatio;
+				Math.Round(
+					filesWithSizeRatio.Length % 2 == 0 ?
+					(medianRatio + filesWithSizeRatio[half + 1].Ratio) / 2 :
+					medianRatio, 2);
 		})
-	.ToDictionary(
-		f => f.Key,
-		f => Math.Round(f.Value, 2))
 	.Dump();
