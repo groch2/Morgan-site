@@ -23,15 +23,15 @@ var picturesSizeRatio =
 		}).ToArray();
 
 var maxSizeRatio = picturesSizeRatio.Max(psr => psr.Item2);
-var thinestPicture = picturesSizeRatio.First(psr => psr.Item2 == maxSizeRatio).Item1;
+var thinestPicture = picturesSizeRatio.First(psr => psr.Item2 == maxSizeRatio);
 
 var minSizeRatio = picturesSizeRatio.Min(psr => psr.Item2);
-var strechedestPicture = picturesSizeRatio.First(psr => psr.Item2 == minSizeRatio).Item1;
+var strechedestPicture = picturesSizeRatio.First(psr => psr.Item2 == minSizeRatio);
 
 var pictureWithAbsDiffToOneSizeRatio =
 	picturesSizeRatio.Select(psr => (psr.Item1, Math.Abs(1 - psr.Item2))).ToArray();
 var closestToOneSizeRatio = pictureWithAbsDiffToOneSizeRatio.Min(pr => pr.Item2);
-var squarestPicture = pictureWithAbsDiffToOneSizeRatio.First(psr => psr.Item2 == closestToOneSizeRatio).Item1;
+var squarestPicture = pictureWithAbsDiffToOneSizeRatio.First(psr => psr.Item2 == closestToOneSizeRatio);
 
 (new { thinestPicture }).Dump();
 (new { strechedestPicture }).Dump();
