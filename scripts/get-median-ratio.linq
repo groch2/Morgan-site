@@ -10,16 +10,26 @@ var getImageSize = new Func<string, (double Height, double Width)>(file => {
         return (Height: sourceImage.Height, Width: sourceImage.Width);
     }
 });
-var picturesSizeRatio =
-	Directory
-		.GetDirectories(picturesDirectory)
-		.ToDictionary(
-			d => Regex.Match(Path.GetFileName(d), @"(?<=^\d+\s).+$").Value,
-			d =>
-				Directory
-					.GetFiles(Path.Combine(picturesDirectory, d))
-					.Select(f => {
-						(var Height, var Width) = getImageSize(f);
-						return new { File = Path.GetFileNameWithoutExtension(f), Ratio = Math.Round(Height / Width, 2) };
-					}));
-picturesSizeRatio.Dump();
+Directory
+	.GetDirectories(picturesDirectory)
+	.ToDictionary(
+		d => Regex.Match(Path.GetFileName(d), @"(?<=^\d+\s).+$").Value,
+		d => {
+			var filesWithSizeRatio = Directory
+				.GetFiles(Path.Combine(picturesDirectory, d))
+				.Select(f => {
+					(var Height, var Width) = getImageSize(f);
+					return new { File = Path.GetFileNameWithoutExtension(f), Ratio = Height / Width };
+				})
+				.OrderBy(file => file.Ratio).ToArray();
+			var half = filesWithSizeRatio.Length / 2;
+			var medianRatio = filesWithSizeRatio[half].Ratio;
+			return
+				filesWithSizeRatio.Length % 2 == 0 ?
+				(medianRatio + filesWithSizeRatio[half + 1].Ratio) / 2 :
+				medianRatio;
+		})
+	.ToDictionary(
+		f => f.Key,
+		f => Math.Round(f.Value, 2))
+	.Dump();
