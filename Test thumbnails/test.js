@@ -11,7 +11,6 @@ const paintings = new Set(
     .map((dirent) => path.parse(dirent.name).name)
 );
 const distDirectory = "C:/Users/deschaseauxr/Documents/Morgan-site/dist";
-console.debug(paintings);
 const paintingFiles = fs
   .readdirSync(distDirectory, {
     withFileTypes: true,

@@ -2,3 +2,4 @@ node_modules
 dist
 pictures
 *.gif
+thumbnails.html
