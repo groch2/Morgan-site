@@ -1,6 +1,23 @@
 @use 'w3.css'
 @use 'swiper-bundle.css'
 
+#mosaic 
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+
+.thumbnail 
+  --width: 200px
+  --height: calc(var(--width) * 0.78)
+  width: var(--width)
+  height: var(--height)
+  overflow: hidden
+  margin: 5px
+  img 
+    width: 100%
+    min-height: 100%
+    object-fit: cover
+
 .swiper-container
     width: 100vw
     height: 100vh

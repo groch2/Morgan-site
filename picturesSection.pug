@@ -8,7 +8,11 @@ html(lang="en")
         meta(name="viewport" content="width=device-width, initial-scale=1")
         link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
     body
-        div(class="swiper-container")
+        div(id="mosaic")
+            each picture in pictures
+                div(class="thumbnail")
+                    img(src=picture.file)
+        div(id="swiper-container" style="display: none;")
             span(id="closeBtn" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
             div(class="swiper-wrapper")
                 each picture in pictures

@@ -4,11 +4,11 @@ const activeIndexSection = `${pictureSection}-activeIndex`;
 
 const activeIndex = sessionStorage.getItem(activeIndexSection);
 
-const swiper = new Swiper(".swiper-container", {
+const swiper = new Swiper("#swiper-container", {
   loop: true,
   on: {
     slideChange: ({ activeIndex }) =>
-    sessionStorage.setItem(activeIndexSection, activeIndex),
+      sessionStorage.setItem(activeIndexSection, activeIndex),
   },
 });
 
@@ -35,6 +35,18 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-document
-  .getElementById("closeBtn")
-  .addEventListener("click", () => (window.location.href = "./index.html"));
+const mosaic = document.getElementById("mosaic");
+
+document.getElementById("closeBtn").addEventListener("click", () => {
+  mosaic.style.display = "flex";
+  swiper.el.style.display = "none";
+  swiper.update();
+});
+
+mosaic.querySelectorAll(".thumbnail").forEach((thumbnail) => {
+  thumbnail.addEventListener("click", () => {
+    mosaic.style.display = "none";
+    swiper.el.style.display = "block";
+    swiper.update();
+  });
+});
