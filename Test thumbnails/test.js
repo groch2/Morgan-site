@@ -1,14 +1,25 @@
 const fs = require("fs");
 const path = require("path");
-const pug = require('pug');
+const pug = require("pug");
 
-const directory = "C:\\Users\\deschaseauxr\\Documents\\Morgan-site\\Thumbnails\\1 Peintures";
-const dir = fs.readdirSync(directory);
-const thumbnails = [];
-for (let picture of dir) {
-    const picturePath = path.join(directory, picture);
-    thumbnails.push(picturePath);
-}
+const paintingsDirectory =
+  "C:/Users/deschaseauxr/Documents/Morgan-site/pictures/1 Peintures";
+const paintings = new Set(
+  fs
+    .readdirSync(paintingsDirectory, { withFileTypes: true })
+    .filter((dirent) => dirent.isFile())
+    .map((dirent) => path.parse(dirent.name).name)
+);
+const distDirectory = "C:/Users/deschaseauxr/Documents/Morgan-site/dist";
+console.debug(paintings);
+const paintingFiles = fs
+  .readdirSync(distDirectory, {
+    withFileTypes: true,
+  })
+  .filter(
+    (dirent) => dirent.isFile() && paintings.has(path.parse(dirent.name).name)
+  )
+  .map((f) => path.join(distDirectory, f.name));
 
-var html = pug.renderFile('thumbnails.pug', { thumbnails, pretty: true });
-fs.writeFile("thumbnails.html", html, 'utf8', () => {});
+var html = pug.renderFile("thumbnails.pug", { paintingFiles });
+fs.writeFile("thumbnails.html", html, "utf8", () => {});
