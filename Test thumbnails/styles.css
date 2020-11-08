@@ -1,20 +1,22 @@
+* {
+  box-sizing: border-box;
+}
 body {
-  display: flex;
-  margin-left: -8px;
-  margin-right: -8px;
   height: 100vh;
   width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
 }
 .picture-container {
   --width: 200px;
   --height: calc(var(--width) * 0.78);
   width: var(--width);
   height: var(--height);
+  border: 1px solid red;
+  overflow: hidden;
 }
 img {
-  flex-basis: 25%;
-  padding-left: 8px;
-  padding-right: 8px;
-  max-width: 25%;
-  max-height: 25%;
+  width: 200px;
+  min-height: 100%;
+  object-fit: cover;
 }
