@@ -9,9 +9,9 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
     body
         div(id="mosaic")
-            each picture in pictures
+            each picture, index in pictures
                 div(class="thumbnail")
-                    img(src=picture.file)
+                    img(src=picture.file data-index=index)
         div(id="swiper-container" style="display: none;")
             span(id="closeBtn" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
             div(class="swiper-wrapper")

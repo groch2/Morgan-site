@@ -44,9 +44,12 @@ document.getElementById("closeBtn").addEventListener("click", () => {
 });
 
 mosaic.querySelectorAll(".thumbnail").forEach((thumbnail) => {
-  thumbnail.addEventListener("click", () => {
+  thumbnail.addEventListener("click", ({ target: img }) => {
     mosaic.style.display = "none";
     swiper.el.style.display = "block";
     swiper.update();
+
+    const imgIndex = parseInt(img.dataset.index);
+    swiper.slideTo(imgIndex + 1, 0, false);
   });
 });
