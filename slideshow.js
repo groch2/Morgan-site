@@ -38,7 +38,7 @@ document.addEventListener("keydown", (event) => {
 const mosaic = document.getElementById("mosaic");
 
 document.getElementById("closeBtn").addEventListener("click", () => {
-  mosaic.style.display = "flex";
+  mosaic.style.display = "grid";
   swiper.el.style.display = "none";
   swiper.update();
 });

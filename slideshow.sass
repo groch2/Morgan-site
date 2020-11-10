@@ -1,22 +1,24 @@
 @use 'w3.css'
 @use 'swiper-bundle.css'
 
+:root
+    --thumbnail-width: 200px
+
 #mosaic 
-  display: flex
-  flex-wrap: wrap
-  justify-content: center
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(var(--thumbnail-width), max-content))
+    justify-content: center
 
 .thumbnail 
-  --width: 200px
-  --height: calc(var(--width) * 0.78)
-  width: var(--width)
-  height: var(--height)
-  overflow: hidden
-  margin: 5px
-  img 
-    width: 100%
-    min-height: 100%
-    object-fit: cover
+    --height: calc(var(--thumbnail-width) * 0.78)
+    width: var(--thumbnail-width)
+    height: var(--height)
+    overflow: hidden
+    margin: 5px
+    img 
+        width: 100%
+        min-height: 100%
+        object-fit: cover
 
 .swiper-container
     width: 100vw
