@@ -4,6 +4,14 @@
 :root
     --thumbnail-width: 200px
 
+#mosaic, #swiper-container
+    position: absolute
+    width: 100vw
+
+#swiper-container
+    height: 100vh
+    overflow: hidden
+
 #mosaic 
     display: grid
     grid-template-columns: repeat(auto-fit, minmax(var(--thumbnail-width), max-content))
@@ -19,10 +27,6 @@
         width: 100%
         min-height: 100%
         object-fit: cover
-
-.swiper-container
-    width: 100vw
-    height: 100vh
 
 .swiper-slide
     display: grid
