@@ -1,13 +1,11 @@
 @use 'w3.css'
 @use 'swiper-bundle.css'
 
-:root
-    --thumbnail-width: 200px
-
 #swiper-container
     overflow: hidden
 
 #mosaic 
+    --thumbnail-width: 200px
     display: grid
     grid-template-columns: repeat(auto-fit, minmax(var(--thumbnail-width), max-content))
     justify-content: center
