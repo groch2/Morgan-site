@@ -1,7 +1,7 @@
 import Swiper from "swiper";
 
 const swiper = new Swiper("#swiper-container", {
-  loop: true
+  loop: true,
 });
 
 document
@@ -32,12 +32,18 @@ document.getElementById("closeBtn").addEventListener("click", () => {
 });
 
 mosaic.querySelectorAll(".thumbnail").forEach((thumbnail) => {
-  thumbnail.addEventListener("click", ({ target: img }) => {
-    mosaic.style.display = "none";
-    swiper.el.style.display = "block";
-    swiper.update();
+  thumbnail.addEventListener(
+    "click",
+    ({
+      target: {
+        dataset: { index },
+      },
+    }) => {
+      mosaic.style.display = "none";
+      swiper.el.style.display = "block";
+      swiper.update();
 
-    const imgIndex = parseInt(img.dataset.index);
-    swiper.slideTo(imgIndex + 1, 0, false);
-  });
+      swiper.slideTo(parseInt(index) + 1, 0, false);
+    }
+  );
 });
