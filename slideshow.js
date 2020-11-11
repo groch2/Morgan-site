@@ -25,7 +25,11 @@ document.addEventListener("keydown", (event) => {
 
 const mosaic = document.getElementById("mosaic");
 
-document.getElementById("closeBtn").addEventListener("click", () => {
+document.getElementById("close-thumbnail").addEventListener("click", () => {
+  window.location.href = "index.html"
+});
+
+document.getElementById("close-swiper").addEventListener("click", () => {
   mosaic.style.display = "grid";
   swiper.el.style.display = "none";
   swiper.update();
