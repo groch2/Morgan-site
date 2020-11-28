@@ -1,0 +1,7 @@
+Moto G4:           640 x 360
+Pixel 2:           731 x 411
+Pixel 2 XL:        823 x 411
+iPhone 5/SE:       568 x 320
+iPhone 6/7/8:      667 x 375
+iPhone 6/7/8 Plus: 736 x 414
+iPhone X:          812 x 375
