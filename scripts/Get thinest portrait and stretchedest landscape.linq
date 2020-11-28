@@ -30,7 +30,7 @@ void Main()
 	var strechedestPicture = GetMaxItem(picturesSizeRatio, getMinOf2);
 	
 	var pictureWithAbsDiffToOneSizeRatio =
-		picturesSizeRatio.Select(psr => (psr.Item1, Math.Abs(1 - psr.Item2)));
+		picturesSizeRatio.Select(psr => (psr.Ref, Math.Abs(1 - psr.Ratio)));
 	var squarestPicture = GetMaxItem(pictureWithAbsDiffToOneSizeRatio, getMinOf2);
 	
 	(new { thinestPicture }).Dump();
