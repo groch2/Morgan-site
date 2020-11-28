@@ -23,7 +23,6 @@ var picturesSizeRatio =
 		});
 
 picturesSizeRatio
-	.Select<(string Ref, double Ratio), (string Ref, double Ratio)>(t => (t.Ref, Math.Round((double)t.Ratio, 2)))
 	.OrderBy(t => t.Ratio)
-	.Select<(string Ref, double Ratio), (string Ref, string Ratio)>(t => (t.Ref, t.Ratio.ToString("0.00")))
+	.Select(t => (t.Ref, Math.Round(t.Ratio, 2).ToString("0.00")))
 	.Dump();
