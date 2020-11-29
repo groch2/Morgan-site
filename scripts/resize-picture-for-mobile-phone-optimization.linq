@@ -32,18 +32,11 @@ var picturesWithIPhoneDisplayValues =
 		.OrderBy(p => p.Ratio)
 		.Select(p =>
 			{
-				double pictureHeightOnIPhone, pictureWidthOnIPhone;
 				var isPhoneMoreStretchedThanPicture = iPhoneRatio < p.Ratio;
-				if (isPhoneMoreStretchedThanPicture)
-				{
-					pictureHeightOnIPhone = iPhone12Height;
-					pictureWidthOnIPhone = p.Width / (p.Height / iPhone12Height);
-				}
-				else
-				{
-					pictureWidthOnIPhone = iPhone12Width;
-					pictureHeightOnIPhone = p.Height / (p.Width / iPhone12Width);
-				}
+				var pictureHeightOnIPhone =
+					isPhoneMoreStretchedThanPicture ? iPhone12Height : p.Height * iPhone12Width / p.Width;
+				var pictureWidthOnIPhone =
+					isPhoneMoreStretchedThanPicture ? p.Width * iPhone12Height / p.Height : iPhone12Width;
 				var pictureRatioOnIPhone = pictureHeightOnIPhone / pictureWidthOnIPhone;
 				return new
 					{ 
@@ -65,14 +58,7 @@ picturesWithIPhoneDisplayValues.Select(p =>
 	new
 		{ 
 			p.File,
-			p.Height,
-			p.Width,
-			Ratio = p.Ratio.ToString("0.00"),
-			onIPhone = new 
-			{ 
-				Height = p.onIPhone.Height,
-				Width = p.onIPhone.Width,
-				Ratio = p.onIPhone.Ratio.ToString("0.00")
-			}
+			Height = p.onIPhone.Height,
+			Width = p.onIPhone.Width,
 		})
 	.Dump();
