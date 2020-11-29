@@ -2,7 +2,7 @@
   <Namespace>System.Drawing</Namespace>
 </Query>
 
-const string picturesRootDirectory = @"C:\Users\deschaseauxr\Pictures\Test pict resize for mobile phone";
+const string picturesRootDirectory = @"C:\Users\deschaseauxr\Documents\Morgan-site\pictures";
 var pictureFiles = 
 	Directory
 		.GetDirectories(picturesRootDirectory)
@@ -27,35 +27,36 @@ const double iPhone5Width = 568;
 const double iPhoneRatio = iPhone5Height / iPhone5Width;
 Func<double, string> doubleForDisplay = value => value.ToString("0.00");
 doubleForDisplay(iPhoneRatio).Dump();
-picturesSizeRatio
-	.OrderBy(p => p.Ratio)
-	.Select(p =>
-		{
-			double pictureHeightOnIPhone, pictureWidthOnIPhone;
-			var isPhoneMoreStretchedThanPicture = iPhoneRatio < p.Ratio;
-			if (isPhoneMoreStretchedThanPicture)
+var picturesWithIPhoneDisplayValues =
+	picturesSizeRatio
+		.OrderBy(p => p.Ratio)
+		.Select(p =>
 			{
-				pictureHeightOnIPhone = iPhone5Height;
-				pictureWidthOnIPhone = Math.Round(p.Width / (p.Height / iPhone5Height));
-			}
-			else
-			{
-				pictureWidthOnIPhone = iPhone5Width;
-				pictureHeightOnIPhone = Math.Round(p.Height / (p.Width / iPhone5Width));
-			}
-			return new
-				{ 
-					File = p.Ref,
-					Height = p.Height,
-					Width = p.Width,
-					Ratio = doubleForDisplay(p.Ratio),
-					IsPhoneMoreStretchedThanPicture = isPhoneMoreStretchedThanPicture,
-					onIPhone = new 
+				double pictureHeightOnIPhone, pictureWidthOnIPhone;
+				var isPhoneMoreStretchedThanPicture = iPhoneRatio < p.Ratio;
+				if (isPhoneMoreStretchedThanPicture)
+				{
+					pictureHeightOnIPhone = iPhone5Height;
+					pictureWidthOnIPhone = p.Width / (p.Height / iPhone5Height);
+				}
+				else
+				{
+					pictureWidthOnIPhone = iPhone5Width;
+					pictureHeightOnIPhone = p.Height / (p.Width / iPhone5Width);
+				}
+				var pictureRatioOnIPhone = pictureHeightOnIPhone / pictureWidthOnIPhone;
+				return new
 					{ 
-						Height = pictureHeightOnIPhone,
-						Width = pictureWidthOnIPhone,
-						Ratio = doubleForDisplay(pictureHeightOnIPhone / pictureWidthOnIPhone)
-					}
-				};
-		})
-	.Dump();
+						File = p.Ref,
+						p.Height,
+						p.Width,
+						p.Ratio,
+						onIPhone = new 
+						{ 
+							Height = Math.Round(pictureHeightOnIPhone),
+							Width = Math.Round(pictureWidthOnIPhone),
+							Ratio = pictureRatioOnIPhone
+						}
+					};
+			});
+picturesWithIPhoneDisplayValues.Dump();
