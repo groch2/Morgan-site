@@ -29,7 +29,6 @@ Func<double, string> doubleForDisplay = value => value.ToString("0.00");
 new { iPhoneRatio = doubleForDisplay(iPhoneRatio) }.Dump();
 var picturesWithIPhoneDisplayValues =
 	picturesSizeRatio
-		.OrderBy(p => p.Ratio)
 		.Select(p =>
 			{
 				var isPhoneMoreStretchedThanPicture = iPhoneRatio < p.Ratio;
