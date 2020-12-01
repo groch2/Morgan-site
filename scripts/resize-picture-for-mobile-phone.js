@@ -6,8 +6,8 @@ const sizeOf = require("image-size");
 const sharp = require("sharp");
 
 const picturesDirectory = "./pictures";
-const iPhone12Height = 1284;
-const iPhone12Width = 2778;
+const iPhone12Height = 569;
+const iPhone12Width = 1232;
 const iPhoneRatio = iPhone12Height / iPhone12Width;
 const pictureDirectories = fs
   .readdirSync(picturesDirectory, { withFileTypes: true })
@@ -33,7 +33,7 @@ const pictures = pictureDirectories.flatMap(({ name: directory }) =>
     };
   })
 );
-const mobilePicturesDirectory = "./mobilePictures";
+const mobilePicturesDirectory = "./pictures-by-screen-size/mobile";
 fs.rmdirSync(mobilePicturesDirectory, { recursive: true });
 fs.mkdirSync(mobilePicturesDirectory);
 pictureDirectories.forEach(({ name: directory }) =>
