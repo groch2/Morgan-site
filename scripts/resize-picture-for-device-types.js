@@ -9,7 +9,7 @@ const picturesDirectory = "./pictures";
 const deviceType = "desktop";
 const deviceViewportHeight = 1080 * 1.5;
 const deviceViewportWidth = 1920 * 1.5;
-const iPhoneRatio = deviceViewportHeight / deviceViewportWidth;
+const deviceViewportRatio = deviceViewportHeight / deviceViewportWidth;
 const pictureDirectories = fs
   .readdirSync(picturesDirectory, { withFileTypes: true })
   .filter((dirent) => dirent.isDirectory());
@@ -27,7 +27,8 @@ pictureDirectories
         path.join(picturesDirectory, ref)
       );
       const pictureRatio = pictureHeight / pictureWidth;
-      const isViewportMoreStretchedThanPicture = iPhoneRatio < pictureRatio;
+      const isViewportMoreStretchedThanPicture =
+        deviceViewportRatio < pictureRatio;
       const pictureHeightForDevice = isViewportMoreStretchedThanPicture
         ? deviceViewportHeight
         : (pictureHeight * deviceViewportWidth) / pictureWidth;
