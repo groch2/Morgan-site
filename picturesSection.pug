@@ -12,13 +12,13 @@ html(lang="en")
             span(id="close-thumbnail" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
             each picture, index in pictures
                 div(class="thumbnail")
-                    img(src=picture.file data-index=index)
+                    img(src=picture.url data-index=index)
         div(id="swiper-container" style="display: none;")
             span(id="close-swiper" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
             div(class="swiper-wrapper")
                 each picture in pictures
                     div(class="swiper-slide")
-                        img(class="picture" src=picture.file)
+                        img(class="picture" src=picture.url)
                         label(class="picture-label")= picture.name
             div(class="swiper-button-prev")
             div(class="swiper-button-next")

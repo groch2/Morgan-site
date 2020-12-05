@@ -2,11 +2,9 @@
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
-var fs = require("fs");
-var path = require("path");
+const fs = require("fs");
+const path = require("path");
 const pug = require("pug");
-const sharp = require("sharp");
 
 function DeleteOutputWebpackPlugin(...exclude) {
   this.exclude = exclude;
@@ -22,6 +20,11 @@ function DeleteOutputWebpackPlugin(...exclude) {
   };
 }
 
+const sep = `${path.sep}${path.sep}`;
+const removeLeadingDirectoryPart = new RegExp(
+  `^${sep}?pictures${sep}(.+)$`,
+  "i"
+);
 const { picturesSections, picturesBySection } = (() =>
   fs
     .readdirSync("./pictures", { withFileTypes: true })
@@ -35,7 +38,20 @@ const { picturesSections, picturesBySection } = (() =>
         picturesSections.push(sectionName);
         picturesBySection[sectionName] = fs
           .readdirSync(directory)
-          .map((picture) => path.join(directory, picture));
+          .map((picture) => {
+            const name = path.parse(picture).name;
+            picture = `${name}.webp`;
+            return {
+              name,
+              url: new URL(
+                path.posix.join(
+                  removeLeadingDirectoryPart.exec(directory)[1],
+                  picture
+                ),
+                "https://storage.googleapis.com/morgan-test-site-pictures/mobile/"
+              ).toString(),
+            };
+          });
         return { picturesSections, picturesBySection };
       },
       { picturesSections: [], picturesBySection: {} }
@@ -51,10 +67,7 @@ const htmlPagesForPicuresSections = picturesSections.map(
       chunks: ["slideshow"],
       filename: `${pictureSection}.html`,
       templateParameters: {
-        pictures: picturesBySection[pictureSection].map((f) => {
-          const name = path.parse(f).name;
-          return { file: `${name}.webp`, name };
-        }),
+        pictures: picturesBySection[pictureSection],
       },
     })
 );
@@ -164,30 +177,8 @@ module.exports = (_, { mode }) => {
         inject: false,
       }),
       ...htmlPagesForPicuresSections,
-      new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: isProductionMode ? [] : ["!*.webp"],
-      }),
+      new CleanWebpackPlugin(),
       new DeleteOutputWebpackPlugin(/^main\.js$/i),
-      isProductionMode
-        ? new CopyPlugin({
-            patterns: Object.entries(picturesBySection)
-              .flatMap((s) => s[1])
-              .map((picture) => ({
-                from: picture,
-                to: "[name].webp",
-                async transform(content) {
-                  return new Promise((resolve) => {
-                    resolve(
-                      sharp(content).resize({ width: 1000 }).webp().toBuffer()
-                    );
-                  });
-                },
-              })),
-            options: {
-              concurrency: 100,
-            },
-          })
-        : null,
     ].filter((plugin) => plugin),
   };
 };
