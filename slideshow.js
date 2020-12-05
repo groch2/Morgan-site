@@ -38,14 +38,16 @@ const imageHeight =
   parseInt(imageStyle.marginBottom);
 
 document.getElementById("close-swiper").addEventListener("click", () => {
+  const { realIndex } = swiper;
+
   mosaic.style.display = "grid";
   swiper.el.style.display = "none";
   swiper.update();
 
-  const nbImageByColumns = Math.floor(window.innerWidth / imageWidth);
-  const yOffset =
-    Math.floor(mosaic.nbImagesAboveTopOfScreen / nbImageByColumns) *
-    imageHeight;
+  const nbImageByRow = Math.floor(window.innerWidth / imageWidth);
+  const rowIndexOfCurrentSlide = Math.ceil((realIndex + 1) / nbImageByRow);
+  const nbRowsOfImagesAboveTheTopOfTheScreen = rowIndexOfCurrentSlide - 1;
+  const yOffset = nbRowsOfImagesAboveTheTopOfTheScreen * imageHeight;
   window.scrollTo({ top: yOffset });
 });
 
@@ -57,10 +59,6 @@ mosaic.querySelectorAll(".thumbnail").forEach((thumbnail) => {
         dataset: { index },
       },
     }) => {
-      const nbImageByColumns = Math.floor(window.innerWidth / imageWidth);
-      mosaic.nbImagesAboveTopOfScreen =
-        Math.floor(window.pageYOffset / imageHeight) * nbImageByColumns;
-
       mosaic.style.display = "none";
       swiper.el.style.display = "block";
       swiper.update();
