@@ -6,9 +6,10 @@ const sizeOf = require("image-size");
 const sharp = require("sharp");
 
 const picturesDirectory = "./pictures";
-const iPhone12Height = 569;
-const iPhone12Width = 1232;
-const iPhoneRatio = iPhone12Height / iPhone12Width;
+const deviceType = "desktop";
+const deviceViewportHeight = 1080 * 1.5;
+const deviceViewportWidth = 1920 * 1.5;
+const iPhoneRatio = deviceViewportHeight / deviceViewportWidth;
 const pictureDirectories = fs
   .readdirSync(picturesDirectory, { withFileTypes: true })
   .filter((dirent) => dirent.isDirectory());
@@ -19,25 +20,25 @@ const pictures = pictureDirectories.flatMap(({ name: directory }) =>
       path.join(picturesDirectory, ref)
     );
     const pictureRatio = pictureHeight / pictureWidth;
-    const isPhoneMoreStretchedThanPicture = iPhoneRatio < pictureRatio;
-    const pictureHeightOnIPhone = isPhoneMoreStretchedThanPicture
-      ? iPhone12Height
-      : (pictureHeight * iPhone12Width) / pictureWidth;
-    const pictureWidthOnIPhone = isPhoneMoreStretchedThanPicture
-      ? (pictureWidth * iPhone12Height) / pictureHeight
-      : iPhone12Width;
+    const isViewportMoreStretchedThanPicture = iPhoneRatio < pictureRatio;
+    const pictureHeightForDevice = isViewportMoreStretchedThanPicture
+      ? deviceViewportHeight
+      : (pictureHeight * deviceViewportWidth) / pictureWidth;
+    const pictureWidthForDevice = isViewportMoreStretchedThanPicture
+      ? (pictureWidth * deviceViewportHeight) / pictureHeight
+      : deviceViewportWidth;
     return {
       ref,
-      height: Math.round(pictureHeightOnIPhone),
-      width: Math.round(pictureWidthOnIPhone),
+      height: Math.round(pictureHeightForDevice),
+      width: Math.round(pictureWidthForDevice),
     };
   })
 );
-const mobilePicturesDirectory = "./pictures-by-screen-size/mobile";
-fs.rmdirSync(mobilePicturesDirectory, { recursive: true });
-fs.mkdirSync(mobilePicturesDirectory);
+const deviceTypePicturesDirectory = `./pictures-by-device-type/${deviceType}`;
+fs.rmdirSync(deviceTypePicturesDirectory, { recursive: true });
+fs.mkdirSync(deviceTypePicturesDirectory);
 pictureDirectories.forEach(({ name: directory }) =>
-  fs.mkdirSync(path.join(mobilePicturesDirectory, directory))
+  fs.mkdirSync(path.join(deviceTypePicturesDirectory, directory))
 );
 pictures.forEach(({ ref, height, width }) => {
   const fileExt = path.extname(ref);
@@ -45,7 +46,7 @@ pictures.forEach(({ ref, height, width }) => {
   sharp(path.join(picturesDirectory, ref))
     .resize(width, height)
     .webp()
-    .toFile(path.join(mobilePicturesDirectory, newFile), (err) => {
+    .toFile(path.join(deviceTypePicturesDirectory, newFile), (err) => {
       if (err) {
         console.log(err);
       }
