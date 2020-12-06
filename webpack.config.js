@@ -51,7 +51,7 @@ const { picturesSections, picturesBySection } = (() =>
                   ),
                   picture
                 ),
-                "https://storage.googleapis.com/morgan-test-site-pictures/mobile/"
+                "https://storage.googleapis.com/morgan-site-test-pictures/mobile/"
               ).toString(),
             };
           });
