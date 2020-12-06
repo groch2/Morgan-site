@@ -6,9 +6,10 @@ const sizeOf = require("image-size");
 const sharp = require("sharp");
 
 const picturesDirectory = "./pictures";
-const deviceType = "desktop";
-const deviceViewportHeight = 1080 * 1.5;
-const deviceViewportWidth = 1920 * 1.5;
+const deviceType = "mobile";
+const factor = 1.5;
+const deviceViewportHeight = 428 * factor;
+const deviceViewportWidth = 926 * factor;
 const deviceViewportRatio = deviceViewportHeight / deviceViewportWidth;
 const pictureDirectories = fs
   .readdirSync(picturesDirectory, { withFileTypes: true })
@@ -18,6 +19,10 @@ fs.rmdirSync(deviceTypePicturesDirectory, { recursive: true });
 fs.mkdirSync(deviceTypePicturesDirectory);
 pictureDirectories.forEach(({ name: directory }) =>
   fs.mkdirSync(path.join(deviceTypePicturesDirectory, directory))
+);
+fs.writeFileSync(
+  path.join(deviceTypePicturesDirectory, "target-viewport-size.txt"),
+  `${Math.round(deviceViewportWidth)} x ${Math.round(deviceViewportHeight)}`
 );
 pictureDirectories
   .flatMap(({ name: directory }) =>
