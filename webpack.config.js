@@ -25,12 +25,13 @@ const removeLeadingDirectoryPart = new RegExp(
   `^${sep}?pictures${sep}(.+)$`,
   "i"
 );
+const getTextWithoutLeadingNumber = (text) => /(?<=^\d+\s).+$/i.exec(text)[0];
 const { picturesSections, picturesBySection } = (() =>
   fs
     .readdirSync("./pictures", { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => ({
-      sectionName: /(?<=^\d+\s).+$/.exec(dirent.name)[0],
+      sectionName: getTextWithoutLeadingNumber(dirent.name),
       directory: path.join("pictures", dirent.name),
     }))
     .reduce(
@@ -45,7 +46,9 @@ const { picturesSections, picturesBySection } = (() =>
               name,
               url: new URL(
                 path.posix.join(
-                  removeLeadingDirectoryPart.exec(directory)[1],
+                  getTextWithoutLeadingNumber(
+                    removeLeadingDirectoryPart.exec(directory)[1]
+                  ),
                   picture
                 ),
                 "https://storage.googleapis.com/morgan-test-site-pictures/mobile/"
