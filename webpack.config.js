@@ -77,7 +77,7 @@ const htmlPagesForPicuresSections = picturesSections.map(
 
 module.exports = (_, { mode }) => {
   const isProductionMode = /^production$/i.test(mode);
-  console.debug({ isProductionMode: isProductionMode });
+  console.debug({ isProductionMode });
   return {
     entry: {
       slideshow: "./slideshow.js",

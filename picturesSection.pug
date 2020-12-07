@@ -18,7 +18,7 @@ html(lang="en")
             div(class="swiper-wrapper")
                 each picture in pictures
                     div(class="swiper-slide")
-                        img(class="picture" src=picture.url)
+                        img(class="picture" src=picture.url alt=picture.name)
                         label(class="picture-label")= picture.name
             div(class="swiper-button-prev")
             div(class="swiper-button-next")
