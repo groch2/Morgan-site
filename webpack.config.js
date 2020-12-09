@@ -26,6 +26,16 @@ const removeLeadingDirectoryPart = new RegExp(
   "i"
 );
 const getTextWithoutLeadingNumber = (text) => /(?<=^\d+\s).+$/i.exec(text)[0];
+const deviceTypeAndWidth = require("./scripts/viewport-dimensions-by-device.json").map(
+  ({ device: deviceType, width }) => ({
+    deviceType,
+    width,
+  })
+);
+const pictureBaseUrl =
+  "https://storage.googleapis.com/morgan-site-test-pictures/";
+const concatAbsoluteUrlWithPathSegments = (absoluteBaseUrl, ...pathSegments) =>
+  new URL(path.posix.join(...pathSegments), absoluteBaseUrl).toString();
 const { picturesSections, picturesBySection } = (() =>
   fs
     .readdirSync("./pictures", { withFileTypes: true })
@@ -39,26 +49,38 @@ const { picturesSections, picturesBySection } = (() =>
         picturesSections.push(sectionName);
         picturesBySection[sectionName] = fs
           .readdirSync(directory)
-          .map((picture) => {
-            const name = path.parse(picture).name;
-            picture = `${name}.webp`;
+          .map((pictureFile) => {
+            const name = path.parse(pictureFile).name;
+            const picureTrailingUrl = path.posix.join(
+              getTextWithoutLeadingNumber(
+                removeLeadingDirectoryPart.exec(directory)[1]
+              ),
+              `${name}.webp`
+            );
             return {
               name,
-              url: new URL(
-                path.posix.join(
-                  getTextWithoutLeadingNumber(
-                    removeLeadingDirectoryPart.exec(directory)[1]
-                  ),
-                  picture
-                ),
-                "https://storage.googleapis.com/morgan-site-test-pictures/mobile/"
-              ).toString(),
+              url: concatAbsoluteUrlWithPathSegments(
+                pictureBaseUrl,
+                "mobile",
+                picureTrailingUrl
+              ),
+              srcset: deviceTypeAndWidth
+                .map(
+                  ({ deviceType, width }) =>
+                    `${concatAbsoluteUrlWithPathSegments(
+                      pictureBaseUrl,
+                      deviceType,
+                      picureTrailingUrl
+                    )} ${width}W`
+                )
+                .join(", "),
             };
           });
         return { picturesSections, picturesBySection };
       },
       { picturesSections: [], picturesBySection: {} }
     ))();
+console.debug(JSON.stringify(picturesBySection));
 
 const pathToIndex = require.resolve("./index.pug");
 const pathToPicturesSection = require.resolve("./picturesSection.pug");
