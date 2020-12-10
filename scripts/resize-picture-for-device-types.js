@@ -20,8 +20,8 @@ require("./viewport-dimensions-by-device.json").forEach(
     fs.rmdirSync(deviceTypePicturesDirectory, { recursive: true });
     fs.mkdirSync(deviceTypePicturesDirectory);
     fs.writeFileSync(
-      path.join(deviceTypePicturesDirectory, "target-viewport-size.txt"),
-      `${originalWidth} x ${originalHeight}`
+      path.join(deviceTypePicturesDirectory, "target-viewport-size.json"),
+      JSON.stringify({ width: originalWidth, height: originalHeight }, null, 2)
     );
     const getTextWithoutLeadingNumber = (text) =>
       /(?<=^\d+\s).+$/i.exec(text)[0];
