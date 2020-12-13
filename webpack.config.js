@@ -33,7 +33,7 @@ const deviceTypeAndWidth = require("./scripts/viewport-dimensions-by-device.json
   })
 );
 const pictureBaseUrl =
-  "https://storage.googleapis.com/morgan-site-test-pictures/";
+  "C:/Users/deschaseauxr/Documents/Morgan-site/pictures-by-device-type/";
 const concatAbsoluteUrlWithPathSegments = (absoluteBaseUrl, ...pathSegments) =>
   new URL(path.posix.join(...pathSegments), absoluteBaseUrl).toString();
 const { picturesSections, picturesBySection } = (() =>
@@ -65,14 +65,13 @@ const { picturesSections, picturesBySection } = (() =>
                 picureTrailingUrl
               ),
               srcset: deviceTypeAndWidth
-                .map(
-                  ({ deviceType, width }) =>
-                    `${concatAbsoluteUrlWithPathSegments(
-                      pictureBaseUrl,
-                      deviceType,
-                      picureTrailingUrl
-                    )} ${width}W`
-                )
+                .map(({ deviceType, width }) => {
+                  return `${concatAbsoluteUrlWithPathSegments(
+                    pictureBaseUrl,
+                    deviceType,
+                    picureTrailingUrl
+                  )} ${width}W`;
+                })
                 .join(", "),
             };
           });
@@ -80,7 +79,6 @@ const { picturesSections, picturesBySection } = (() =>
       },
       { picturesSections: [], picturesBySection: {} }
     ))();
-console.debug(JSON.stringify(picturesBySection));
 
 const pathToIndex = require.resolve("./index.pug");
 const pathToPicturesSection = require.resolve("./picturesSection.pug");
