@@ -1,0 +1,1 @@
+html img resolution switching based on srcset and size attributes not working on other client than Firefox

@@ -4,3 +4,4 @@ pictures
 *.gif
 thumbnails.html
 pictures-by-device-type
+/test/*.jpg
