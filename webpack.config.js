@@ -32,10 +32,8 @@ const deviceTypeAndWidth = require("./scripts/viewport-dimensions-by-device.json
     width,
   })
 );
-const pictureBaseUrl =
-  "C:/Users/deschaseauxr/Documents/Morgan-site/pictures-by-device-type/";
-const concatAbsoluteUrlWithPathSegments = (absoluteBaseUrl, ...pathSegments) =>
-  new URL(path.posix.join(...pathSegments), absoluteBaseUrl).toString();
+const pictureBaseUrl = "pictures-by-device-type/";
+const joinAndEncode = (...pathParts) => encodeURI(path.posix.join(...pathParts));
 const { picturesSections, picturesBySection } = (() =>
   fs
     .readdirSync("./pictures", { withFileTypes: true })
@@ -59,14 +57,10 @@ const { picturesSections, picturesBySection } = (() =>
             );
             return {
               name,
-              url: concatAbsoluteUrlWithPathSegments(
-                pictureBaseUrl,
-                "mobile",
-                picureTrailingUrl
-              ),
+              url: joinAndEncode(pictureBaseUrl, "mobile", picureTrailingUrl),
               srcset: deviceTypeAndWidth
                 .map(({ deviceType, width }) => {
-                  return `${concatAbsoluteUrlWithPathSegments(
+                  return `${joinAndEncode(
                     pictureBaseUrl,
                     deviceType,
                     picureTrailingUrl
