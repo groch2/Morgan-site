@@ -70,7 +70,7 @@ const { picturesSections, picturesBySection } = (() =>
                     pictureBaseUrl,
                     deviceType,
                     picureTrailingUrl
-                  )} ${width}W`;
+                  )} ${width}w`;
                 })
                 .join(", "),
             };
