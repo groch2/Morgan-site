@@ -9,7 +9,8 @@
     "prestart": "npm run bundle",
     "start": "node morgan-site.js",
     "webpack": "webpack-dev-server --config=webpack.config.js --mode=development",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "start:dev": "webpack serve"
   },
   "author": "",
   "license": "ISC",
@@ -36,7 +37,7 @@
     "w3-css": "^4.1.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^4.0.0",
-    "webpack-dev-server": "^3.11.0",
+    "webpack-dev-server": "^3.11.1",
     "webpack-image-resize-loader": "^3.0.0"
   },
   "engines": {

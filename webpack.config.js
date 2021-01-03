@@ -32,8 +32,9 @@ const deviceTypeAndWidth = require("./scripts/viewport-dimensions-by-device.json
     width,
   })
 );
-const pictureBaseUrl = "pictures-by-device-type/";
-const joinAndEncode = (...pathParts) => encodeURI(path.posix.join(...pathParts));
+const pictureBaseUrl = "../pictures-by-device-type/";
+const joinAndEncode = (...pathParts) =>
+  encodeURI(path.posix.join(...pathParts));
 const { picturesSections, picturesBySection } = (() =>
   fs
     .readdirSync("./pictures", { withFileTypes: true })
@@ -186,6 +187,9 @@ module.exports = (_, { mode }) => {
           ],
         },
       ],
+    },
+    devServer: {
+      contentBase: "./dist",
     },
     plugins: [
       new HtmlWebpackPlugin({

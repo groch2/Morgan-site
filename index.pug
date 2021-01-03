@@ -13,7 +13,8 @@ html(lang="en")
 
     body
         header
-            h1(id="home-header")= "Morgan Bancon"
+            span(id="burger-menu" onclick="openNav()")!= "&#9776;"
+            span= "Morgan Bancon"
         img(src="./pictures/home-background.jpg" id="home-image")
         div(class="home-links-container")
             each link in homeLinks
@@ -21,3 +22,8 @@ html(lang="en")
         footer(class="home-links-container")
             each link in ['Bio', 'Contact']
                 a(href="#" class="home-link")= link
+
+        div(id="mySidenav" class="sidenav")
+            a(href="javascript:void(0)" class="closebtn" onclick="closeNav()")!= "&times;"
+            each link in homeLinks
+                a(href=link.href class="home-link")= link.text
