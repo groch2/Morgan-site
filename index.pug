@@ -15,15 +15,7 @@ html(lang="en")
         header
             span(id="burger-menu" onclick="openNav()")!= "&#9776;"
             span= "Morgan Bancon"
+            div(id="home-links")
+                each link in homeLinks
+                    a(href=link.href class="home-link")= link.text
         img(src="./pictures/home-background.jpg" id="home-image")
-        div(class="home-links-container")
-            each link in homeLinks
-                a(href=link.href class="home-link")= link.text
-        footer(class="home-links-container")
-            each link in ['Bio', 'Contact']
-                a(href="#" class="home-link")= link
-
-        div(id="mySidenav" class="sidenav")
-            a(href="javascript:void(0)" class="closebtn" onclick="closeNav()")!= "&times;"
-            each link in homeLinks
-                a(href=link.href class="home-link")= link.text

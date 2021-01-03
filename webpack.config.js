@@ -108,10 +108,13 @@ module.exports = (_, { mode }) => {
                 preprocessor: (content, loaderContext) => {
                   try {
                     const homeLinks = [
-                      { href: "#", text: "Accueil" },
                       ...picturesSections.map((ps) => ({
                         href: `${ps}.html`,
                         text: ps,
+                      })),
+                      ...["Bio", "Contact"].map((s) => ({
+                        href: "#",
+                        text: s,
                       })),
                     ];
                     return pug.render(content, { homeLinks });

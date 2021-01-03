@@ -50,3 +50,19 @@ header
     padding-top: 15px
   .sidenav a
     font-size: 18px
+
+#home-image
+  width: 100%
+
+$width-breakpoint: 800px
+
+#home-links
+  display: flex
+  column-gap: 20px
+  float: right
+  @media (max-width: $width-breakpoint) 
+    display: none
+
+@media (min-width: $width-breakpoint) 
+  #burger-menu
+    display: none
