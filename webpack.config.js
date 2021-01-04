@@ -96,6 +96,7 @@ module.exports = (_, { mode }) => {
   return {
     entry: {
       slideshow: "./slideshow.js",
+      index: "./index.js",
     },
     module: {
       rules: [
@@ -198,7 +199,8 @@ module.exports = (_, { mode }) => {
       new HtmlWebpackPlugin({
         template: pathToIndex,
         filename: "index.html",
-        inject: false,
+        inject: "body",
+        chunks: ["index"],
       }),
       ...htmlPagesForPicuresSections,
       new CleanWebpackPlugin(),

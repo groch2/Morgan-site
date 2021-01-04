@@ -1,19 +1,19 @@
 doctype html
-
 html(lang="en")
-
     head
         meta(charset="utf-8")
-
         title= "The art of Morgan Bancon"
         meta(name="description" content="The art of Morgan Bancon")
         meta(name="author" content="Morgan Bancon")
         meta(name="viewport" content="width=device-width, initial-scale=1")
         link(rel="stylesheet" type="text/css" href="./style.sass")
-
     body
+        div(id="home-sidenav" class="sidenav")
+            a(href="javascript:void(0)" class="closebtn")!= "&times;"
+                each link in homeLinks
+                    a(href=link.href class="home-link")= link.text
         header
-            span(id="burger-menu" onclick="openNav()")!= "&#9776;"
+            span(id="burger-menu")!= "&#9776;"
             h1= "Morgan Bancon"
             div(id="home-links")
                 each link in homeLinks
