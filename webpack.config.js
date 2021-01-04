@@ -75,6 +75,11 @@ const { picturesSections, picturesBySection } = (() =>
       { picturesSections: [], picturesBySection: {} }
     ))();
 
+const homeBackground = picturesBySection.Peintures.filter((p) =>
+  /^nordique/i.test(p.name)
+)[0];
+console.debug(homeBackground);
+
 const pathToIndex = require.resolve("./index.pug");
 const pathToPicturesSection = require.resolve("./picturesSection.pug");
 const htmlPagesForPicuresSections = picturesSections.map(
