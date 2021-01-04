@@ -3,17 +3,15 @@ body
   margin: 0
 
 header
-  --header-top-bottom-padding: 10px
-  padding-top: var(--header-top-bottom-padding)
-  padding-bottom: var(--header-top-bottom-padding)
-  font-size: x-large
-  @media (orientation: portrait)
-    font-size: xx-large
-  & > *
-    margin: auto 0
+  display: flex
+  h1
+    flex: 1
   #burger-menu
     line-height: 100%
     cursor: pointer
+    display: flex
+    align-items: center
+    font-size: xx-large
 
 .sidenav
   height: 100%
@@ -58,11 +56,13 @@ $width-breakpoint: 800px
 
 #home-links
   display: flex
+  align-items: center
   column-gap: 20px
-  float: right
   @media (max-width: $width-breakpoint) 
     display: none
 
-@media (min-width: $width-breakpoint) 
-  #burger-menu
-    display: none
+@media (min-width: $width-breakpoint)
+  header
+    padding: 0 20px 0 20px
+    #burger-menu
+      display: none

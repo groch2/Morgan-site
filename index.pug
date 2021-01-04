@@ -14,7 +14,7 @@ html(lang="en")
     body
         header
             span(id="burger-menu" onclick="openNav()")!= "&#9776;"
-            span= "Morgan Bancon"
+            h1= "Morgan Bancon"
             div(id="home-links")
                 each link in homeLinks
                     a(href=link.href class="home-link")= link.text
