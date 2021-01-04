@@ -32,10 +32,9 @@ const deviceTypeAndWidth = require("./scripts/viewport-dimensions-by-device.json
     width,
   })
 );
-const pictureBaseUrl =
-  "C:/Users/deschaseauxr/Documents/Morgan-site/pictures-by-device-type/";
-const concatAbsoluteUrlWithPathSegments = (absoluteBaseUrl, ...pathSegments) =>
-  new URL(path.posix.join(...pathSegments), absoluteBaseUrl).toString();
+const pictureBaseUrl = "../pictures-by-device-type/";
+const joinAndEncode = (...pathParts) =>
+  encodeURI(path.posix.join(...pathParts));
 const { picturesSections, picturesBySection } = (() =>
   fs
     .readdirSync("./pictures", { withFileTypes: true })
@@ -59,14 +58,10 @@ const { picturesSections, picturesBySection } = (() =>
             );
             return {
               name,
-              url: concatAbsoluteUrlWithPathSegments(
-                pictureBaseUrl,
-                "mobile",
-                picureTrailingUrl
-              ),
+              url: joinAndEncode(pictureBaseUrl, "mobile", picureTrailingUrl),
               srcset: deviceTypeAndWidth
                 .map(({ deviceType, width }) => {
-                  return `${concatAbsoluteUrlWithPathSegments(
+                  return `${joinAndEncode(
                     pictureBaseUrl,
                     deviceType,
                     picureTrailingUrl
@@ -79,6 +74,11 @@ const { picturesSections, picturesBySection } = (() =>
       },
       { picturesSections: [], picturesBySection: {} }
     ))();
+
+const homeBackground = picturesBySection.Peintures.filter((p) =>
+  /^nordique/i.test(p.name)
+)[0];
+console.debug(homeBackground);
 
 const pathToIndex = require.resolve("./index.pug");
 const pathToPicturesSection = require.resolve("./picturesSection.pug");
@@ -101,6 +101,7 @@ module.exports = (_, { mode }) => {
   return {
     entry: {
       slideshow: "./slideshow.js",
+      index: "./index.js",
     },
     module: {
       rules: [
@@ -113,10 +114,13 @@ module.exports = (_, { mode }) => {
                 preprocessor: (content, loaderContext) => {
                   try {
                     const homeLinks = [
-                      { href: "#", text: "Accueil" },
                       ...picturesSections.map((ps) => ({
                         href: `${ps}.html`,
                         text: ps,
+                      })),
+                      ...["Bio", "Contact"].map((s) => ({
+                        href: "#",
+                        text: s,
                       })),
                     ];
                     return pug.render(content, { homeLinks });
@@ -193,11 +197,15 @@ module.exports = (_, { mode }) => {
         },
       ],
     },
+    devServer: {
+      contentBase: "./dist",
+    },
     plugins: [
       new HtmlWebpackPlugin({
         template: pathToIndex,
         filename: "index.html",
-        inject: false,
+        inject: "body",
+        chunks: ["index"],
       }),
       ...htmlPagesForPicuresSections,
       new CleanWebpackPlugin(),
