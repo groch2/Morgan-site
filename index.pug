@@ -18,4 +18,4 @@ html(lang="en")
             div(id="home-links")
                 each link in homeLinks
                     a(href=link.href class="home-link")= link.text
-        img(src="./pictures/home-background.jpg" id="home-image")
+        img(id="home-image" src=homePicture.url srcset=homePicture.srcset alt=homePicture.name)

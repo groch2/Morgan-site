@@ -75,11 +75,6 @@ const { picturesSections, picturesBySection } = (() =>
       { picturesSections: [], picturesBySection: {} }
     ))();
 
-const homeBackground = picturesBySection.Peintures.filter((p) =>
-  /^nordique/i.test(p.name)
-)[0];
-console.debug(homeBackground);
-
 const pathToIndex = require.resolve("./index.pug");
 const pathToPicturesSection = require.resolve("./picturesSection.pug");
 const htmlPagesForPicuresSections = picturesSections.map(
@@ -118,15 +113,21 @@ module.exports = (_, { mode }) => {
                         href: `${ps}.html`,
                         text: ps,
                       })),
-                      ...["Bio", "Contact"].map((s) => ({
+                      ...["Bio", "Contact"].map((section) => ({
                         href: "#",
-                        text: s,
+                        text: section,
                       })),
                     ];
-                    return pug.render(content, { homeLinks });
+                    const homePicture = picturesBySection.Peintures.filter(
+                      (p) => /^nordique/i.test(p.name)
+                    )[0];
+                    return pug.render(content, { homeLinks, homePicture });
                   } catch (error) {
                     loaderContext.emitError(error);
                   }
+                },
+                attributes: {
+                  urlFilter: (_, value) => !/\.webp$/i.test(value),
                 },
               },
             },
