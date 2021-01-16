@@ -18,6 +18,8 @@ header
 :root
   --transition-duration: 0.2s
 nav
+  display: flex
+  flex-direction: row
   height: 100%
   width: 0
   position: fixed
@@ -25,7 +27,7 @@ nav
   top: 0
   left: 0
   background-color: #111
-  padding-top: 60px
+  padding-top: 10px
   transition: var(--transition-duration)
 nav a
   padding: 8px 8px 8px 32px
@@ -37,26 +39,19 @@ nav a
 nav a:hover
   color: #f1f1f1
 nav .closebtn
-  position: absolute
-  top: 0
-  right: 25px
   font-size: 36px
-  margin-left: 50px
+  padding: 0
+  padding-right: 15px
 main
   height: 100%
   transition: margin-left var(--transition-duration), margin-right var(--transition-duration)
-@media screen and (max-height: 450px)
-  nav
-    padding-top: 15px
-  nav a
-    font-size: 18px
 #home-image
   width: 100%
   height: 100%
   object-fit: cover
   object-position: center top
 $width-breakpoint: 800px
-#home-links
+#home-header-links
   display: flex
   align-items: center
   column-gap: 20px
@@ -71,3 +66,5 @@ $width-breakpoint: 800px
     padding: 0 20px 0 20px
     #burger-menu
       display: none
+#home-nav-links
+  flex: 1
