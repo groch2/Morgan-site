@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const fs = require("fs");
 const path = require("path");
 const pug = require("pug");
+const express = require("express");
 
 function DeleteOutputWebpackPlugin(...exclude) {
   this.exclude = exclude;
@@ -187,6 +188,12 @@ module.exports = (_, { mode }) => {
     },
     devServer: {
       contentBase: "./dist",
+      before: function (app) {
+        app.use(
+          "/pictures-by-device-type",
+          express.static(path.join(__dirname, "pictures-by-device-type"))
+        );
+      },
     },
     plugins: [
       new HtmlWebpackPlugin({
