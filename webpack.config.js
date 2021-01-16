@@ -162,19 +162,6 @@ module.exports = (_, { mode }) => {
           ],
         },
         {
-          test: /\.jpg$/,
-          use: [
-            {
-              loader: "webpack-image-resize-loader",
-              options: {
-                width: 1000,
-                format: "webp",
-                quality: 80,
-              },
-            },
-          ],
-        },
-        {
           test: /\.m?js$/,
           exclude: /(node_modules|bower_components)/,
           use: {
