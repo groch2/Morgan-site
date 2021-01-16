@@ -9,10 +9,10 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href="./style.sass")
         link(rel="icon" href="data:,")
     body
-        div(id="home-sidenav" class="sidenav")
+        nav
             a(href="javascript:void(0)" class="closebtn")!= "&times;"
-                each link in homeLinks
-                    a(href=link.href class="home-link")= link.text
+            each link in homeLinks
+                a(href=link.href class="home-link")= link.text
         main
             header
                 span(id="burger-menu")!= "&#9776;"

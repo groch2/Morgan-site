@@ -2,10 +2,8 @@ body
   font-family: "Lato", sans-serif
   margin: 0
   height: 100vh
-
 *
   overflow: hidden
-
 header
   display: flex
   h1
@@ -17,11 +15,9 @@ header
     align-items: center
     font-size: xx-large
     margin: auto 10px
-
 :root
   --transition-duration: 0.2s
-  
-.sidenav
+nav
   height: 100%
   width: 0
   position: fixed
@@ -31,43 +27,35 @@ header
   background-color: #111
   padding-top: 60px
   transition: var(--transition-duration)
-
-.sidenav a
+nav a
   padding: 8px 8px 8px 32px
   text-decoration: none
   font-size: 25px
   color: #818181
   display: block
   transition: 0.3s
-
-.sidenav a:hover
+nav a:hover
   color: #f1f1f1
-
-.sidenav .closebtn
+nav .closebtn
   position: absolute
   top: 0
   right: 25px
   font-size: 36px
   margin-left: 50px
-
 main
   height: 100%
   transition: margin-left var(--transition-duration), margin-right var(--transition-duration)
-  
 @media screen and (max-height: 450px)
-  .sidenav
+  nav
     padding-top: 15px
-  .sidenav a
+  nav a
     font-size: 18px
-
 #home-image
   width: 100%
   height: 100%
   object-fit: cover
   object-position: center top
-
 $width-breakpoint: 800px
-
 #home-links
   display: flex
   align-items: center
@@ -78,7 +66,6 @@ $width-breakpoint: 800px
     text-decoration: underline
   @media (max-width: $width-breakpoint) 
     display: none
-
 @media (min-width: $width-breakpoint)
   header
     padding: 0 20px 0 20px
