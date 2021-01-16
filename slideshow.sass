@@ -3,13 +3,13 @@
 
 #swiper-container
     overflow: hidden
-
 #mosaic 
     --thumbnail-width: 200px
     display: grid
     grid-template-columns: repeat(auto-fit, minmax(var(--thumbnail-width), max-content))
     justify-content: center
-
+    @media (orientation: landscape)
+        width: 100%
 .thumbnail 
     --height: calc(var(--thumbnail-width) * 0.78)
     width: var(--thumbnail-width)
@@ -20,22 +20,27 @@
         width: 100%
         min-height: 100%
         object-fit: cover
-
 .swiper-slide
     display: grid
     height: 100vh
     grid-template-rows: 1fr auto
-
 .picture
     width: 100%
     height: 100%
     object-fit: contain
-
 .picture-label
     text-align: center
-
 #close-swiper
     z-index: 2
-
 #close-thumbnail
     position: fixed
+#burger-menu
+    cursor: pointer
+    font-size: xx-large
+    margin: 10px 10px auto auto
+    line-height: 1
+#menu-mosaic-container
+    display: flex
+    flex-direction: row-reverse
+    @media (orientation: portrait)
+        flex-direction: column

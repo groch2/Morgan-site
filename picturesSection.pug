@@ -8,11 +8,12 @@ html(lang="en")
         meta(name="viewport" content="width=device-width, initial-scale=1")
         link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
     body
-        div(id="mosaic")
-            span(id="close-thumbnail" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
-            each picture, index in pictures
-                div(class="thumbnail")
-                    img(src=picture.url srcset=picture.srcset data-index=index)
+        div(id="menu-mosaic-container")
+            span(id="burger-menu")!= "&#9776;"
+            div(id="mosaic")
+                each picture, index in pictures
+                    div(class="thumbnail")
+                        img(src=picture.url srcset=picture.srcset data-index=index)
         div(id="swiper-container" style="display: none;")
             span(id="close-swiper" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
             div(class="swiper-wrapper")
