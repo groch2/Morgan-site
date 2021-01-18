@@ -14,7 +14,7 @@ html(lang="en")
                 each link in homeLinks
                     a(href=link.href)= link.text
             a(href="javascript:void(0)" class="closebtn")!= "&times;"
-        main
+        main(style="overflow: hidden")
             header
                 span(id="burger-menu")!= "&#9776;"
                 h1= "Morgan Bancon"

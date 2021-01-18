@@ -76,6 +76,17 @@ const { picturesSections, picturesBySection } = (() =>
       { picturesSections: [], picturesBySection: {} }
     ))();
 
+const homeLinks = [
+  ...picturesSections.map((ps) => ({
+    href: `${ps}.html`,
+    text: ps,
+  })),
+  ...["Bio", "Contact"].map((section) => ({
+    href: "#",
+    text: section,
+  })),
+];
+
 const pathToIndex = require.resolve("./index.pug");
 const pathToPicturesSection = require.resolve("./picturesSection.pug");
 const htmlPagesForPicuresSections = picturesSections.map(
@@ -87,6 +98,7 @@ const htmlPagesForPicuresSections = picturesSections.map(
       filename: `${pictureSection}.html`,
       templateParameters: {
         pictures: picturesBySection[pictureSection],
+        homeLinks: [{ href: "/", text: "Home" }, ...homeLinks],
       },
     })
 );
@@ -96,8 +108,8 @@ module.exports = (_, { mode }) => {
   console.debug({ isProductionMode });
   return {
     entry: {
-      slideshow: "./slideshow.js",
       index: "./index.js",
+      slideshow: "./slideshow.js",
     },
     module: {
       rules: [
@@ -109,16 +121,6 @@ module.exports = (_, { mode }) => {
               options: {
                 preprocessor: (content, loaderContext) => {
                   try {
-                    const homeLinks = [
-                      ...picturesSections.map((ps) => ({
-                        href: `${ps}.html`,
-                        text: ps,
-                      })),
-                      ...["Bio", "Contact"].map((section) => ({
-                        href: "#",
-                        text: section,
-                      })),
-                    ];
                     const homePicture = picturesBySection.Peintures.filter(
                       (p) => /^nordique/i.test(p.name)
                     )[0];

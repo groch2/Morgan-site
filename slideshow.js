@@ -1,4 +1,7 @@
 import Swiper from "swiper";
+import { setupNav } from "./setupNav";
+
+setupNav();
 
 const swiper = new Swiper("#swiper-container", {
   loop: true,
@@ -23,11 +26,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-const mosaic = document.getElementById("mosaic");
-
-document.getElementById("close-thumbnail").addEventListener("click", () => {
-  window.location.href = "index.html";
-});
+const menuMosaicContainer = document.getElementById("menu-mosaic-container");
 
 const thumbnail = document.getElementsByClassName("thumbnail")[0];
 const imageStyle = getComputedStyle(thumbnail);
@@ -40,7 +39,7 @@ const imageHeight =
 document.getElementById("close-swiper").addEventListener("click", () => {
   const { realIndex } = swiper;
 
-  mosaic.style.display = "grid";
+  menuMosaicContainer.style.display = "flex";
   swiper.el.style.display = "none";
   swiper.update();
 
@@ -51,7 +50,7 @@ document.getElementById("close-swiper").addEventListener("click", () => {
   window.scrollTo({ top: yOffset });
 });
 
-mosaic.querySelectorAll(".thumbnail").forEach((thumbnail) => {
+menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
   thumbnail.addEventListener(
     "click",
     ({
@@ -59,7 +58,7 @@ mosaic.querySelectorAll(".thumbnail").forEach((thumbnail) => {
         dataset: { index },
       },
     }) => {
-      mosaic.style.display = "none";
+      menuMosaicContainer.style.display = "none";
       swiper.el.style.display = "block";
       swiper.update();
       swiper.slideTo(parseInt(index) + 1, 0, false);

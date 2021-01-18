@@ -1,5 +1,6 @@
-@use 'w3.css'
+@use 'nav'
 @use 'swiper-bundle.css'
+@use 'w3.css'
 
 #swiper-container
     overflow: hidden
@@ -8,14 +9,15 @@
     display: grid
     grid-template-columns: repeat(auto-fit, minmax(var(--thumbnail-width), max-content))
     justify-content: center
-    @media (orientation: landscape)
-        width: 100%
+    column-gap: 10px
+    row-gap: 10px
+    width: 100%
+    margin: 5px
 .thumbnail 
     --height: calc(var(--thumbnail-width) * 0.78)
     width: var(--thumbnail-width)
     height: var(--height)
     overflow: hidden
-    margin: 5px
     img 
         width: 100%
         min-height: 100%
@@ -37,10 +39,11 @@
 #burger-menu
     cursor: pointer
     font-size: xx-large
-    margin: 10px 10px auto auto
+    margin: 10px 10px auto 0
     line-height: 1
+    width: 1em    
 #menu-mosaic-container
     display: flex
     flex-direction: row-reverse
-    @media (orientation: portrait)
-        flex-direction: column
+.swiper-wrapper
+    overflow: visible

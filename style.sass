@@ -1,10 +1,8 @@
+@use 'nav'
+
 body
-  font-family: "Lato", sans-serif
   margin: 0
   height: 100vh
-  --transition-duration: 0.2s
-*
-  overflow: hidden
 header
   display: flex
   h1
@@ -16,34 +14,6 @@ header
     align-items: center
     font-size: xx-large
     margin: auto 10px
-nav
-  display: flex
-  flex-direction: row
-  height: 100%
-  width: 0
-  position: fixed
-  z-index: 1
-  top: 0
-  left: 0
-  background-color: #111
-  padding-top: 10px
-  transition: var(--transition-duration)
-nav a
-  padding: 8px 8px 8px 32px
-  text-decoration: none
-  font-size: 25px
-  color: #818181
-  display: block
-  transition: 0.3s
-nav a:hover
-  color: #f1f1f1
-nav .closebtn
-  font-size: 36px
-  padding: 0
-  padding-right: 15px
-main
-  height: 100%
-  transition: margin-left var(--transition-duration), margin-right var(--transition-duration)
 #home-image
   width: 100%
   height: 100%
@@ -65,5 +35,3 @@ $width-breakpoint: 800px
     padding: 0 20px 0 20px
     #burger-menu
       display: none
-#home-nav-links
-  flex: 1
