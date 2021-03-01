@@ -9,13 +9,14 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
     body
         div(id="menu-mosaic-container")
-            span(id="burger-menu")
-                span(style="position: fixed; overflow: hidden;")!= "&#9776;"
+            div(class="burger-menu")
+                div(class="bar1")
+                div(class="bar2")
+                div(class="bar3")
             nav(style="display: flex")
                 div(id="home-nav-links")
                     each link in homeLinks
                         a(href=link.href)= link.text
-                a(href="javascript:void(0)" class="closebtn")!= "&times;"
             main(id="mosaic")
                 each picture, index in pictures
                     div(class="thumbnail")

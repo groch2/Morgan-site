@@ -65,3 +65,8 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
     }
   );
 });
+document
+  .getElementsByClassName("burger-menu")[0]
+  .addEventListener("click", function () {
+    this.classList.toggle("change");
+  });
