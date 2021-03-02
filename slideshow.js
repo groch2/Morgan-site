@@ -1,7 +1,7 @@
 import Swiper from "swiper";
-import { setupNav } from "./setupNav";
+import { setupBurgerMenu } from "./burger-menu";
 
-setupNav();
+setupBurgerMenu();
 
 const swiper = new Swiper("#swiper-container", {
   loop: true,
@@ -65,8 +65,3 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
     }
   );
 });
-document
-  .getElementsByClassName("burger-menu")[0]
-  .addEventListener("click", function () {
-    this.classList.toggle("change");
-  });

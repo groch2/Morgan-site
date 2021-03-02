@@ -1,0 +1,73 @@
+.hamburger 
+  display: inline-block
+  cursor: pointer
+  transition-property: opacity, filter
+  transition-duration: 0.15s
+  transition-timing-function: linear
+  font: inherit
+  color: inherit
+  text-transform: none
+  background-color: transparent
+  border: 0
+  margin: 0
+  overflow: visible
+
+.hamburger:hover 
+  opacity: 0.7
+
+.hamburger.is-active:hover 
+  opacity: 0.7
+
+.hamburger.is-active .hamburger-inner,
+.hamburger.is-active .hamburger-inner::before,
+.hamburger.is-active .hamburger-inner::after 
+  background-color: #000
+
+.hamburger-box 
+  width: 30px
+  height: 24px
+  position: relative
+
+.hamburger-box > .hamburger-top 
+  display: block
+  top: 50%
+  margin-top: -2px
+
+.hamburger-box > .hamburger-top,
+.hamburger-box > .hamburger-middle,
+.hamburger-box > .hamburger-bottom 
+  width: 30px
+  height: 4px
+  background-color: #000
+  border-radius: 4px
+  position: absolute
+  transition-property: transform
+  transition-duration: 0.15s
+  transition-timing-function: ease
+
+.hamburger-box > .hamburger-middle 
+  top: -10px
+
+.hamburger-box > .hamburger-bottom 
+  bottom: -10px
+
+.hamburger--slider .hamburger-box > .hamburger-top 
+  top: 2px
+
+.hamburger-box > .hamburger-middle 
+  top: 10px
+  transition-property: transform, opacity
+  transition-timing-function: ease
+  transition-duration: 0.15s
+
+.hamburger-box > .hamburger-bottom 
+  top: 20px
+
+.hamburger--slider.is-active .hamburger-box > .hamburger-top 
+  transform: translate(0, 10px) rotate(45deg)
+
+.hamburger--slider.is-active .hamburger-box > .hamburger-middle 
+  opacity: 0
+
+.hamburger--slider.is-active .hamburger-box > .hamburger-bottom 
+  transform: translate(0, -10px) rotate(-45deg)
