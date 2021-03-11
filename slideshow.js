@@ -3,8 +3,7 @@ import { setupBurgerMenu } from "./burger-menu";
 import { setupNav } from "./setupNav";
 
 const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
-function onNavChange(isNavOpen) {
-  console.debug({ isNavOpen });
+function onNavChange() {
   document.dispatchEvent(toggleBurgerMenuEvent);
 }
 

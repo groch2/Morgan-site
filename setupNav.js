@@ -9,7 +9,7 @@ export function setupNav(onNavChange) {
   const closeButtonExists = closeButton.length === 1;
   function openNav(notify) {
     if (notify) {
-      onNavChange(true);
+      onNavChange();
     }
     nav.style.width = "250px";
     main.style.marginLeft = "250px";
@@ -22,7 +22,7 @@ export function setupNav(onNavChange) {
   }
   function closeNav(notify) {
     if (notify) {
-      onNavChange(false);
+      onNavChange();
     }
     nav.style.width = "0";
     main.style.marginLeft = "0";
@@ -44,10 +44,17 @@ export function setupNav(onNavChange) {
     let navOpen = false;
     [burgerMenu, main].forEach((item) =>
       item.addEventListener("click", function ({ target }) {
+        const isThumbnailClick = target.parentElement.classList.contains(
+          "thumbnail"
+        );
+        const isBurgerMenuClick = burgerMenu.contains(target);
+        if (!navOpen && (isThumbnailClick || !isBurgerMenuClick)) {
+          return;
+        }
         if (!navOpen && target != main) {
-          openNav(true);
+          openNav(false);
         } else {
-          closeNav(true);
+          closeNav(!isBurgerMenuClick);
         }
         navOpen = !navOpen;
         document.navOpen = navOpen;

@@ -9,11 +9,9 @@ export function setupBurgerMenu() {
       false
     );
   });
-
   document.addEventListener("toggleBurgerMenu", function () {
-    // burgerMenus.forEach(function (burgerMenu) {
-    //   burgerMenu.classList.toggle("is-active");
-    // });
-    console.debug("toggle burger menu");
+    burgerMenus.forEach(function (burgerMenu) {
+      burgerMenu.classList.toggle("is-active");
+    });
   });
 }
