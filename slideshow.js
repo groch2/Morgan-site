@@ -1,7 +1,15 @@
 import Swiper from "swiper";
 import { setupBurgerMenu } from "./burger-menu";
+import { setupNav } from "./setupNav";
+
+const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
+function onNavChange(isNavOpen) {
+  console.debug({ isNavOpen });
+  document.dispatchEvent(toggleBurgerMenuEvent);
+}
 
 setupBurgerMenu();
+setupNav(onNavChange);
 
 const swiper = new Swiper("#swiper-container", {
   loop: true,
@@ -58,6 +66,9 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
         dataset: { index },
       },
     }) => {
+      if (document.navOpen === true) {
+        return;
+      }
       menuMosaicContainer.style.display = "none";
       swiper.el.style.display = "block";
       swiper.update();

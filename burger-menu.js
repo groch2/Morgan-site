@@ -1,11 +1,19 @@
 export function setupBurgerMenu() {
-  document.querySelectorAll(".hamburger").forEach(function (hamburger) {
-    hamburger.addEventListener(
+  const burgerMenus = document.querySelectorAll(".hamburger-box");
+  burgerMenus.forEach(function (burgerMenu) {
+    burgerMenu.addEventListener(
       "click",
       function () {
         this.classList.toggle("is-active");
       },
       false
     );
+  });
+
+  document.addEventListener("toggleBurgerMenu", function () {
+    // burgerMenus.forEach(function (burgerMenu) {
+    //   burgerMenu.classList.toggle("is-active");
+    // });
+    console.debug("toggle burger menu");
   });
 }
