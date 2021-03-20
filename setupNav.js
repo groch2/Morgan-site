@@ -8,9 +8,7 @@ export function setupNav(onNavChange) {
   const closeButton = nav.querySelectorAll("a[class='closebtn']");
   const closeButtonExists = closeButton.length === 1;
   function openNav(notify) {
-    if (notify) {
-      onNavChange();
-    }
+    onNavChange(true, notify);
     nav.style.width = "250px";
     main.style.marginLeft = "250px";
     main.style.marginRight = "-250px";
@@ -21,9 +19,7 @@ export function setupNav(onNavChange) {
     }
   }
   function closeNav(notify) {
-    if (notify) {
-      onNavChange();
-    }
+    onNavChange(false, notify);
     nav.style.width = "0";
     main.style.marginLeft = "0";
     main.style.marginRight = "0";

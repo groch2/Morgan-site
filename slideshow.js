@@ -3,8 +3,17 @@ import { setupBurgerMenu } from "./burger-menu";
 import { setupNav } from "./setupNav";
 
 const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
-function onNavChange() {
-  document.dispatchEvent(toggleBurgerMenuEvent);
+function onNavChange(isOpen, notify) {
+  if (isOpen) {
+    menuMosaicContainer.style["overflow-y"] = "hidden";
+    menuMosaicContainer.style["max-height"] = "100vh";
+  } else {
+    menuMosaicContainer.style["overflow-y"] = "default";
+    menuMosaicContainer.style["max-height"] = "auto";
+  }
+  if (notify) {
+    document.dispatchEvent(toggleBurgerMenuEvent);
+  }
 }
 
 setupBurgerMenu();
