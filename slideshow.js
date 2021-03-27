@@ -2,18 +2,14 @@ import Swiper from "swiper";
 import { setupBurgerMenu } from "./burger-menu";
 import { setupNav } from "./setupNav";
 
+const burgerMenu = document.querySelector("#burger-menu");
 const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
 function onNavChange(isOpen, notify) {
-  if (isOpen) {
-    menuMosaicContainer.style["overflow-y"] = "hidden";
-    menuMosaicContainer.style["max-height"] = "100vh";
-  } else {
-    menuMosaicContainer.style["overflow-y"] = "default";
-    menuMosaicContainer.style["max-height"] = "auto";
-  }
   if (notify) {
     document.dispatchEvent(toggleBurgerMenuEvent);
   }
+  menuMosaicContainer.style.overflow = isOpen ? "hidden" : "";
+  burgerMenu.style.position = isOpen ? "fixed" : "sticky";
 }
 
 setupBurgerMenu();

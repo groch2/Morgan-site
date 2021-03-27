@@ -5,6 +5,8 @@
 
 #swiper-container
     overflow: hidden
+.swiper-wrapper
+    overflow: visible
 #mosaic 
     --thumbnail-width: 200px
     display: grid
@@ -39,10 +41,9 @@
 #close-thumbnail
     position: fixed
 #burger-menu
-    margin: 5px 5px auto auto
+    position: sticky
+    top: 5px
+    right: 5px
     border-radius: 2px
 #menu-mosaic-container
     display: flex
-    flex-direction: row-reverse
-.swiper-wrapper
-    overflow: visible

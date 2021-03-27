@@ -53,7 +53,6 @@ export function setupNav(onNavChange) {
           closeNav(!isBurgerMenuClick);
         }
         navOpen = !navOpen;
-        document.navOpen = navOpen;
       })
     );
   }

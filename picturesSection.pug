@@ -9,10 +9,6 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
     body
         div(id="menu-mosaic-container")
-            button(id="burger-menu" class="hamburger-box")
-                div(class="hamburger-top")
-                div(class="hamburger-middle")
-                div(class="hamburger-bottom")
             nav(style="display: flex")
                 div(id="home-nav-links")
                     each link in homeLinks
@@ -21,6 +17,10 @@ html(lang="en")
                 each picture, index in pictures
                     div(class="thumbnail")
                         img(src=picture.url srcset=picture.srcset data-index=index)
+            button(id="burger-menu" class="hamburger-box")
+                div(class="hamburger-top")
+                div(class="hamburger-middle")
+                div(class="hamburger-bottom")
         div(id="swiper-container" style="display: none;")
             span(id="close-swiper" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
             div(class="swiper-wrapper")
