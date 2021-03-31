@@ -2,32 +2,32 @@ body {
   margin: 0;
   line-height: 0;
 }
-/* small */
 .thumbnails-container {
   box-sizing: border-box;
+  /* small */
   --nb-columns: 2;
   padding-top: 5px;
   padding-left: 5px;
   padding-right: 5px;
+  grid-template-columns: repeat(var(--nb-columns), 1fr);
 }
-/* medium */
 @media screen and (min-width: 601px) {
   .thumbnails-container {
+    /* medium */
     --nb-columns: 4;
   }
 }
-/* large */
 @media screen and (min-width: 993px) {
   .thumbnails-container {
-    --nb-columns: 8;
+    /* large */
+    grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+    justify-content: center;
   }
 }
 .thumbnails-container {
   display: grid;
-  grid-template-columns: repeat(var(--nb-columns), 1fr);
   column-gap: 5px;
   row-gap: 5px;
-  flex: 1;
 }
 .thumbnail {
   padding-top: 78%;
