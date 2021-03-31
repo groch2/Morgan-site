@@ -3,12 +3,13 @@ body {
   line-height: 0;
 }
 .thumbnails-grid {
+  display: grid;
+  column-gap: 5px;
+  row-gap: 5px;
+  padding: 5px;
+  grid-template-columns: repeat(var(--nb-columns), 1fr);
   /* small */
   --nb-columns: 2;
-  padding-top: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  grid-template-columns: repeat(var(--nb-columns), 1fr);
 }
 @media screen and (min-width: 601px) {
   .thumbnails-grid {
@@ -22,11 +23,6 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
     justify-content: center;
   }
-}
-.thumbnails-grid {
-  display: grid;
-  column-gap: 5px;
-  row-gap: 5px;
 }
 .thumbnail {
   padding-top: 78%;
