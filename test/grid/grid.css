@@ -2,8 +2,7 @@ body {
   margin: 0;
   line-height: 0;
 }
-.thumbnails-container {
-  box-sizing: border-box;
+.thumbnails-grid {
   /* small */
   --nb-columns: 2;
   padding-top: 5px;
@@ -12,19 +11,19 @@ body {
   grid-template-columns: repeat(var(--nb-columns), 1fr);
 }
 @media screen and (min-width: 601px) {
-  .thumbnails-container {
+  .thumbnails-grid {
     /* medium */
     --nb-columns: 4;
   }
 }
 @media screen and (min-width: 993px) {
-  .thumbnails-container {
+  .thumbnails-grid {
     /* large */
     grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
     justify-content: center;
   }
 }
-.thumbnails-container {
+.thumbnails-grid {
   display: grid;
   column-gap: 5px;
   row-gap: 5px;
