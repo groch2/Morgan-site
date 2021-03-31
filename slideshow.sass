@@ -8,24 +8,35 @@
 .swiper-wrapper
     overflow: visible
 #mosaic 
-    --thumbnail-width: 200px
-    display: grid
-    grid-template-columns: repeat(auto-fit, minmax(var(--thumbnail-width), max-content))
+  display: grid
+  column-gap: 5px
+  row-gap: 5px
+  padding: 5px
+  margin-right: 5px
+  grid-template-columns: repeat(var(--nb-columns), 1fr)
+  /* small */
+  --nb-columns: 2
+  width: 100%
+@media screen and (min-width: 601px)
+  #mosaic
+    /* medium */
+    --nb-columns: 4
+@media screen and (min-width: 993px) 
+  #mosaic
+    /* large */
+    grid-template-columns: repeat(auto-fit, minmax(200px, max-content))
     justify-content: center
-    column-gap: 10px
-    row-gap: 10px
-    width: 100%
-    margin-top: 5px
-    flex: 1
 .thumbnail 
-    --height: calc(var(--thumbnail-width) * 0.78)
-    width: var(--thumbnail-width)
-    height: var(--height)
+    padding-top: 78%
     overflow: hidden
+    position: relative
     img 
         width: 100%
         min-height: 100%
         object-fit: cover
+        position: absolute
+        top: 0
+        left: 0
 .swiper-slide
     display: grid
     height: 100vh
