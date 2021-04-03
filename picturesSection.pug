@@ -13,14 +13,15 @@ html(lang="en")
                 div(id="home-nav-links")
                     each link in homeLinks
                         a(href=link.href)= link.text
+            div(id="burger-menu-container")
+                button(id="burger-menu" class="hamburger-box")
+                    div(class="hamburger-top")
+                    div(class="hamburger-middle")
+                    div(class="hamburger-bottom")
             main(id="mosaic")
                 each picture, index in pictures
                     div(class="thumbnail")
                         img(src=picture.url srcset=picture.srcset data-index=index)
-            button(id="burger-menu" class="hamburger-box")
-                div(class="hamburger-top")
-                div(class="hamburger-middle")
-                div(class="hamburger-bottom")
         div(id="swiper-container" style="display: none;")
             span(id="close-swiper" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
             div(class="swiper-wrapper")

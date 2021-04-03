@@ -12,6 +12,7 @@
   column-gap: 5px
   row-gap: 5px
   padding: 5px
+  padding-top: 0
   margin-right: 5px
   grid-template-columns: repeat(var(--nb-columns), 1fr)
   /* small */
@@ -51,10 +52,16 @@
     z-index: 2
 #close-thumbnail
     position: fixed
-#burger-menu
+#burger-menu-container
+    display: flex
+    flex-direction: row-reverse
     position: sticky
-    top: 5px
-    right: 5px
+    top: 0
+    padding: 5px 5px
+    z-index: 1
+    background-color: white
+#burger-menu
     border-radius: 2px
 #menu-mosaic-container
     display: flex
+    flex-direction: column
