@@ -3,6 +3,7 @@ import { setupBurgerMenu } from "./burger-menu";
 import { setupNav } from "./setupNav";
 
 const burgerMenu = document.querySelector("#burger-menu");
+const burgerMenuContainer = document.querySelector("#burger-menu-container");
 const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
 function onNavChange(isOpen, notify) {
   if (notify) {
@@ -10,6 +11,15 @@ function onNavChange(isOpen, notify) {
   }
   menuMosaicContainer.style.overflow = isOpen ? "hidden" : "";
   burgerMenu.style.position = isOpen ? "fixed" : "sticky";
+  if (isOpen) {
+    burgerMenuContainer.style.marginTop = "5px";
+    burgerMenuContainer.style.paddingTop = 0;
+    burgerMenuContainer.style.paddingBottom = 0;
+  } else {
+    burgerMenuContainer.style.marginTop = 0;
+    burgerMenuContainer.style.paddingTop = "5px";
+    burgerMenuContainer.style.paddingBottom = "5px";
+  }
 }
 
 setupBurgerMenu();
@@ -80,3 +90,39 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
     }
   );
 });
+
+(function () {
+  const header = document.querySelector("#burger-menu-container");
+  const {
+    marginTop: headerMarginTop,
+    marginBottom: headerMarginBottom,
+  } = window.getComputedStyle(header);
+  const getSizeValue = (sizeWithUnit) =>
+    parseFloat(/^\d+\.?\d*/.exec(sizeWithUnit)[0]);
+  const totalHeaderHeight =
+    header.offsetHeight +
+    getSizeValue(headerMarginTop) +
+    getSizeValue(headerMarginBottom);
+
+  const distanceForHeaderSwitching = totalHeaderHeight * 0.75;
+  let lastKnownScrollPosition = 0;
+  let currentDirection = "DOWN";
+  let positionAtLastScrollDirectionChange = 0;
+  document.addEventListener("scroll", function () {
+    const newDirection =
+      lastKnownScrollPosition > window.scrollY ? "UP" : "DOWN";
+    if (currentDirection != newDirection) {
+      positionAtLastScrollDirectionChange = window.scrollY;
+      currentDirection = newDirection;
+    } else {
+      const diffFromPreviouDirectionChangePosition = Math.abs(
+        window.scrollY - positionAtLastScrollDirectionChange
+      );
+      if (diffFromPreviouDirectionChangePosition > distanceForHeaderSwitching) {
+        header.style.top =
+          newDirection == "DOWN" ? `-${totalHeaderHeight}px` : 0;
+      }
+    }
+    lastKnownScrollPosition = window.scrollY;
+  });
+})();
