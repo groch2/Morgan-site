@@ -2,24 +2,12 @@ import Swiper from "swiper";
 import { setupBurgerMenu } from "./burger-menu";
 import { setupNav } from "./setupNav";
 
-const burgerMenu = document.querySelector("#burger-menu");
-const burgerMenuContainer = document.querySelector("#burger-menu-container");
 const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
 function onNavChange(isOpen, notify) {
   if (notify) {
     document.dispatchEvent(toggleBurgerMenuEvent);
   }
   menuMosaicContainer.style.overflow = isOpen ? "hidden" : "";
-  burgerMenu.style.position = isOpen ? "fixed" : "sticky";
-  if (isOpen) {
-    burgerMenuContainer.style.marginTop = "5px";
-    burgerMenuContainer.style.paddingTop = 0;
-    burgerMenuContainer.style.paddingBottom = 0;
-  } else {
-    burgerMenuContainer.style.marginTop = 0;
-    burgerMenuContainer.style.paddingTop = "5px";
-    burgerMenuContainer.style.paddingBottom = "5px";
-  }
 }
 
 setupBurgerMenu();
@@ -94,6 +82,7 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
 (function () {
   const header = document.querySelector("#burger-menu-container");
   const {
+    top: top,
     marginTop: headerMarginTop,
     marginBottom: headerMarginBottom,
   } = window.getComputedStyle(header);
@@ -120,7 +109,7 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
       );
       if (diffFromPreviouDirectionChangePosition > distanceForHeaderSwitching) {
         header.style.top =
-          newDirection == "DOWN" ? `-${totalHeaderHeight}px` : 0;
+          newDirection == "DOWN" ? `-${totalHeaderHeight}px` : top;
       }
     }
     lastKnownScrollPosition = window.scrollY;
