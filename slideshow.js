@@ -2,13 +2,20 @@ import Swiper from "swiper";
 import { setupBurgerMenu } from "./burger-menu";
 import { setupNav } from "./setupNav";
 
-const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
-function onNavChange(isOpen, notify) {
-  if (notify) {
-    document.dispatchEvent(toggleBurgerMenuEvent);
-  }
-  menuMosaicContainer.style.overflow = isOpen ? "hidden" : "";
-}
+const { onNavChange, isNavOpen } = (function () {
+  let _isNavOpen = false;
+  const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
+  return {
+    onNavChange: (isOpen, notify) => {
+      _isNavOpen = !_isNavOpen;
+      if (notify) {
+        document.dispatchEvent(toggleBurgerMenuEvent);
+      }
+      menuMosaicContainer.style.overflow = isOpen ? "hidden" : "";
+    },
+    isNavOpen: () => _isNavOpen,
+  };
+})();
 
 setupBurgerMenu();
 setupNav(onNavChange);
@@ -68,7 +75,7 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
         dataset: { index },
       },
     }) => {
-      if (document.navOpen === true) {
+      if (isNavOpen() === true) {
         return;
       }
       menuMosaicContainer.style.display = "none";
@@ -98,6 +105,9 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
   let currentDirection = "DOWN";
   let positionAtLastScrollDirectionChange = 0;
   document.addEventListener("scroll", function () {
+    if (isNavOpen()) {
+      return;
+    }
     const newDirection =
       lastKnownScrollPosition > window.scrollY ? "UP" : "DOWN";
     if (currentDirection != newDirection) {

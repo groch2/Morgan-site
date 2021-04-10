@@ -13,11 +13,13 @@ html(lang="en")
                 div(id="home-nav-links")
                     each link in homeLinks
                         a(href=link.href)= link.text
-            div(id="burger-menu-container")
-                button(id="burger-menu" class="hamburger-box")
-                    div(class="hamburger-top")
-                    div(class="hamburger-middle")
-                    div(class="hamburger-bottom")
+            div(class="header")
+                h1= "MORGAN BANCON"
+                div(id="burger-menu-container")
+                    button(id="burger-menu" class="hamburger-box")
+                        div(class="hamburger-top")
+                        div(class="hamburger-middle")
+                        div(class="hamburger-bottom")
             main(id="mosaic")
                 each picture, index in pictures
                     div(class="thumbnail")
