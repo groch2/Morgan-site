@@ -3,10 +3,18 @@ import { setupBurgerMenu } from "./burger-menu";
 import { setupNav } from "./setupNav";
 
 const { onNavChange, isNavOpen } = (function () {
+  const burgerMenuContainerStyle = document.querySelector(
+    "#burger-menu-container"
+  ).style;
+  const headerStyle = document.querySelector(".header").style;
+
   let _isNavOpen = false;
   const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
   return {
     onNavChange: (isOpen, notify) => {
+      headerStyle.visibility = isOpen ? "hidden" : "visible";
+      burgerMenuContainerStyle.visibility = "visible";
+
       _isNavOpen = !_isNavOpen;
       if (notify) {
         document.dispatchEvent(toggleBurgerMenuEvent);
@@ -87,7 +95,7 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
 });
 
 (function () {
-  const header = document.querySelector("#burger-menu-container");
+  const header = document.querySelector(".header");
   const {
     top: top,
     marginTop: headerMarginTop,
@@ -99,7 +107,7 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
     header.offsetHeight +
     getSizeValue(headerMarginTop) +
     getSizeValue(headerMarginBottom);
-
+  document.getElementById("mosaic").style.paddingTop = `${totalHeaderHeight}px`;
   const distanceForHeaderSwitching = totalHeaderHeight * 0.75;
   let lastKnownScrollPosition = 0;
   let currentDirection = "DOWN";

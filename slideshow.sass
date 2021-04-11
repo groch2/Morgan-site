@@ -55,7 +55,7 @@
     position: fixed
 #burger-menu-container
     position: fixed
-    right: 5px
+    right: calc(5px + 1px)
     padding: 5px 5px
     z-index: 1
     background-color: white
@@ -67,9 +67,14 @@
     display: flex
     flex-direction: column
 div.header
+    background-color: white
+    width: 100%
+    position: fixed
+    transition: top 0.3s
+    z-index: 1
     display: flex
     align-items: center
-    margin-left: 5px
+    padding-left: 5px
     margin-right: 45px
     h1
         font-size: x-large
