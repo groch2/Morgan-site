@@ -98,7 +98,7 @@ const htmlPagesForPicuresSections = picturesSections.map(
       filename: `${pictureSection}.html`,
       templateParameters: {
         pictures: picturesBySection[pictureSection],
-        homeLinks: [{ href: "/", text: "Home" }, ...homeLinks],
+        homeLinks: [{ href: "/", text: "Accueil" }, ...homeLinks],
       },
     })
 );
