@@ -2,6 +2,7 @@ export function setupNav(onNavChange) {
   onNavChange = onNavChange || function () {};
   const nav = document.getElementsByTagName("nav")[0];
   const main = document.getElementsByTagName("main")[0];
+  const overlay = document.getElementById("overlay");
   const burgerMenu =
     document.getElementById("burger-menu") ||
     document.getElementsByClassName("burger-menu")[0];
@@ -11,21 +12,13 @@ export function setupNav(onNavChange) {
     onNavChange(true, notify);
     nav.style.width = "250px";
     main.style.marginLeft = "250px";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-    if (!closeButtonExists) {
-      burgerMenu.style.backgroundColor = "white";
-      burgerMenu.style.zIndex = 1;
-    }
+    overlay.style.display = "block";
   }
   function closeNav(notify) {
     onNavChange(false, notify);
     nav.style.width = "0";
     main.style.marginLeft = "0";
-    document.body.style.backgroundColor = "white";
-    if (!closeButtonExists) {
-      burgerMenu.style.backgroundColor = "transparent";
-      burgerMenu.style.zIndex = "auto";
-    }
+    overlay.style.display = "none";
   }
   if (closeButtonExists) {
     burgerMenu.addEventListener("click", function () {

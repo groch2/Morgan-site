@@ -21,6 +21,7 @@ html(lang="en")
                         div(class="hamburger-middle")
                         div(class="hamburger-bottom")
             main(id="mosaic")
+                div(id="overlay")
                 each picture, index in pictures
                     div(class="thumbnail")
                         img(src=picture.url srcset=picture.srcset data-index=index)
