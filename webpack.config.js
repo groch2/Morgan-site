@@ -208,5 +208,8 @@ module.exports = (_, { mode }) => {
       new CleanWebpackPlugin(),
       new DeleteOutputWebpackPlugin(/^main\.js$/i),
     ].filter((plugin) => plugin),
+    optimization: {
+      minimize: isProductionMode,
+    },
   };
 };

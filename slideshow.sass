@@ -56,12 +56,11 @@
 #close-thumbnail
     position: fixed
 #burger-menu-container
-    position: fixed
-    right: calc(5px + 1px)
+    position: absolute
+    right: 5px
     padding: 5px 5px
     z-index: 1
     background-color: white
-    transition: top 0.3s
 #burger-menu
     border-radius: 2px
     align-self: center
@@ -71,8 +70,6 @@
 div.header
     background-color: white
     width: 100%
-    position: fixed
-    transition: top 0.3s
     z-index: 1
     display: flex
     align-items: center
@@ -80,3 +77,12 @@ div.header
     margin-right: 45px
     h1
         font-size: x-large
+div.header 
+  position: sticky
+  top: 0
+  transition: top 500ms ease-in-out
+div.header.scroll-up,
+div.header:focus-within 
+  top: 0
+div.header.scroll-down 
+  top: -100%

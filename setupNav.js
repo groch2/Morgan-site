@@ -11,7 +11,6 @@ export function setupNav(onNavChange) {
     onNavChange(true, notify);
     nav.style.width = "250px";
     main.style.marginLeft = "250px";
-    main.style.marginRight = "-250px";
     document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     if (!closeButtonExists) {
       burgerMenu.style.backgroundColor = "white";
@@ -22,7 +21,6 @@ export function setupNav(onNavChange) {
     onNavChange(false, notify);
     nav.style.width = "0";
     main.style.marginLeft = "0";
-    main.style.marginRight = "0";
     document.body.style.backgroundColor = "white";
     if (!closeButtonExists) {
       burgerMenu.style.backgroundColor = "transparent";

@@ -3,17 +3,16 @@ import { setupBurgerMenu } from "./burger-menu";
 import { setupNav } from "./setupNav";
 
 const { onNavChange, isNavOpen } = (function () {
-  const burgerMenuContainerStyle = document.querySelector(
-    "#burger-menu-container"
-  ).style;
-  const headerStyle = document.querySelector(".header").style;
+  const burgerMenuContainer = document.getElementById("burger-menu-container");
+  const header = document.querySelector("div.header");
 
   let _isNavOpen = false;
   const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
   return {
     onNavChange: (isOpen, notify) => {
-      headerStyle.visibility = isOpen ? "hidden" : "visible";
-      burgerMenuContainerStyle.visibility = "visible";
+      header.style.visibility = isOpen ? "hidden" : "visible";
+      burgerMenuContainer.style.visibility = "visible";
+      burgerMenuContainer.style.position = isOpen ? "fixed" : "absolute";
 
       _isNavOpen = !_isNavOpen;
       if (notify) {
@@ -83,7 +82,7 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
         dataset: { index },
       },
     }) => {
-      if (isNavOpen() === true) {
+      if (isNavOpen()) {
         return;
       }
       menuMosaicContainer.style.display = "none";
@@ -95,41 +94,51 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
 });
 
 (function () {
-  const header = document.querySelector(".header");
-  const {
-    top: top,
-    marginTop: headerMarginTop,
-    marginBottom: headerMarginBottom,
-  } = window.getComputedStyle(header);
-  const getSizeValue = (sizeWithUnit) =>
-    parseFloat(/^\d+\.?\d*/.exec(sizeWithUnit)[0]);
-  const totalHeaderHeight =
-    header.offsetHeight +
-    getSizeValue(headerMarginTop) +
-    getSizeValue(headerMarginBottom);
-  document.getElementById("mosaic").style.paddingTop = `${totalHeaderHeight}px`;
-  const distanceForHeaderSwitching = totalHeaderHeight * 0.75;
-  let lastKnownScrollPosition = 0;
-  let currentDirection = "DOWN";
-  let positionAtLastScrollDirectionChange = 0;
-  document.addEventListener("scroll", function () {
+  const header = document.querySelector("div.header");
+  const supportPageOffset = window.pageXOffset !== undefined;
+  const isCSS1Compat = (document.compatMode || "") === "CSS1Compat";
+
+  let previousScrollPosition = 0;
+  const isScrollingDown = () => {
+    let scrolledPosition = supportPageOffset
+      ? window.pageYOffset
+      : isCSS1Compat
+      ? document.documentElement.scrollTop
+      : document.body.scrollTop;
+    const isScrollDown = scrolledPosition > previousScrollPosition;
+    previousScrollPosition = scrolledPosition;
+    return isScrollDown;
+  };
+
+  const handleNavScroll = () => {
     if (isNavOpen()) {
       return;
     }
-    const newDirection =
-      lastKnownScrollPosition > window.scrollY ? "UP" : "DOWN";
-    if (currentDirection != newDirection) {
-      positionAtLastScrollDirectionChange = window.scrollY;
-      currentDirection = newDirection;
+    if (isScrollingDown()) {
+      header.classList.add("scroll-down");
+      header.classList.remove("scroll-up");
     } else {
-      const diffFromPreviouDirectionChangePosition = Math.abs(
-        window.scrollY - positionAtLastScrollDirectionChange
-      );
-      if (diffFromPreviouDirectionChangePosition > distanceForHeaderSwitching) {
-        header.style.top =
-          newDirection == "DOWN" ? `-${totalHeaderHeight}px` : top;
-      }
+      header.classList.add("scroll-up");
+      header.classList.remove("scroll-down");
     }
-    lastKnownScrollPosition = window.scrollY;
+  };
+
+  let throttleTimer;
+  const throttle = (callback, time) => {
+    if (throttleTimer) {
+      return;
+    }
+    throttleTimer = true;
+    setTimeout(() => {
+      callback();
+      throttleTimer = false;
+    }, time);
+  };
+
+  const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  window.addEventListener("scroll", () => {
+    if (mediaQuery && !mediaQuery.matches) {
+      throttle(handleNavScroll, 250);
+    }
   });
 })();
