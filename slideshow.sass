@@ -7,17 +7,16 @@
     overflow: hidden
 .swiper-wrapper
     overflow: visible
-#mosaic 
+#mosaic
   display: grid
-  column-gap: 5px
-  row-gap: 5px
+  column-gap: 1em
+  row-gap: 1em
   padding: 5px
   padding-top: 0
-  margin-right: 5px
   grid-template-columns: repeat(var(--nb-columns), 1fr)
+  width: 100%
   /* small */
   --nb-columns: 2
-  width: 100%
 @media screen and (min-width: 601px)
   #mosaic
     /* medium */
@@ -25,8 +24,7 @@
 @media screen and (min-width: 993px) 
   #mosaic
     /* large */
-    grid-template-columns: repeat(auto-fit, minmax(200px, max-content))
-    justify-content: center
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
 .thumbnail 
     padding-top: 78%
     overflow: hidden
