@@ -36,47 +36,47 @@ const deviceTypeAndWidth = require("./scripts/viewport-dimensions-by-device.json
 const pictureBaseUrl = "../pictures-by-device-type/";
 const joinAndEncode = (...pathParts) =>
   encodeURI(path.posix.join(...pathParts));
-const { picturesSections, picturesBySection } = (() =>
-  fs
-    .readdirSync("./pictures", { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory())
-    .map((dirent) => ({
-      sectionName: getTextWithoutLeadingNumber(dirent.name),
-      directory: path.join("pictures", dirent.name),
-    }))
-    .reduce(
-      ({ picturesSections, picturesBySection }, { sectionName, directory }) => {
-        picturesSections.push(sectionName);
-        picturesBySection[sectionName] = fs
-          .readdirSync(directory)
-          .map((pictureFile) => {
-            const name = path.parse(pictureFile).name;
-            const picureTrailingUrl = path.posix.join(
-              getTextWithoutLeadingNumber(
-                removeLeadingDirectoryPart.exec(directory)[1]
-              ),
-              `${name}.webp`
-            );
-            return {
-              name,
-              url: joinAndEncode(pictureBaseUrl, "mobile", picureTrailingUrl),
-              srcset: deviceTypeAndWidth
-                .map(({ deviceType, width }) => {
-                  return `${joinAndEncode(
-                    pictureBaseUrl,
-                    deviceType,
-                    picureTrailingUrl
-                  )} ${width}w`;
-                })
-                .join(", "),
-            };
-          });
-        return { picturesSections, picturesBySection };
-      },
-      { picturesSections: [], picturesBySection: {} }
-    ))();
+const { picturesSections, picturesBySection } = fs
+  .readdirSync("./pictures", { withFileTypes: true })
+  .filter((dirent) => dirent.isDirectory())
+  .map((dirent) => ({
+    sectionName: getTextWithoutLeadingNumber(dirent.name),
+    directory: path.join("pictures", dirent.name),
+  }))
+  .reduce(
+    ({ picturesSections, picturesBySection }, { sectionName, directory }) => {
+      picturesSections.push(sectionName);
+      picturesBySection[sectionName] = fs
+        .readdirSync(directory)
+        .map((pictureFile) => {
+          const name = path.parse(pictureFile).name;
+          const picureTrailingUrl = path.posix.join(
+            getTextWithoutLeadingNumber(
+              removeLeadingDirectoryPart.exec(directory)[1]
+            ),
+            `${name}.webp`
+          );
+          return {
+            name,
+            url: joinAndEncode(pictureBaseUrl, "mobile", picureTrailingUrl),
+            srcset: deviceTypeAndWidth
+              .map(({ deviceType, width }) => {
+                return `${joinAndEncode(
+                  pictureBaseUrl,
+                  deviceType,
+                  picureTrailingUrl
+                )} ${width}w`;
+              })
+              .join(", "),
+          };
+        });
+      return { picturesSections, picturesBySection };
+    },
+    { picturesSections: [], picturesBySection: {} }
+  );
 
-const homeLinks = [
+const navLinks = [
+  { href: "/", text: "Accueil" },
   ...picturesSections.map((ps) => ({
     href: `${ps}.html`,
     text: ps,
@@ -97,8 +97,9 @@ const htmlPagesForPicuresSections = picturesSections.map(
       chunks: ["slideshow"],
       filename: `${pictureSection}.html`,
       templateParameters: {
+        pictureSection,
         pictures: picturesBySection[pictureSection],
-        homeLinks: [{ href: "/", text: "Accueil" }, ...homeLinks],
+        navLinks,
       },
     })
 );
@@ -124,7 +125,7 @@ module.exports = (_, { mode }) => {
                     const homePicture = picturesBySection.Peintures.filter(
                       (p) => /^nordique/i.test(p.name)
                     )[0];
-                    return pug.render(content, { homeLinks, homePicture });
+                    return pug.render(content, { navLinks, homePicture });
                   } catch (error) {
                     loaderContext.emitError(error);
                   }

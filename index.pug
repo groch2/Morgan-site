@@ -11,14 +11,14 @@ html(lang="en")
     body
         nav
             div(id="home-nav-links")
-                each link in homeLinks
-                    a(href=link.href)= link.text
+                each link, index in navLinks
+                    a(href=link.href class=index === 0 ? 'underline' : '')= link.text
             a(href="javascript:void(0)" class="closebtn")!= "&times;"
         main(style="overflow: hidden")
             header
                 span(id="burger-menu")!= "&#9776;"
                 h1= "Morgan Bancon"
                 div(id="home-header-links")
-                    each link in homeLinks
-                        a(href=link.href)= link.text
+                    each link, index in navLinks
+                        a(href=link.href style=index === 0 ? 'text-decoration: underline' : '')= link.text
             img(id="home-image" src=homePicture.url srcset=homePicture.srcset alt=homePicture.name)

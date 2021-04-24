@@ -11,8 +11,8 @@ html(lang="en")
         div(id="menu-mosaic-container")
             nav(style="display: flex")
                 div(id="home-nav-links")
-                    each link in homeLinks
-                        a(href=link.href)= link.text
+                    each link in navLinks
+                        a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
             div(class="header")
                 h1= "MORGAN BANCON"
                 div(id="burger-menu-container")
