@@ -1,0 +1,1 @@
+aws s3 sync "..\dist" s3://morgan-site-test/ --include "*" --exclude "pictures-by-device-type/*" --delete --dryrun
