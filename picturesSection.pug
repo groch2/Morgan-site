@@ -9,10 +9,9 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
     body
         div(id="menu-mosaic-container")
-            nav(style="display: flex")
-                div(id="home-nav-links")
-                    each link in navLinks
-                        a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
+            nav(id="home-nav-links")
+                each link in navLinks
+                    a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
             div(class="header")
                 h1= "MORGAN BANCON"
                 div(id="burger-menu-container")
