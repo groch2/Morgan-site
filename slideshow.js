@@ -3,7 +3,7 @@ import { setupNav } from "./setupNav";
 
 const { onNavChange, isNavOpen } = (function () {
   const burgerMenuContainer = document.getElementById("burger-menu-container");
-  const header = document.querySelector("div.header");
+  const header = document.querySelector("header");
   let _isNavOpen = false;  
   return {
     onNavChange: () => {
@@ -86,7 +86,7 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
 });
 
 (function () {
-  const header = document.querySelector("div.header");
+  const header = document.querySelector("header");
   const supportPageOffset = window.pageXOffset !== undefined;
   const isCSS1Compat = (document.compatMode || "") === "CSS1Compat";
 

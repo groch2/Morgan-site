@@ -12,7 +12,7 @@ html(lang="en")
             nav(id="home-nav-links")
                 each link in navLinks
                     a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
-            div(class="header")
+            header
                 h1= "MORGAN BANCON"
                 div(id="burger-menu-container")
                     button(id="burger-menu" class="hamburger-box")

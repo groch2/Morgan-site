@@ -1,7 +1,8 @@
-@use 'nav'
 @use 'swiper-bundle.css'
 @use 'w3.css'
+@use 'nav'
 @use 'burger-menu'
+@use 'header'
 
 #swiper-container
     overflow: hidden
@@ -66,36 +67,6 @@
     z-index: 2
 #close-thumbnail
     position: fixed
-#burger-menu-container
-    position: absolute
-    right: 5px
-    padding: 5px 5px
-    background-color: white
-#burger-menu
-    border-radius: 2px
-    align-self: center
 #menu-mosaic-container
     display: flex
     flex-direction: column
-div.header
-    background-color: white
-    width: 100%
-    z-index: 1
-    display: flex
-    align-items: center
-    padding-left: 5px
-    margin-right: 45px
-    h1
-        font-size: x-large
-div.header 
-  position: sticky
-  top: 0
-  transition: top 500ms ease-in-out
-  z-index: 3
-div.header.scroll-up,
-div.header:focus-within 
-  top: 0
-div.header.scroll-down 
-  top: -100%
-.underline
-  text-decoration: underline

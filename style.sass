@@ -1,19 +1,16 @@
+@use 'w3.css'
 @use 'nav'
+@use 'burger-menu'
+@use 'header'
 
 body
   margin: 0
   height: 100vh
+  overflow: hidden
 header
   display: flex
   h1
     flex: 1
-  #burger-menu
-    line-height: 100%
-    cursor: pointer
-    display: flex
-    align-items: center
-    font-size: xx-large
-    margin: auto 10px
 #home-image
   width: 100%
   height: 100%
@@ -36,8 +33,8 @@ $width-breakpoint: 800px
 @media (min-width: $width-breakpoint)
   header
     padding: 0 20px 0 20px
-    #burger-menu
-      display: none
+  #burger-menu-container
+    display: none
 .underline
   text-decoration: underline
 nav
