@@ -14,10 +14,8 @@ export function setupNav(onNavChange) {
     main.style.marginLeft = "250px";
     overlay.style.display = "block";
   }
-  const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
   function closeNav() {
     onNavChange();
-    document.dispatchEvent(toggleBurgerMenuEvent);
     nav.style.width = "0";
     main.style.marginLeft = "0";
     overlay.style.display = "none";
@@ -37,6 +35,7 @@ export function setupNav(onNavChange) {
         if (!navOpen && !isBurgerMenuClick) {
           return;
         }
+        burgerMenu.classList.toggle("is-active");
         if (!navOpen) {
           openNav();
         } else {

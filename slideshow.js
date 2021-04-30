@@ -1,13 +1,10 @@
 import Swiper from "swiper";
-import { setupBurgerMenu } from "./burger-menu";
 import { setupNav } from "./setupNav";
 
 const { onNavChange, isNavOpen } = (function () {
   const burgerMenuContainer = document.getElementById("burger-menu-container");
   const header = document.querySelector("div.header");
-
-  let _isNavOpen = false;
-  
+  let _isNavOpen = false;  
   return {
     onNavChange: () => {
       header.style.visibility = _isNavOpen ? "visible" : "hidden";
@@ -20,7 +17,6 @@ const { onNavChange, isNavOpen } = (function () {
   };
 })();
 
-setupBurgerMenu();
 setupNav(onNavChange);
 
 const swiper = new Swiper("#swiper-container", {
