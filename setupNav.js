@@ -31,7 +31,6 @@ export function setupNav(onNavChange) {
     let navOpen = false;
     [burgerMenu, main].forEach((item) =>
       item.addEventListener("click", function ({ target }) {
-        console.log("click on ", target.tagName);
         const isBurgerMenuClick = burgerMenu.contains(target);
         if (!navOpen && !isBurgerMenuClick) {
           return;
