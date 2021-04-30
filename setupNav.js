@@ -8,21 +8,23 @@ export function setupNav(onNavChange) {
     document.getElementsByClassName("burger-menu")[0];
   const closeButton = nav.querySelectorAll("a[class='closebtn']");
   const closeButtonExists = closeButton.length === 1;
-  function openNav(notify) {
-    onNavChange(true, notify);
+  function openNav() {
+    onNavChange();
     nav.style.width = "250px";
     main.style.marginLeft = "250px";
     overlay.style.display = "block";
   }
-  function closeNav(notify) {
-    onNavChange(false, notify);
+  const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
+  function closeNav() {
+    onNavChange();
+    document.dispatchEvent(toggleBurgerMenuEvent);
     nav.style.width = "0";
     main.style.marginLeft = "0";
     overlay.style.display = "none";
   }
   if (closeButtonExists) {
     burgerMenu.addEventListener("click", function () {
-      openNav(false);
+      openNav();
     });
     closeButton[0].addEventListener("click", function () {
       closeNav(false);
@@ -36,7 +38,7 @@ export function setupNav(onNavChange) {
           return;
         }
         if (!navOpen) {
-          openNav(false);
+          openNav();
         } else {
           closeNav(!isBurgerMenuClick);
         }

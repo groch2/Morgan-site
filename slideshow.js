@@ -7,18 +7,14 @@ const { onNavChange, isNavOpen } = (function () {
   const header = document.querySelector("div.header");
 
   let _isNavOpen = false;
-  const toggleBurgerMenuEvent = new Event("toggleBurgerMenu");
+  
   return {
-    onNavChange: (isOpen, notify) => {
-      header.style.visibility = isOpen ? "hidden" : "visible";
+    onNavChange: () => {
+      header.style.visibility = _isNavOpen ? "visible" : "hidden";
       burgerMenuContainer.style.visibility = "visible";
-      burgerMenuContainer.style.position = isOpen ? "fixed" : "absolute";
-
+      burgerMenuContainer.style.position = _isNavOpen ? "absolute" : "fixed";
+      menuMosaicContainer.style.overflow = _isNavOpen ? "" : "hidden";
       _isNavOpen = !_isNavOpen;
-      if (notify) {
-        document.dispatchEvent(toggleBurgerMenuEvent);
-      }
-      menuMosaicContainer.style.overflow = isOpen ? "hidden" : "";
     },
     isNavOpen: () => _isNavOpen,
   };
