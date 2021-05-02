@@ -8,12 +8,14 @@ export function setupNav(onNavChange) {
     onNavChange();
     nav.style.width = "250px";
     main.style.marginLeft = "250px";
+    main.style.marginRight = "-250px";
     overlay.style.display = "block";
   }
   function closeNav() {
     onNavChange();
     nav.style.width = "0";
     main.style.marginLeft = "0";
+    main.style.marginRight = "0";
     overlay.style.display = "none";
   }
   let navOpen = false;

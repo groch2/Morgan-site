@@ -9,7 +9,8 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href="./style.sass")
         link(rel="icon" href="data:,")
     body
-        nav(id="home-nav-links")
+        nav(id="left-side-nav-links")
+            h1= "MORGAN BANCON"
             each link in navLinks
                 a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
         header
@@ -22,6 +23,6 @@ html(lang="en")
                     div(class="hamburger-top")
                     div(class="hamburger-middle")
                     div(class="hamburger-bottom")
-        main(id="mosaic")
+        main
             div(id="overlay")
             img(id="home-image" src=homePicture.url srcset=homePicture.srcset alt=homePicture.name)

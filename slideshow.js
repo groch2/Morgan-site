@@ -4,7 +4,7 @@ import { setupNav } from "./setupNav";
 const { onNavChange, isNavOpen } = (function () {
   const burgerMenuContainer = document.getElementById("burger-menu-container");
   const header = document.querySelector("header");
-  let _isNavOpen = false;  
+  let _isNavOpen = false;
   return {
     onNavChange: () => {
       header.style.visibility = _isNavOpen ? "visible" : "hidden";

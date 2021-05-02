@@ -10,7 +10,8 @@ html(lang="en")
         link(rel="icon" href="data:,")
     body
         div(id="menu-mosaic-container")
-            nav(id="home-nav-links")
+            nav(id="left-side-nav-links")
+                h1= "MORGAN BANCON"
                 each link in navLinks
                     a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
             header
