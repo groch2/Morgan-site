@@ -1,6 +1,6 @@
 body
   font-family: "Lato", sans-serif
-  --transition-duration: 2s
+  --transition-duration: 0.2s
 nav
   display: flex
   flex-direction: column
@@ -49,6 +49,10 @@ $width-breakpoint: 800px
 @media (min-width: $width-breakpoint)
   header
     padding: 0 20px 0 20px
+    h1
+      font-family: inherit
+      font-size: x-large
+      font-weight: bold      
   #burger-menu-container
     display: none
 .underline
