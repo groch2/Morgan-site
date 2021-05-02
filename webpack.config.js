@@ -89,6 +89,7 @@ const navLinks = [
 
 const pathToIndex = require.resolve("./index.pug");
 const pathToPicturesSection = require.resolve("./picturesSection.pug");
+const trailingYearRegex = /\d{4}$/;
 const htmlPagesForPicuresSections = picturesSections.map(
   (pictureSection) =>
     new HtmlWebpackPlugin({
@@ -98,7 +99,19 @@ const htmlPagesForPicuresSections = picturesSections.map(
       filename: `${pictureSection}.html`,
       templateParameters: {
         pictureSection,
-        pictures: picturesBySection[pictureSection],
+        pictures: picturesBySection[pictureSection].sort((a, b) => {
+          let yearA = trailingYearRegex.exec(a.name);
+          let yearB = trailingYearRegex.exec(b.name);
+          if (yearA === null || yearB === null) {
+            return a.name.localeCompare(b.name);
+          }
+          yearA = parseInt(yearA[0]);
+          yearB = parseInt(yearB[0]);
+          const yearsComparison = yearA - yearB;
+          return yearsComparison != 0
+            ? yearsComparison
+            : a.name.localeCompare(b.name);
+        }),
         navLinks,
       },
     })
