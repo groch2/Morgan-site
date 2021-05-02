@@ -1,6 +1,6 @@
 body
   font-family: "Lato", sans-serif
-  --transition-duration: 0.2s
+  --transition-duration: 2s
 nav
   display: flex
   flex-direction: column
@@ -27,5 +27,29 @@ main
   transition: margin-left var(--transition-duration), margin-right var(--transition-duration), height var(--transition-duration)
 #left-side-nav-links > *
   white-space: nowrap
-header > h1
-  transition: opacity var(--transition-duration)
+header
+  display: flex  
+  h1
+    transition: opacity var(--transition-duration)
+    flex: 1
+$width-breakpoint: 800px
+#header-links
+  display: flex
+  align-items: center
+  column-gap: 20px
+  a
+    color: black
+    font-size: x-large
+    font-weight: bold
+    text-decoration: none
+  :hover
+    text-decoration: underline
+  @media (max-width: $width-breakpoint) 
+    display: none
+@media (min-width: $width-breakpoint)
+  header
+    padding: 0 20px 0 20px
+  #burger-menu-container
+    display: none
+.underline
+  text-decoration: underline
