@@ -1,7 +1,7 @@
 export function setupNav(onNavChange) {
   onNavChange = onNavChange || function () {};
-  const nav = document.getElementsByTagName("nav")[0];
-  const main = document.getElementsByTagName("main")[0];
+  const nav = document.querySelector("nav");
+  const main = document.querySelector("main");
   const overlay = document.getElementById("overlay");
   const burgerMenu = document.getElementById("burger-menu");
   function openNav() {
@@ -9,14 +9,12 @@ export function setupNav(onNavChange) {
     nav.style.width = "250px";
     main.style.marginLeft = "250px";
     main.style.marginRight = "-250px";
-    overlay.style.display = "block";
   }
   function closeNav() {
     onNavChange();
     nav.style.width = "0";
     main.style.marginLeft = "0";
     main.style.marginRight = "0";
-    overlay.style.display = "none";
   }
   let navOpen = false;
   [burgerMenu, main].forEach((item) =>

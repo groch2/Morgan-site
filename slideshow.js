@@ -4,6 +4,7 @@ import { setupNav } from "./setupNav";
 const { onNavChange, isNavOpen } = (function () {
   const burgerMenuContainer = document.getElementById("burger-menu-container");
   const header = document.querySelector("header");
+  const thumbnails = document.querySelectorAll(".thumbnail");
   let _isNavOpen = false;
   return {
     onNavChange: () => {
@@ -11,6 +12,7 @@ const { onNavChange, isNavOpen } = (function () {
       burgerMenuContainer.style.visibility = "visible";
       burgerMenuContainer.style.position = _isNavOpen ? "absolute" : "fixed";
       menuMosaicContainer.style.overflow = _isNavOpen ? "" : "hidden";
+      thumbnails.forEach((tn) => (tn.style.opacity = _isNavOpen ? "1" : "0.6"));
       _isNavOpen = !_isNavOpen;
     },
     isNavOpen: () => _isNavOpen,
