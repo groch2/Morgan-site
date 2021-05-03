@@ -18,7 +18,7 @@ html(lang="en")
                 h1= "MORGAN BANCON"
                 div(id="header-links")
                     each link, index in navLinks
-                        a(href=link.href style=index === 0 ? 'text-decoration: underline' : '')= link.text
+                        a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
                 div(id="burger-menu-container")
                     button(id="burger-menu" class="hamburger-box")
                         div(class="hamburger-top")
