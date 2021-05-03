@@ -11,7 +11,7 @@ html(lang="en")
     body
         nav(id="left-side-nav-links")
             h1= "MORGAN BANCON"
-            each link in navLinks
+            each link, index in navLinks
                 a(href=link.href style=index === 0 ? 'text-decoration: underline' : '')= link.text
         header
             h1= "MORGAN BANCON"
