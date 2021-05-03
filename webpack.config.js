@@ -107,7 +107,7 @@ const htmlPagesForPicuresSections = picturesSections.map(
           }
           yearA = parseInt(yearA[0]);
           yearB = parseInt(yearB[0]);
-          const yearsComparison = yearA - yearB;
+          const yearsComparison = yearB - yearA;
           return yearsComparison != 0
             ? yearsComparison
             : a.name.localeCompare(b.name);
