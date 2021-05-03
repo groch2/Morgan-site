@@ -99,19 +99,20 @@ const htmlPagesForPicuresSections = picturesSections.map(
       filename: `${pictureSection}.html`,
       templateParameters: {
         pictureSection,
-        pictures: picturesBySection[pictureSection].sort((a, b) => {
-          let yearA = trailingYearRegex.exec(a.name);
-          let yearB = trailingYearRegex.exec(b.name);
-          if (yearA === null || yearB === null) {
-            return a.name.localeCompare(b.name);
+        pictures: picturesBySection[pictureSection].sort(
+          ({ name: nameA }, { name: nameB }) => {
+            let yearA = trailingYearRegex.exec(nameA);
+            let yearB = trailingYearRegex.exec(nameB);
+            const namesComparison = () => nameA.localeCompare(nameB);
+            if (yearA === null || yearB === null) {
+              return namesComparison();
+            }
+            yearA = parseInt(yearA[0]);
+            yearB = parseInt(yearB[0]);
+            const yearsComparison = yearB - yearA;
+            return yearsComparison != 0 ? yearsComparison : namesComparison();
           }
-          yearA = parseInt(yearA[0]);
-          yearB = parseInt(yearB[0]);
-          const yearsComparison = yearB - yearA;
-          return yearsComparison != 0
-            ? yearsComparison
-            : a.name.localeCompare(b.name);
-        }),
+        ),
         navLinks,
       },
     })
