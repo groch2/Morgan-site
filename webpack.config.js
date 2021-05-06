@@ -7,20 +7,6 @@ const path = require("path");
 const pug = require("pug");
 const express = require("express");
 
-function DeleteOutputWebpackPlugin(...exclude) {
-  this.exclude = exclude;
-  this.apply = (compiler) => {
-    compiler.hooks.emit.tapAsync("deleteOutput", (compilation, callback) => {
-      Object.keys(compilation.assets).forEach((asset) => {
-        if (this.exclude.find((expression) => expression.test(asset))) {
-          delete compilation.assets[asset];
-        }
-      });
-      callback();
-    });
-  };
-}
-
 const sep = `${path.sep}${path.sep}`;
 const removeLeadingDirectoryPart = new RegExp(
   `^${sep}?pictures${sep}(.+)$`,
@@ -221,7 +207,6 @@ module.exports = (_, { mode }) => {
       }),
       ...htmlPagesForPicuresSections,
       new CleanWebpackPlugin(),
-      new DeleteOutputWebpackPlugin(/^main\.js$/i),
     ].filter((plugin) => plugin),
     optimization: {
       minimize: isProductionMode,
