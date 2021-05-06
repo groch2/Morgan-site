@@ -211,5 +211,8 @@ module.exports = (_, { mode }) => {
     optimization: {
       minimize: isProductionMode,
     },
+    output: {
+      publicPath: "",
+    },
   };
 };
