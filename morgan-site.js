@@ -1,21 +1,35 @@
 "use strict";
 
 const express = require("express");
-const basicAuth = require("express-basic-auth");
+const compression = require("compression");
 
 const app = express();
 
+app.use(express.static("dist"));
+
+const shouldCompress = (req, res) => {
+  if (req.headers["x-no-compression"]) {
+    // don't compress responses if this request header is present
+    return false;
+  }
+
+  // fallback to standard compression
+  const test = compression.filter(req, res);
+  console.log({ test });
+  return test;
+};
+
 app.use(
-  basicAuth({
-    users: {
-      admin: "entrée des artistes",
-    },
-    challenge: true,
-    realm: "812CAF04F8514B26BCF2D0029733DCA7",
+  compression({
+    // filter decides if the response should be compressed or not,
+    // based on the `shouldCompress` function above
+    filter: shouldCompress,
+    // threshold is the byte threshold for the response body size
+    // before compression is considered, the default is 1kb
+    threshold: 0,
   })
 );
 
-app.use(express.static("dist"));
-
 const port = process.env.PORT || 8080;
 app.listen(port);
+console.log(`listening on: ${port}`);
