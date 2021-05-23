@@ -2,6 +2,7 @@
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 const fs = require("fs");
 const path = require("path");
 const pug = require("pug");
@@ -207,11 +208,15 @@ module.exports = (_, { mode }) => {
       }),
       ...htmlPagesForPicuresSections,
       new CleanWebpackPlugin(),
+      new CompressionPlugin({
+        deleteOriginalAssets: true,
+      }),
     ].filter((plugin) => plugin),
     optimization: {
       minimize: isProductionMode,
     },
     output: {
+      path: path.resolve(__dirname, "dist"),
       publicPath: "",
     },
   };
