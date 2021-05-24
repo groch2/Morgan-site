@@ -13,12 +13,13 @@ const removeLeadingDirectoryPart = new RegExp(
   "i"
 );
 const getTextWithoutLeadingNumber = (text) => /(?<=^\d+\s).+$/i.exec(text)[0];
-const deviceTypeAndWidth = require("./scripts/viewport-dimensions-by-device.json").map(
-  ({ device: deviceType, width }) => ({
-    deviceType,
-    width,
-  })
-);
+const deviceTypeAndWidth =
+  require("./scripts/viewport-dimensions-by-device.json").map(
+    ({ device: deviceType, width }) => ({
+      deviceType,
+      width,
+    })
+  );
 const pictureBaseUrl = "../pictures-by-device-type/";
 const joinAndEncode = (...pathParts) =>
   encodeURI(path.posix.join(...pathParts));
@@ -104,6 +105,8 @@ const htmlPagesForPicuresSections = picturesSections.map(
     })
 );
 
+const pathToContactForm = require.resolve("./contact-form.pug");
+
 module.exports = (_, { mode }) => {
   const isProductionMode = /^production$/i.test(mode);
   console.debug({ isProductionMode });
@@ -111,6 +114,7 @@ module.exports = (_, { mode }) => {
     entry: {
       index: "./index.js",
       slideshow: "./slideshow.js",
+      contactForm: "./contact-form.js",
     },
     module: {
       rules: [
@@ -139,6 +143,10 @@ module.exports = (_, { mode }) => {
         },
         {
           test: pathToPicturesSection,
+          use: "pug-loader",
+        },
+        {
+          test: pathToContactForm,
           use: "pug-loader",
         },
         {
@@ -204,6 +212,13 @@ module.exports = (_, { mode }) => {
         filename: "index.html",
         inject: "body",
         chunks: ["index"],
+      }),
+      new HtmlWebpackPlugin({
+        template: pathToContactForm,
+        filename: "contact-form.html",
+        inject: "body",
+        chunks: ["contactForm"],
+        templateParameters: { navLinks },
       }),
       ...htmlPagesForPicuresSections,
       new CleanWebpackPlugin(),
