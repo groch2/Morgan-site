@@ -2,6 +2,7 @@
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const fs = require("fs");
 const path = require("path");
 const pug = require("pug");
@@ -63,15 +64,15 @@ const { picturesSections, picturesBySection } = fs
   );
 
 const navLinks = [
-  { href: "/", text: "Accueil" },
+  { href: "index.html", text: "Accueil" },
   ...picturesSections.map((ps) => ({
     href: `${ps}.html`,
     text: ps,
   })),
-  ...["Bio", "Contact"].map((section) => ({
-    href: "#",
-    text: section,
-  })),
+  ...[
+    { href: "#", text: "Bio" },
+    { href: "contact-form.html", text: "Contact" },
+  ],
 ];
 
 const pathToIndex = require.resolve("./index.pug");
@@ -114,7 +115,7 @@ module.exports = (_, { mode }) => {
     entry: {
       index: "./index.js",
       slideshow: "./slideshow.js",
-      contactForm: "./contact-form.js",
+      "contact-form": "./contact-form.js",
     },
     module: {
       rules: [
@@ -217,17 +218,21 @@ module.exports = (_, { mode }) => {
         template: pathToContactForm,
         filename: "contact-form.html",
         inject: "body",
-        chunks: ["contactForm"],
+        chunks: ["contact-form", "index"],
         templateParameters: { navLinks },
       }),
       ...htmlPagesForPicuresSections,
       new CleanWebpackPlugin(),
+      new CopyPlugin({
+        patterns: [{ from: "contact-form.css", to: "contact-form.css" }],
+      }),
     ].filter((plugin) => plugin),
     optimization: {
       minimize: isProductionMode,
     },
     output: {
       publicPath: "",
+      path: path.resolve(process.cwd(), "dist"),
     },
   };
 };
