@@ -115,7 +115,7 @@ module.exports = (_, { mode }) => {
     entry: {
       index: "./index.js",
       slideshow: "./slideshow.js",
-      "contact-form": "./contact-form.js",
+      "contact-form": "./node_modules/contact-form/dist/contact-form.js",
     },
     module: {
       rules: [
@@ -224,7 +224,7 @@ module.exports = (_, { mode }) => {
       ...htmlPagesForPicuresSections,
       new CleanWebpackPlugin(),
       new CopyPlugin({
-        patterns: [{ from: "contact-form.css", to: "contact-form.css" }],
+        patterns: [{ from: "./node_modules/contact-form/dist/contact-form.css", to: "contact-form.css" }],
       }),
     ].filter((plugin) => plugin),
     optimization: {
