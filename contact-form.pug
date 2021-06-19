@@ -7,7 +7,7 @@ html(lang="en")
         meta(name="author" content="Morgan Bancon")
         meta(name="viewport" content="width=device-width, initial-scale=1")
         link(rel="stylesheet" type="text/css" href=require("./style.sass").default)
-        link(rel="stylesheet" type="text/css" href="./contact-form.css")
+        link(rel="stylesheet" type="text/css" href=require("./contact-form.sass").default)
         link(rel="icon" href="data:,")
     body
         -
@@ -28,4 +28,15 @@ html(lang="en")
                     div(class="hamburger-bottom")
         main
             div(id="overlay")
-            contact-form
+            span(class="w3-half" style="text-align: right; padding: 0 1em 1em 0;")="You can contact me using this form"
+            span(id="form-controls-container" class="w3-half")
+                div(class="float-container")
+                    label(for="name")= "Name"
+                    input(id="name" data-placeholder="name")
+                div(class="float-container")
+                    label(for="email")= "Email"
+                    input(id="email" data-placeholder="email")
+                div(class="float-container")
+                    label(for="message")= "Message"
+                    textarea(id="message" data-placeholder="message")
+                input(type="submit" value="Send Message" class="w3-button w3-border")

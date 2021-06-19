@@ -2,7 +2,6 @@
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
 const fs = require("fs");
 const path = require("path");
 const pug = require("pug");
@@ -223,9 +222,6 @@ module.exports = (_, { mode }) => {
       }),
       ...htmlPagesForPicuresSections,
       new CleanWebpackPlugin(),
-      new CopyPlugin({
-        patterns: [{ from: "contact-form.css", to: "contact-form.css" }],
-      }),
     ].filter((plugin) => plugin),
     optimization: {
       minimize: isProductionMode,
