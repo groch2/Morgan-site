@@ -40,3 +40,30 @@ main
   height: auto
 body
   overflow-y: auto
+
+:root
+  --upper-arrow-height: 7px
+.validation-error-message
+  border: 1px solid red
+  position: absolute
+  left: 0
+  z-index: 1
+  background: red
+  -moz-border-radius: 10px
+  -webkit-border-radius: 10px
+  border-radius: 10px
+  top: calc(100% + var(--upper-arrow-height))
+  color: white
+  padding: 0.4em
+  margin: auto 0.2em auto 0.2em
+  font-size: 0.9em
+.validation-error-message:before
+  content: ""
+  position: absolute
+  left: calc(50% - var(--upper-arrow-height))
+  top: calc(var(--upper-arrow-height) * -1)
+  width: 0
+  height: 0
+  border-bottom: var(--upper-arrow-height) solid red
+  border-left: var(--upper-arrow-height) solid white
+  border-right: var(--upper-arrow-height) solid white
