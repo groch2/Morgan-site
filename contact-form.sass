@@ -44,24 +44,24 @@ body
 :root
   --upper-arrow-height: 7px
 .validation-error-message
-  border: 1px solid red
   position: absolute
   z-index: 1
   background: red
   -moz-border-radius: 10px
   -webkit-border-radius: 10px
   border-radius: 10px
-  top: calc(100% + var(--upper-arrow-height) + 1px)
+  top: calc(100% + var(--upper-arrow-height))
   color: white
   padding: 0.4em
   font-size: 0.9em
   transform: translateX(-50%)
   left: 50%
+  opacity: 0.75
 .validation-error-message:before
   content: ""
   position: absolute
   left: calc(50% - var(--upper-arrow-height))
-  top: calc(var(--upper-arrow-height) * -1 - 1px)
+  top: calc(var(--upper-arrow-height) * -1)
   width: 0
   height: 0
   border-bottom: var(--upper-arrow-height) solid red
