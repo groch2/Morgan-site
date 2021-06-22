@@ -41,3 +41,12 @@ const FloatLabel = (() => {
 })();
 
 FloatLabel.init();
+
+const emailInput = document.getElementById("email");
+emailInput.addEventListener("input", () => {
+  emailInput.setCustomValidity("");
+  emailInput.checkValidity();
+});
+emailInput.addEventListener("invalid", () => {
+  emailInput.setCustomValidity("Please, enter a valid email address");
+});
