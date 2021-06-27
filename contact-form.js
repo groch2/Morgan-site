@@ -1,3 +1,19 @@
+import { setupNav } from "./setupNav";
+
+const onNavChange = (function () {
+  const burgerMenuContainer = document.getElementById("burger-menu-container");
+  const header = document.querySelector("header");
+  let _isNavOpen = false;
+  return () => {
+    header.style.visibility = _isNavOpen ? "visible" : "hidden";
+    burgerMenuContainer.style.visibility = "visible";
+    burgerMenuContainer.style.position = _isNavOpen ? "absolute" : "fixed";
+    _isNavOpen = !_isNavOpen;
+  };
+})();
+
+setupNav(onNavChange);
+
 const FloatLabel = (() => {
   // add active class and placeholder
   const handleFocus = (e) => {

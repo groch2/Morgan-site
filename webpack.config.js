@@ -217,7 +217,7 @@ module.exports = (_, { mode }) => {
         template: pathToContactForm,
         filename: "contact-form.html",
         inject: "body",
-        chunks: ["contact-form", "index"],
+        chunks: ["contact-form"],
         templateParameters: { navLinks },
       }),
       ...htmlPagesForPicuresSections,
