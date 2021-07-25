@@ -39,20 +39,16 @@ const FloatLabel = (() => {
   };
 
   // get DOM elements
-  const init = () => {
-    const floatContainers = document.querySelectorAll(".float-container");
-
-    floatContainers.forEach((element) => {
-      if (element.querySelector("input, textarea").value) {
-        element.classList.add("active");
-      }
-
-      bindEvents(element);
-    });
-  };
-
   return {
-    init: init,
+    init: () => {
+      const floatContainers = document.querySelectorAll(".float-container");
+      floatContainers.forEach((element) => {
+        if (element.querySelector("input, textarea").value) {
+          element.classList.add("active");
+        }
+        bindEvents(element);
+      });
+    },
   };
 })();
 
@@ -66,22 +62,32 @@ emailInput.addEventListener("input", () => {
 emailInput.addEventListener("invalid", () => {
   emailInput.setCustomValidity("Please, enter a valid email address");
 });
-document.querySelector("input[type='submit']")
-  .addEventListener("click", () => {
-    const request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        console.log("message envoyé");
-      }
-    };
-    request.open("POST", "https://ggjsff0sh8.execute-api.eu-west-3.amazonaws.com/Prod/", true);
-    request.setRequestHeader("Content-type", "application/json");
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const message = document.getElementById("message").value;
-    request.send(JSON.stringify({
-      "From": name,
-      "Subject": email,
-      "Body": message
-    }));
-  });
+const form = document.querySelector("form");
+form.querySelector("button").addEventListener("click", () => {
+  const isFormValid = form.checkValidity();
+  if (!isFormValid) {
+    return;
+  }
+  const request = new XMLHttpRequest();
+  request.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log("message envoyé");
+    }
+  };
+  request.open(
+    "POST",
+    "https://ggjsff0sh8.execute-api.eu-west-3.amazonaws.com/Prod/",
+    true
+  );
+  request.setRequestHeader("Content-type", "application/json");
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
+  request.send(
+    JSON.stringify({
+      From: name,
+      Subject: email,
+      Body: message,
+    })
+  );
+});
