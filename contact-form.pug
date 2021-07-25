@@ -39,4 +39,8 @@ html(lang="en")
                 div(class="float-container")
                     label(for="message")= "Message"
                     textarea(id="message" data-placeholder="message")
-                button(class="w3-button w3-border")="Send Message"
+                button(class="w3-button w3-border w3-mobile")="Send Message"
+                div(style="clear: right")
+                div(id="message-sent-confirmation" class="w3-panel w3-green" style="display: none")
+                    span(id="confirmation-panel-close" class="w3-display-topright w3-large") &times;
+                    p="Message sent"

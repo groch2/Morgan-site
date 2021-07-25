@@ -63,6 +63,7 @@ emailInput.addEventListener("invalid", () => {
   emailInput.setCustomValidity("Please, enter a valid email address");
 });
 const form = document.querySelector("form");
+const confirmationPanel = form.querySelector("#message-sent-confirmation");
 form.querySelector("button").addEventListener("click", () => {
   const isFormValid = form.checkValidity();
   if (!isFormValid) {
@@ -71,7 +72,7 @@ form.querySelector("button").addEventListener("click", () => {
   const request = new XMLHttpRequest();
   request.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      console.log("message envoyé");
+      confirmationPanel.style.display = "block";
     }
   };
   request.open(
@@ -91,3 +92,9 @@ form.querySelector("button").addEventListener("click", () => {
     })
   );
 });
+
+confirmationPanel
+  .querySelector("#confirmation-panel-close")
+  .addEventListener("click", () => {
+    confirmationPanel.style.display = "none";
+  });

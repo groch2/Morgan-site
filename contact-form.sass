@@ -36,8 +36,8 @@
     text-align: start
     padding: 0 0 0.5em 16px
 
-@media (min-width: 993px)
-  form button
+form button
+  @media (min-width: 993px)
     float: right
 
 main
@@ -65,3 +65,16 @@ textarea#message
   z-index: 2
   cursor: pointer
   margin-left: inherit
+
+.w3-panel
+  margin-top: 8px
+  margin-bottom: 8px
+
+#message-sent-confirmation
+  position: relative
+
+#confirmation-panel-close
+  line-height: 1
+  top: 5px
+  right: 5px
+  cursor: pointer
