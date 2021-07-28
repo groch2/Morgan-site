@@ -69,28 +69,37 @@ form.querySelector("button").addEventListener("click", () => {
   if (!isFormValid) {
     return;
   }
-  const request = new XMLHttpRequest();
-  request.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      confirmationPanel.style.display = "block";
-    }
-  };
-  request.open(
-    "POST",
-    "https://ggjsff0sh8.execute-api.eu-west-3.amazonaws.com/Prod/",
-    true
-  );
-  request.setRequestHeader("Content-type", "application/json");
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const message = document.getElementById("message").value;
-  request.send(
-    JSON.stringify({
-      From: name,
-      Subject: email,
-      Body: message,
-    })
-  );
+  grecaptcha.ready(() => {
+    grecaptcha
+      .execute("6Lfm1cIbAAAAAPp9ox3Pqz4mrLQb2BZXyToCTkl0", { action: "submit" })
+      .then(function (recaptchaToken) {
+        const request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            confirmationPanel.style.display = "block";
+          }
+        };
+        request.open(
+          "POST",
+          "https://ggjsff0sh8.execute-api.eu-west-3.amazonaws.com/Prod/",
+          true
+        );
+        request.setRequestHeader("Content-type", "application/json");
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+        request.send(
+          JSON.stringify({
+            message: {
+              From: name,
+              Subject: email,
+              Body: message,
+            },
+            recaptchaToken,
+          })
+        );
+      });
+  });
 });
 
 confirmationPanel
