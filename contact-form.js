@@ -82,8 +82,7 @@ form.querySelector("button").addEventListener("click", () => {
         request.open(
           "POST",
           "https://ggjsff0sh8.execute-api.eu-west-3.amazonaws.com/Prod/",
-          true
-        );
+          true);
         request.setRequestHeader("Content-type", "application/json");
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
