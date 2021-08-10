@@ -64,7 +64,8 @@ emailInput.addEventListener("invalid", () => {
 });
 const form = document.querySelector("form");
 const confirmationPanel = form.querySelector("#message-sent-confirmation");
-form.querySelector("button").addEventListener("click", () => {
+const button = form.querySelector("button");
+button.addEventListener("click", () => {
   const isFormValid = form.checkValidity();
   if (!isFormValid) {
     return;
@@ -76,6 +77,7 @@ form.querySelector("button").addEventListener("click", () => {
         const request = new XMLHttpRequest();
         request.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
+            button.classList.remove('button--loading');
             confirmationPanel.style.display = "block";
           }
         };
@@ -87,6 +89,7 @@ form.querySelector("button").addEventListener("click", () => {
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
         const message = document.getElementById("message").value;
+        button.classList.add('button--loading');
         request.send(
           JSON.stringify({
             message: {
