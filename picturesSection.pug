@@ -28,7 +28,7 @@ html(lang="en")
                 div(id="overlay")
                 each picture, index in pictures
                     div(class="thumbnail")
-                        img(src=picture.url srcset=picture.srcset data-index=index loading=(index > 7 ? "lazy" : false))
+                        img(src=picture.url data-index=index loading=(index > 7 ? "lazy" : false))
         div(id="swiper-container" style="display: none;")
             span(id="close-swiper" class="w3-button w3-display-topright w3-xlarge cursor")!="&#xD7;" 
             div(class="swiper-wrapper")
