@@ -63,9 +63,12 @@ emailInput.addEventListener("invalid", () => {
   emailInput.setCustomValidity("Please, enter a valid email address");
 });
 const form = document.querySelector("form");
-const confirmationPanel = form.querySelector("#message-sent-confirmation");
+const confirmationPanelSuccess = form.querySelector("#message-sent-confirmation");
+const confirmationPanelError = form.querySelector("#message-sending-error");
+const messageSendingResultNotifications = [confirmationPanelSuccess, confirmationPanelError];
 const button = form.querySelector("button");
 button.addEventListener("click", () => {
+  messageSendingResultNotifications.forEach(panel => panel.style.display = "none");
   const isFormValid = form.checkValidity();
   if (!isFormValid) {
     return;
@@ -76,9 +79,11 @@ button.addEventListener("click", () => {
       .then(function (recaptchaToken) {
         const request = new XMLHttpRequest();
         request.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
+          if (this.readyState == 4) {
             button.classList.remove('button--loading');
-            confirmationPanel.style.display = "block";
+            const panel = 
+              this.status == 200 ? confirmationPanelSuccess : confirmationPanelError;
+            panel.style.display = "flex";
           }
         };
         request.open(
@@ -104,8 +109,11 @@ button.addEventListener("click", () => {
   });
 });
 
-confirmationPanel
-  .querySelector("#confirmation-panel-close")
-  .addEventListener("click", () => {
-    confirmationPanel.style.display = "none";
+messageSendingResultNotifications
+  .forEach((panel) => {
+    panel
+      .querySelector(".confirmation-panel-close")
+      .addEventListener("click", () => {
+        panel.style.display = "none";
+      })
   });
