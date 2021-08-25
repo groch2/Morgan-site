@@ -95,8 +95,8 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
     let scrolledPosition = supportPageOffset
       ? window.pageYOffset
       : isCSS1Compat
-      ? document.documentElement.scrollTop
-      : document.body.scrollTop;
+        ? document.documentElement.scrollTop
+        : document.body.scrollTop;
     const isScrollDown = scrolledPosition > previousScrollPosition;
     previousScrollPosition = scrolledPosition;
     return isScrollDown;
