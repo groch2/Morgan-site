@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const fs = require("fs");
 const path = require("path");
 const pug = require("pug");
-const express = require("express");
 
 const sep = `${path.sep}${path.sep}`;
 const removeLeadingDirectoryPart = new RegExp(
@@ -198,13 +197,12 @@ module.exports = (_, { mode }) => {
       ],
     },
     devServer: {
-      contentBase: "./dist",
-      before: function (app) {
-        app.use(
-          "/pictures-by-device-type",
-          express.static(path.join(__dirname, "pictures-by-device-type"))
-        );
-      },
+      static: [
+        {
+          directory: path.join(__dirname, "pictures-by-device-type"),
+          publicPath: "/pictures-by-device-type/",
+        },
+      ],
     },
     plugins: [
       new HtmlWebpackPlugin({
