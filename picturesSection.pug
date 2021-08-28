@@ -1,41 +1,41 @@
 doctype html
 html(lang="en")
-    head
-        meta(charset="utf-8")
-        title= "The art of Morgan Bancon"
-        meta(name="description" content="The art of Morgan Bancon")
-        meta(name="author" content="Morgan Bancon")
-        meta(name="viewport" content="width=device-width, initial-scale=1")
-        link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
-        link(rel="icon" href="data:,")
-    body
-        div(id="menu-mosaic-container")
-            nav(id="left-side-nav-links")
-                h1= "MORGAN BANCON"
-                each link in navLinks
-                    a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
-            header
-                h1= "MORGAN BANCON"
-                div(id="header-links")
-                    each link, index in navLinks
-                        a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
-                div(id="burger-menu-container")
-                    button(id="burger-menu" class="hamburger-box")
-                        div(class="hamburger-top")
-                        div(class="hamburger-middle")
-                        div(class="hamburger-bottom")
-            main(id="mosaic")
-                div(id="overlay")
-                each picture, index in pictures
-                    div(class="thumbnail")
-                        img(src=picture.url data-index=index loading=(index > 7 ? "lazy" : false))
-        div(id="swiper-container" style="display: none;")
-            span(id="close-swiper" class="w3-button w3-display-topright w3-xxlarge cursor")!="&#xD7;" 
-            div(class="swiper-wrapper")
-                each picture in pictures
-                    div(class="swiper-slide")
-                        div(class="picture-box")
-                            img(class="picture" src=picture.url srcset=picture.srcset alt=picture.name)
-                            label(class="picture-label")= picture.name
-            div(class="swiper-button-prev")
-            div(class="swiper-button-next")
+  head
+    meta(charset="utf-8")
+    title= "The art of Morgan Bancon"
+    meta(name="description" content="The art of Morgan Bancon")
+    meta(name="author" content="Morgan Bancon")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
+    link(rel="icon" href="data:,")
+  body
+    div(id="menu-mosaic-container")
+      nav(id="left-side-nav-links")
+        h1= "MORGAN BANCON"
+        each link in navLinks
+          a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
+      header
+        h1= "MORGAN BANCON"
+        div(id="header-links")
+          each link, index in navLinks
+            a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
+        div(id="burger-menu-container")
+          button(id="burger-menu" class="hamburger-box")
+            div(class="hamburger-top")
+            div(class="hamburger-middle")
+            div(class="hamburger-bottom")
+      main(id="mosaic")
+        div(id="overlay")
+        each picture, index in pictures
+          div(class="thumbnail")
+            img(src=picture.url data-index=index loading=(index > 7 ? "lazy" : false))
+    div(id="swiper-container" style="display: none;")
+      span(id="close-swiper" class="w3-button w3-display-topright w3-xxlarge cursor")!="&#xD7;" 
+      div(class="swiper-wrapper")
+        each picture in pictures
+          div(class="swiper-slide")
+            div(class="picture-box")
+              img(class="picture" src=picture.url srcset=picture.srcset alt=picture.name)
+              label(class="picture-label")= picture.name
+      div(class="swiper-button-prev")
+      div(class="swiper-button-next")

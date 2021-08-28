@@ -1,51 +1,51 @@
 doctype html
 html(lang="en")
-    head
-        meta(charset="utf-8")
-        title= "The art of Morgan Bancon"
-        meta(name="description" content="Contact form")
-        meta(name="author" content="Morgan Bancon")
-        meta(name="viewport" content="width=device-width, initial-scale=1")
-        link(rel="stylesheet" type="text/css" href=require("./style.sass").default)
-        link(rel="stylesheet" type="text/css" href=require("./contact-form.sass").default)
-        link(rel="icon" href="data:,")
-    body
-        -
-            var contactLinkPosition = navLinks.findIndex(({ text }) => /contact/i.test(text))
-        nav(id="left-side-nav-links")
-            h1= "MORGAN BANCON"
-            each link, index in navLinks
-                a(href=link.href style=index === contactLinkPosition ? 'text-decoration: underline' : '')= link.text
-        header
-            h1= "MORGAN BANCON"
-            div(id="header-links")
-                each link, index in navLinks
-                    a(href=link.href style=index === contactLinkPosition ? 'text-decoration: underline' : '')= link.text
-            div(id="burger-menu-container")
-                button(id="burger-menu" class="hamburger-box")
-                    div(class="hamburger-top")
-                    div(class="hamburger-middle")
-                    div(class="hamburger-bottom")
-        main(class="w3-row")
-            div(id="overlay")
-            span(id="contact-form-text" class="w3-col l6")="You can contact me using this form"
-            form(class="w3-col l3" onsubmit="return false;")
-                div(class="float-container")
-                    label(for="name")= "Name"
-                    input(id="name" data-placeholder="name")
-                div(class="float-container")
-                    label(for="email")= "Email *"
-                    input(id="email" type="email" data-placeholder="email" required)
-                div(class="float-container")
-                    label(for="message")= "Message"
-                    textarea(id="message" data-placeholder="message")
-                button(class="w3-button w3-border w3-mobile button")
-                    span(class="button__text")="Send Message"
-                div(style="clear: right")
-                div(id="message-sent-confirmation" class="message-sent-outcome w3-panel w3-green" style="display: none")
-                    p="Message sent"
-                    span(class="confirmation-panel-close" class="w3-xxlarge") &times;
-                div(id="message-sending-error" class="message-sent-outcome w3-panel w3-red" style="display: none")
-                    p="An error has occured, and your message could not be sent. Please accept our apologies."
-                    span(class="confirmation-panel-close" class="w3-xxlarge") &times;
-        script(src="https://www.google.com/recaptcha/api.js?render=6Lfm1cIbAAAAAPp9ox3Pqz4mrLQb2BZXyToCTkl0")
+  head
+    meta(charset="utf-8")
+    title= "The art of Morgan Bancon"
+    meta(name="description" content="Contact form")
+    meta(name="author" content="Morgan Bancon")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet" type="text/css" href=require("./style.sass").default)
+    link(rel="stylesheet" type="text/css" href=require("./contact-form.sass").default)
+    link(rel="icon" href="data:,")
+  body
+    -
+      var contactLinkPosition = navLinks.findIndex(({ text }) => /contact/i.test(text))
+    nav(id="left-side-nav-links")
+      h1= "MORGAN BANCON"
+      each link, index in navLinks
+        a(href=link.href style=index === contactLinkPosition ? 'text-decoration: underline' : '')= link.text
+    header
+      h1= "MORGAN BANCON"
+      div(id="header-links")
+        each link, index in navLinks
+          a(href=link.href style=index === contactLinkPosition ? 'text-decoration: underline' : '')= link.text
+      div(id="burger-menu-container")
+        button(id="burger-menu" class="hamburger-box")
+          div(class="hamburger-top")
+          div(class="hamburger-middle")
+          div(class="hamburger-bottom")
+    main(class="w3-row")
+      div(id="overlay")
+      span(id="contact-form-text" class="w3-col l6")="You can contact me using this form" 
+      form(class="w3-col l3" onsubmit="return false;")
+        div(class="float-container")
+          label(for="name")= "Name"
+          input(id="name" data-placeholder="name")
+        div(class="float-container")
+          label(for="email")= "Email *"
+          input(id="email" type="email" data-placeholder="email" required)
+        div(class="float-container")
+          label(for="message")= "Message"
+          textarea(id="message" data-placeholder="message")
+        button(class="w3-button w3-border w3-mobile button")
+          span(class="button__text")="Send Message"
+        div(style="clear: right")
+        div(id="message-sent-confirmation" class="message-sent-outcome w3-panel w3-green" style="display: none")
+          p="Message sent"
+          span(class="confirmation-panel-close" class="w3-xxlarge") &times;
+        div(id="message-sending-error" class="message-sent-outcome w3-panel w3-red" style="display: none")
+          p="An error has occured, and your message could not be sent. Please accept our apologies."
+          span(class="confirmation-panel-close" class="w3-xxlarge") &times;
+    script(src="https://www.google.com/recaptcha/api.js?render=6Lfm1cIbAAAAAPp9ox3Pqz4mrLQb2BZXyToCTkl0")
