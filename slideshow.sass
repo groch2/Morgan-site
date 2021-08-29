@@ -65,7 +65,7 @@
       background: linear-gradient(to bottom, transparent, white)
       z-index: 1
   #close-swiper
-    z-index: 2
+    z-index: 11
   .swiper-wrapper
     overflow: visible
     .swiper-slide
@@ -96,3 +96,7 @@
         top: 100%
         @media only screen and (orientation: landscape)
           padding-bottom: 0.3em
+  .swiper-button-prev, .swiper-button-next
+    margin: 0
+    top: 0
+    height: 100vh
