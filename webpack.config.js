@@ -74,7 +74,7 @@ const navLinks = [
 ];
 
 const pathToIndex = require.resolve("./index.pug");
-const pathToPicturesSection = require.resolve("./picturesSection.pug");
+const pathToPicturesSection = require.resolve("./pictures-section.pug");
 const trailingYearRegex = /\d{4}$/;
 const htmlPagesForPicuresSections = picturesSections.map(
   (pictureSection) =>
