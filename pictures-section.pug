@@ -2,20 +2,20 @@ doctype html
 html(lang="en")
   head
     meta(charset="utf-8")
-    title= "The art of Morgan Bancon"
-    meta(name="description" content="The art of Morgan Bancon")
-    meta(name="author" content="Morgan Bancon")
+    title= "The art of Morgan BANCON"
+    meta(name="description" content="The art of Morgan BANCON")
+    meta(name="author" content="Morgan BANCON")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" type="text/css" href=require("./slideshow.sass").default)
     link(rel="icon" href="data:,")
   body
     div(id="menu-mosaic-container")
       nav(id="left-side-nav-links")
-        h1= "MORGAN BANCON"
+        h1= "Morgan BANCON"
         each link in navLinks
           a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
       header
-        h1= "MORGAN BANCON"
+        h1= "Morgan BANCON"
         div(id="header-links")
           each link, index in navLinks
             a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
