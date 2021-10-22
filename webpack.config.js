@@ -6,109 +6,112 @@ const fs = require("fs");
 const path = require("path");
 const pug = require("pug");
 
-const sep = `${path.sep}${path.sep}`;
-const removeLeadingDirectoryPart = new RegExp(
-  `^${sep}?pictures${sep}(.+)$`,
-  "i"
-);
-const getTextWithoutLeadingNumber = (text) => /(?<=^\d+\s).+$/i.exec(text)[0];
-const deviceTypeAndWidth =
-  require("./scripts/viewport-dimensions-by-device.json").map(
-    ({ device: deviceType, width }) => ({
-      deviceType,
-      width,
-    })
-  );
-const pictureBaseUrl = "../pictures-by-device-type/";
-const joinAndEncode = (...pathParts) =>
-  encodeURI(path.posix.join(...pathParts));
-const { picturesSections, picturesBySection } = fs
-  .readdirSync("./pictures", { withFileTypes: true })
-  .filter((dirent) => dirent.isDirectory())
-  .map((dirent) => ({
-    sectionName: getTextWithoutLeadingNumber(dirent.name),
-    directory: path.join("pictures", dirent.name),
-  }))
-  .reduce(
-    ({ picturesSections, picturesBySection }, { sectionName, directory }) => {
-      picturesSections.push(sectionName);
-      picturesBySection[sectionName] = fs
-        .readdirSync(directory)
-        .map((pictureFile) => {
-          const name = path.parse(pictureFile).name;
-          const picureTrailingUrl = path.posix.join(
-            getTextWithoutLeadingNumber(
-              removeLeadingDirectoryPart.exec(directory)[1]
-            ),
-            `${name}.webp`
-          );
-          return {
-            name,
-            url: joinAndEncode(pictureBaseUrl, "mobile", picureTrailingUrl),
-            srcset: deviceTypeAndWidth
-              .map(({ deviceType, width }) => {
-                return `${joinAndEncode(
-                  pictureBaseUrl,
-                  deviceType,
-                  picureTrailingUrl
-                )} ${width}w`;
-              })
-              .join(", "),
-          };
-        });
-      return { picturesSections, picturesBySection };
-    },
-    { picturesSections: [], picturesBySection: {} }
-  );
-
-const navLinks = [
-  { href: "index.html", text: "Accueil" },
-  ...picturesSections.map((ps) => ({
-    href: `${ps}.html`,
-    text: ps,
-  })),
-  ...[
-    { href: "#", text: "Bio" },
-    { href: "contact-form.html", text: "Contact" },
-  ],
-];
-
-const pathToIndex = require.resolve("./index.pug");
-const pathToPicturesSection = require.resolve("./pictures-section.pug");
-const trailingYearRegex = /\d{4}$/;
-const htmlPagesForPicuresSections = picturesSections.map(
-  (pictureSection) =>
-    new HtmlWebpackPlugin({
-      template: pathToPicturesSection,
-      inject: true,
-      chunks: ["slideshow"],
-      filename: `${pictureSection}.html`,
-      templateParameters: {
-        pictureSection,
-        pictures: picturesBySection[pictureSection].sort(
-          ({ name: nameA }, { name: nameB }) => {
-            let yearA = trailingYearRegex.exec(nameA);
-            let yearB = trailingYearRegex.exec(nameB);
-            const namesComparison = () => nameA.localeCompare(nameB);
-            if (yearA === null || yearB === null) {
-              return namesComparison();
-            }
-            yearA = parseInt(yearA[0]);
-            yearB = parseInt(yearB[0]);
-            const yearsComparison = yearB - yearA;
-            return yearsComparison != 0 ? yearsComparison : namesComparison();
-          }
-        ),
-        navLinks,
-      },
-    })
-);
-
-const pathToContactForm = require.resolve("./contact-form.pug");
-
 module.exports = (_, { mode }) => {
   const isProductionMode = /^production$/i.test(mode);
   console.debug({ isProductionMode });
+
+  const sep = `${path.sep}${path.sep}`;
+  const removeLeadingDirectoryPart = new RegExp(
+    `^${sep}?pictures${sep}(.+)$`,
+    "i"
+  );
+  const getTextWithoutLeadingNumber = (text) => /(?<=^\d+\s).+$/i.exec(text)[0];
+  const deviceTypeAndWidth =
+    require("./scripts/viewport-dimensions-by-device.json").map(
+      ({ device: deviceType, width }) => ({
+        deviceType,
+        width,
+      })
+    );
+  const joinAndEncode = (...pathParts) =>
+    encodeURI(path.posix.join(...pathParts));
+  const pictureBaseUrl = 
+    !isProductionMode ? 
+      "../pictures-by-device-type/" : 
+      "https://morgan-site-pictures-by-device-type.s3.eu-west-3.amazonaws.com/";
+  const { picturesSections, picturesBySection } = fs
+    .readdirSync("./pictures", { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => ({
+      sectionName: getTextWithoutLeadingNumber(dirent.name),
+      directory: path.join("pictures", dirent.name),
+    }))
+    .reduce(
+      ({ picturesSections, picturesBySection }, { sectionName, directory }) => {
+        picturesSections.push(sectionName);
+        picturesBySection[sectionName] = fs
+          .readdirSync(directory)
+          .map((pictureFile) => {
+            const name = path.parse(pictureFile).name;
+            const picureTrailingUrl = path.posix.join(
+              getTextWithoutLeadingNumber(
+                removeLeadingDirectoryPart.exec(directory)[1]
+              ),
+              `${name}.webp`
+            );
+            return {
+              name,
+              url: joinAndEncode(pictureBaseUrl, "mobile", picureTrailingUrl),
+              srcset: deviceTypeAndWidth
+                .map(({ deviceType, width }) => {
+                  return `${joinAndEncode(
+                    pictureBaseUrl,
+                    deviceType,
+                    picureTrailingUrl
+                  )} ${width}w`;
+                })
+                .join(", "),
+            };
+          });
+        return { picturesSections, picturesBySection };
+      },
+      { picturesSections: [], picturesBySection: {} }
+    );
+  
+  const navLinks = [
+    { href: "index.html", text: "Accueil" },
+    ...picturesSections.map((ps) => ({
+      href: `${ps}.html`,
+      text: ps,
+    })),
+    ...[
+      { href: "#", text: "Bio" },
+      { href: "contact-form.html", text: "Contact" },
+    ],
+  ];
+  
+  const pathToIndex = require.resolve("./index.pug");
+  const pathToPicturesSection = require.resolve("./pictures-section.pug");
+  const trailingYearRegex = /\d{4}$/;
+  const htmlPagesForPicuresSections = picturesSections.map(
+    (pictureSection) =>
+      new HtmlWebpackPlugin({
+        template: pathToPicturesSection,
+        inject: true,
+        chunks: ["slideshow"],
+        filename: `${pictureSection}.html`,
+        templateParameters: {
+          pictureSection,
+          pictures: picturesBySection[pictureSection].sort(
+            ({ name: nameA }, { name: nameB }) => {
+              let yearA = trailingYearRegex.exec(nameA);
+              let yearB = trailingYearRegex.exec(nameB);
+              const namesComparison = () => nameA.localeCompare(nameB);
+              if (yearA === null || yearB === null) {
+                return namesComparison();
+              }
+              yearA = parseInt(yearA[0]);
+              yearB = parseInt(yearB[0]);
+              const yearsComparison = yearB - yearA;
+              return yearsComparison != 0 ? yearsComparison : namesComparison();
+            }
+          ),
+          navLinks,
+        },
+      })
+  );
+  
+  const pathToContactForm = require.resolve("./contact-form.pug");
   return {
     entry: {
       index: "./index.js",
