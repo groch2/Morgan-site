@@ -80,7 +80,6 @@ module.exports = (_, { mode }) => {
     ],
   ];
   
-  const pathToIndex = require.resolve("./index.pug");
   const pathToPicturesSection = require.resolve("./pictures-section.pug");
   const trailingYearRegex = /\d{4}$/;
   const htmlPagesForPicuresSections = picturesSections.map(
@@ -111,6 +110,7 @@ module.exports = (_, { mode }) => {
       })
   );
   
+  const pathToIndex = require.resolve("./index.pug");
   const pathToContactForm = require.resolve("./contact-form.pug");
   return {
     entry: {
@@ -144,11 +144,7 @@ module.exports = (_, { mode }) => {
           ],
         },
         {
-          test: pathToPicturesSection,
-          use: "pug-loader",
-        },
-        {
-          test: pathToContactForm,
+          test: [pathToPicturesSection, pathToContactForm],
           use: "pug-loader",
         },
         {
