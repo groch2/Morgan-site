@@ -23,26 +23,62 @@ const swiper = new Swiper("#swiper-container", {
   loop: true,
 });
 
+function getIndexFromHash() {
+  return parseInt(/(?<=#)\d+$/.exec(window.location.hash));
+}
+
+function incrementHashIndex() {
+  const index = getIndexFromHash();
+  window.location.hash = `${index + 1}`;
+}
+
+function decrementIndexHash() {
+  const index = getIndexFromHash();
+  window.location.hash = `${index - 1}`;
+}
+
 document
   .querySelector(".swiper-button-prev")
-  .addEventListener("click", () => swiper.slidePrev());
+  .addEventListener("click", () => {
+    decrementIndexHash();
+    swiper.slidePrev();
+  });
 
 document
   .querySelector(".swiper-button-next")
-  .addEventListener("click", () => swiper.slideNext());
+  .addEventListener("click", () => {
+    incrementHashIndex()
+    swiper.slideNext();
+  });
 
 document.addEventListener("keydown", (event) => {
   switch (event.code) {
     case "ArrowRight":
+      incrementHashIndex();
       swiper.slideNext();
       return;
     case "ArrowLeft":
+      decrementIndexHash();
       swiper.slidePrev();
       return;
   }
 });
 
 const menuMosaicContainer = document.getElementById("menu-mosaic-container");
+
+function slideToIndexFromHash() {
+  const slideIndex = parseInt(window.location.hash.substring(1));
+  menuMosaicContainer.style.display = "none";
+  swiper.el.style.display = "block";
+  swiper.update();
+  swiper.slideTo(slideIndex, 0, false);
+}
+
+if (/^#\d+$/i.test(window.location.hash)) {
+  slideToIndexFromHash();
+}
+
+window.onhashchange = slideToIndexFromHash;
 
 const thumbnail = document.getElementsByClassName("thumbnail")[0];
 const imageStyle = getComputedStyle(thumbnail);
@@ -64,9 +100,12 @@ document.getElementById("close-swiper").addEventListener("click", () => {
   const nbRowsOfImagesAboveTheTopOfTheScreen = rowIndexOfCurrentSlide - 1;
   const yOffset = nbRowsOfImagesAboveTheTopOfTheScreen * imageHeight;
   window.scrollTo({ top: yOffset });
+
+  window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf("#"));
 });
 
-menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
+const thumbnails = menuMosaicContainer.querySelectorAll(".thumbnail");
+thumbnails.forEach((thumbnail) => {
   thumbnail.addEventListener(
     "click",
     ({
@@ -80,7 +119,9 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
       menuMosaicContainer.style.display = "none";
       swiper.el.style.display = "block";
       swiper.update();
-      swiper.slideTo(parseInt(index) + 1, 0, false);
+      index = `${parseInt(index) + 1}`;
+      swiper.slideTo(index, 0, false);
+      window.location.hash = `${index}`;
     }
   );
 });
