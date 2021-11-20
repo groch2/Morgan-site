@@ -80,26 +80,10 @@ if (/^#\d+$/i.test(window.location.hash)) {
 
 window.onhashchange = slideToIndexFromHash;
 
-const thumbnail = document.getElementsByClassName("thumbnail")[0];
-const imageStyle = getComputedStyle(thumbnail);
-const imageWidth = thumbnail.offsetWidth;
-const imageHeight =
-  thumbnail.offsetHeight +
-  parseInt(imageStyle.marginTop) +
-  parseInt(imageStyle.marginBottom);
-
 document.getElementById("close-swiper").addEventListener("click", () => {
-  const { realIndex } = swiper;
-
   menuMosaicContainer.style.display = "flex";
   swiper.el.style.display = "none";
   swiper.update();
-
-  const nbImageByRow = Math.floor(window.innerWidth / imageWidth);
-  const rowIndexOfCurrentSlide = Math.ceil((realIndex + 1) / nbImageByRow);
-  const nbRowsOfImagesAboveTheTopOfTheScreen = rowIndexOfCurrentSlide - 1;
-  const yOffset = nbRowsOfImagesAboveTheTopOfTheScreen * imageHeight;
-  window.scrollTo({ top: yOffset });
 
   window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf("#"));
 });
