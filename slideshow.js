@@ -27,44 +27,46 @@ function getIndexFromHash() {
   return parseInt(/(?<=#)\d+$/.exec(window.location.hash));
 }
 
-function incrementHashIndex() {
+const menuMosaicContainer = document.getElementById("menu-mosaic-container");
+const thumbnails = menuMosaicContainer.querySelectorAll(".thumbnail");
+const nbTotalPictures = thumbnails.length;
+
+function incrementHashPictureIndex() {
   const index = getIndexFromHash();
-  window.location.hash = `${index + 1}`;
+  window.location.hash = index < nbTotalPictures ? `${index + 1}` : 1;
 }
 
-function decrementIndexHash() {
+function decrementHashPictureIndex() {
   const index = getIndexFromHash();
-  window.location.hash = `${index - 1}`;
+  window.location.hash = index > 1 ? `${index - 1}` : nbTotalPictures;
 }
 
 document
   .querySelector(".swiper-button-prev")
   .addEventListener("click", () => {
-    decrementIndexHash();
+    decrementHashPictureIndex();
     swiper.slidePrev();
   });
 
 document
   .querySelector(".swiper-button-next")
   .addEventListener("click", () => {
-    incrementHashIndex()
+    incrementHashPictureIndex()
     swiper.slideNext();
   });
 
 document.addEventListener("keydown", (event) => {
   switch (event.code) {
     case "ArrowRight":
-      incrementHashIndex();
+      incrementHashPictureIndex();
       swiper.slideNext();
       return;
     case "ArrowLeft":
-      decrementIndexHash();
+      decrementHashPictureIndex();
       swiper.slidePrev();
       return;
   }
 });
-
-const menuMosaicContainer = document.getElementById("menu-mosaic-container");
 
 function slideToIndexFromHash() {
   const slideIndex = parseInt(window.location.hash.substring(1));
@@ -85,10 +87,10 @@ document.getElementById("close-swiper").addEventListener("click", () => {
   swiper.el.style.display = "none";
   swiper.update();
 
-  window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf("#"));
+  window.location.href =
+    window.location.href.substring(0, window.location.href.lastIndexOf("#"));
 });
 
-const thumbnails = menuMosaicContainer.querySelectorAll(".thumbnail");
 thumbnails.forEach((thumbnail) => {
   thumbnail.addEventListener(
     "click",
