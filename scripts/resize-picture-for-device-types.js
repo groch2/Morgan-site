@@ -6,7 +6,7 @@ const sizeOf = require("image-size");
 const sharp = require("sharp");
 
 const picturesDirectory = "./pictures";
-const factor = 1.5;
+const factor = 1;
 require("./viewport-dimensions-by-device.json").forEach(
   ({ device, width, height }) => {
     const [originalWidth, originalHeight] = [width, height];
