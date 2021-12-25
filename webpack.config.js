@@ -25,9 +25,9 @@ module.exports = (_, { mode }) => {
     );
   const joinAndEncode = (...pathParts) =>
     encodeURI(path.posix.join(...pathParts));
-  const pictureBaseUrl = 
-    !isProductionMode ? 
-      "../pictures-by-device-type/" : 
+  const pictureBaseUrl =
+    !isProductionMode ?
+      "../pictures-by-device-type/" :
       "https://morgan-site-pictures-by-device-type.s3.eu-west-3.amazonaws.com/";
   const { picturesSections, picturesBySection } = fs
     .readdirSync("./pictures", { withFileTypes: true })
@@ -67,7 +67,7 @@ module.exports = (_, { mode }) => {
       },
       { picturesSections: [], picturesBySection: {} }
     );
-  
+
   const navLinks = [
     { href: "index.html", text: "Accueil" },
     ...picturesSections.map((ps) => ({
@@ -75,11 +75,11 @@ module.exports = (_, { mode }) => {
       text: ps,
     })),
     ...[
-      { href: "#", text: "Bio" },
+      { href: "CV.html", text: "Bio" },
       { href: "contact-form.html", text: "Contact" },
     ],
   ];
-  
+
   const pathToPicturesSection = require.resolve("./pictures-section.pug");
   const trailingYearRegex = /\d{4}$/;
   const htmlPagesForPicuresSections = picturesSections.map(
@@ -109,9 +109,10 @@ module.exports = (_, { mode }) => {
         },
       })
   );
-  
+
   const pathToIndex = require.resolve("./index.pug");
   const pathToContactForm = require.resolve("./contact-form.pug");
+  const pathToCV = require.resolve("./CV.pug");
   return {
     entry: {
       index: "./index.js",
@@ -144,7 +145,7 @@ module.exports = (_, { mode }) => {
           ],
         },
         {
-          test: [pathToPicturesSection, pathToContactForm],
+          test: [pathToPicturesSection, pathToContactForm, pathToCV],
           use: "pug-loader",
         },
         {
@@ -218,6 +219,13 @@ module.exports = (_, { mode }) => {
         templateParameters: { navLinks },
       }),
       ...htmlPagesForPicuresSections,
+      new HtmlWebpackPlugin({
+        template: pathToCV,
+        filename: "CV.html",
+        inject: "body",
+        chunks: ["index"],
+        templateParameters: { navLinks },
+      }),
       new CleanWebpackPlugin(),
     ].filter((plugin) => plugin),
     optimization: {

@@ -1,0 +1,118 @@
+doctype html
+html(lang="fr")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title Morgan BANCON - curriculum vitae
+    meta(name="description" content="Le curriculum vitae de Morgan BANCON")
+    meta(name="author" content="Morgan BANCON")
+    meta(property="og:title" content="Morgan BANCON - curriculum vitae")
+    meta(property="og:type" content="webpage")
+    meta(property="og:url" content="https://www.morganbancon.com/CV.html/")
+    meta(property="og:description" content="Le curriculum vitae de Morgan BANCON")
+    link(rel="stylesheet" type="text/css" href=require("./style.sass").default)
+    link(rel="icon" href="data:,")
+    style.
+      body {
+        margin: 0;
+        height: auto;
+        overflow: auto;
+      }
+      ul.year-entries-container {
+          margin-block-start: 0;
+      }
+      .year-label::after {
+          content: ':';
+      }
+      #prix-et-distinctions>ul,
+      #publications>ul {
+          margin-block-start: 0;
+      }
+      #faits-principaux>p{
+          margin-block-start: 0;
+          margin-block-end: 0;
+      }
+  body
+    nav(id="left-side-nav-links")
+      h1= "Morgan BANCON"
+      each link, index in navLinks
+        a(href=link.href style=index === 0 ? 'text-decoration: underline' : '')= link.text
+    header
+      h1= "Morgan BANCON"
+      div(id="header-links")
+        each link, index in navLinks
+          a(href=link.href style=index === 0 ? 'text-decoration: underline' : '')= link.text
+      div(id="burger-menu-container")
+        button(id="burger-menu" class="hamburger-box")
+          div(class="hamburger-top")
+          div(class="hamburger-middle")
+          div(class="hamburger-bottom")
+    main
+      div(id="overlay")
+      section(id="faits-principaux" class="w3-container")
+        p Né à Paris en 1982
+        p Diplômé de l'École nationale supérieure des Beaux-Arts de Paris en 2008.
+        p Membre de la Casa de Velázquez à Madrid en 2012/2013.
+      section(class="w3-container")
+        h3 EXPOSITIONS
+        div(class="year-container")
+          label(class="year-label") 2019
+          ul(class="year-entries-container")
+            li Galerie Mercier, Paris, exposition individuelle.
+        div(class="year-container")
+          label(class="year-label") 2018
+          ul(class="year-entries-container")
+            li "Azul", Guillermina Caicoya art projects, Oviedo, exposition individuelle
+            li Fondation Ynglada-Guillot, Concours de dessin, Barcelone, exposition collective
+        div(class="year-container")
+          label(class="year-label") 2017
+          ul(class="year-entries-container")
+            li "Morgan Bancon -voyages d'Espagne", Musée Goya, Castres, exposition individuelle.
+            li "Foire "Estampa", Madrid, Guillermina Caicoya art projects, exposition collective.
+            li Espace Thorigny, Paris, prix
+            li Noufflard de peinture, exposition collective
+        div(class="year-container")
+          label(class="year-label") 2016
+          ul(class="year-entries-container")
+            li Foire "Estampa", Guillermina Caicoya art projects, Madrid, exposition collective.
+        div(class="year-container")
+          label(class="year-label") 2015
+          ul(class="year-entries-container")
+            li Guillermina Caicoya art projects, Oviedo, exposition individuelle.
+            li Foire "Estampa", Guillermina Caicoya art projects, Madrid, exposition collective.
+        div(class="year-container")
+          label(class="year-label") 2014
+          ul(class="year-entries-container")
+            li "Itinerancia", Villa Lemot, exposition collective.
+        div(class="year-container")
+          label(class="year-label") 2013
+          ul(class="year-entries-container")
+            li Guillermina Caicoya, Oviedo, exposition collective.
+            li "Itinerancia", Madrid, Casa de Velázquez/ Monasterio de Santa María de Veruela/Espace Pierre Cardin Évolution, Paris, exposition collective.
+            li Lycée français de Madrid, exposition collective.
+        div(class="year-container")
+          label(class="year-label") 2012
+          ul(class="year-entries-container")
+            li "Puertas abiertas", Casa de Velázquez, Madrid
+        div(class="year-container")
+          label(class="year-label") 2011
+          ul(class="year-entries-container")
+            li Agence Achille, Paris, exposition individuelle.
+            li Atelier de lithographie "A fleur de pierre", Paris, exposition collective.
+            li Institut de France, prix de dessin Pierre David-Weill, Paris, exposition collective.
+      section(id="prix-et-distinctions" class="w3-container")
+        h3 PRIX ET DISTINCTIONS
+        ul
+          li Prix Noufflard 2017
+          li Prix Pierre Cardin de peinture 2014
+          li Membre de la Casa de Velázquez 2012/2013
+          li Prix Wildenstein 2013
+          li Second prix de dessin Pierre David-Weill 2013
+      section(id="publications" class="w3-container")
+        h3 PUBLICATIONS
+        ul
+          li Catalogue Galerie Mercier, 2019
+          li Catalogue "Morgan Bancon- voyages d'Espagne", musée Goya, Castres, 2017.
+          li Catalogue "Morgan Bancon", co-édition Casa de Velázquez, 2015.
+          li Catalogue "Itinerancia" 2013."
+          li Catalogue "Ensba 2008".
