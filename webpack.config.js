@@ -118,6 +118,7 @@ module.exports = (_, { mode }) => {
       index: "./index.js",
       slideshow: "./slideshow.js",
       "contact-form": "./contact-form.js",
+      cv: "./cv.js",
     },
     module: {
       rules: [
@@ -223,7 +224,7 @@ module.exports = (_, { mode }) => {
         template: pathToCV,
         filename: "CV.html",
         inject: "body",
-        chunks: ["index"],
+        chunks: ["cv"],
         templateParameters: { navLinks },
       }),
       new CleanWebpackPlugin(),

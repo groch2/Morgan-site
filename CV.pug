@@ -7,17 +7,12 @@ html(lang="fr")
     meta(name="description" content="Le curriculum vitae de Morgan BANCON")
     meta(name="author" content="Morgan BANCON")
     meta(property="og:title" content="Morgan BANCON - curriculum vitae")
-    meta(property="og:type" content="webpage")
-    meta(property="og:url" content="https://www.morganbancon.com/CV.html/")
+    meta(property="og:type" content="curriculum vitae")
+    meta(property="og:url" content="https://www.morganbancon.com/CV.html")
     meta(property="og:description" content="Le curriculum vitae de Morgan BANCON")
-    link(rel="stylesheet" type="text/css" href=require("./style.sass").default)
+    link(rel="stylesheet" type="text/css" href=require("./cv.sass").default)
     link(rel="icon" href="data:,")
     style.
-      body {
-        margin: 0;
-        height: auto;
-        overflow: auto;
-      }
       ul.year-entries-container {
           margin-block-start: 0;
       }
@@ -36,12 +31,12 @@ html(lang="fr")
     nav(id="left-side-nav-links")
       h1= "Morgan BANCON"
       each link, index in navLinks
-        a(href=link.href style=index === 0 ? 'text-decoration: underline' : '')= link.text
+        a(href=link.href style=index === 4 ? 'text-decoration: underline' : '')= link.text
     header
       h1= "Morgan BANCON"
       div(id="header-links")
         each link, index in navLinks
-          a(href=link.href style=index === 0 ? 'text-decoration: underline' : '')= link.text
+          a(href=link.href style=index === 4 ? 'text-decoration: underline' : '')= link.text
       div(id="burger-menu-container")
         button(id="burger-menu" class="hamburger-box")
           div(class="hamburger-top")
