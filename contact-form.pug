@@ -1,9 +1,9 @@
 doctype html
-html(lang="en")
+html(lang="fr")
   head
     meta(charset="utf-8")
-    title= "The art of Morgan BANCON"
-    meta(name="description" content="Contact form")
+    title= "Formulaire de contact du site morganbancon.com"
+    meta(name="description" content="Formulaire de contact")
     meta(name="author" content="Morgan BANCON")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" type="text/css" href=require("./style.sass").default)
@@ -26,12 +26,11 @@ html(lang="en")
           div(class="hamburger-top")
           div(class="hamburger-middle")
           div(class="hamburger-bottom")
-    main(class="w3-row")
+    main
       div(id="overlay")
-      span(id="contact-form-text" class="w3-col l6")="You can contact me using this form" 
-      form(class="w3-col l3" onsubmit="return false;")
+      form(onsubmit="return false;")
         div(class="float-container")
-          label(for="name")= "Name"
+          label(for="name")= "Nom"
           input(id="name" data-placeholder="name")
         div(class="float-container")
           label(for="email")= "Email *"
@@ -40,12 +39,12 @@ html(lang="en")
           label(for="message")= "Message"
           textarea(id="message" data-placeholder="message")
         button(class="w3-button w3-border w3-mobile button")
-          span(class="button__text")="Send Message"
+          span(class="button__text")="Envoyer"
         div(style="clear: right")
         div(id="message-sent-confirmation" class="message-sent-outcome w3-panel w3-green" style="display: none")
-          p="Message sent"
+          p="Message envoyé"
           span(class="confirmation-panel-close" class="w3-xxlarge") &times;
         div(id="message-sending-error" class="message-sent-outcome w3-panel w3-red" style="display: none")
-          p="An error has occured, and your message could not be sent. Please accept our apologies."
+          p="Une erreur est survenu et votre message n'a pas pu être transmis. Veuillez nous en excuser."
           span(class="confirmation-panel-close" class="w3-xxlarge") &times;
     script(src="https://www.google.com/recaptcha/api.js?render=6Lfm1cIbAAAAAPp9ox3Pqz4mrLQb2BZXyToCTkl0")
