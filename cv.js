@@ -11,7 +11,7 @@ const { onNavChange, isNavOpen } = (function () {
             header.style.visibility = _isNavOpen ? "visible" : "hidden";
             burgerMenuContainer.style.visibility = "visible";
             burgerMenuContainer.style.position = _isNavOpen ? "absolute" : "fixed";
-            body.style.overflow = _isNavOpen ? "auto" : "hidden";
+            body.style.overflow = _isNavOpen ? "visible" : "hidden";
             _isNavOpen = !_isNavOpen;
         },
         isNavOpen: () => _isNavOpen,
