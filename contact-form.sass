@@ -44,9 +44,11 @@ main
 body
   overflow-y: auto
 
-@media (max-width: 992px)
-  form
-    padding: 0.01em 16px
+form
+  padding: 0 1em
+  @media (min-width: 601px)
+    width: 66.66666%
+    margin: auto
 
 textarea#message
   resize: vertical
