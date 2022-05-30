@@ -30,18 +30,12 @@ main
       /* large */
       grid-template-columns: repeat(auto-fit, minmax(200px, 0.25fr))
   .thumbnail
-    position: relative
-    padding-bottom: 78%
-    height: 0
-    overflow: hidden
-    max-width: 100%
+    aspect-ratio: 1.618
     img
       width: 100%
       height: 100%
       object-fit: cover
-      position: absolute
-      top: 0
-      left: 0
+      object-position: right top
     :hover
       cursor: pointer
 #swiper-container
