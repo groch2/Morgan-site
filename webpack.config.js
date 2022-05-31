@@ -29,6 +29,7 @@ module.exports = (_, { mode }) => {
     !isProductionMode ?
       "../pictures-by-device-type/" :
       "https://morgan-site-pictures-by-device-type.s3.eu-west-3.amazonaws.com/";
+  const trailingYearRegex = /\d{4}$/;
   const { picturesSections, picturesBySection } = fs
     .readdirSync("./pictures", { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
@@ -63,10 +64,28 @@ module.exports = (_, { mode }) => {
                 .join(", "),
             };
           });
+        picturesBySection[sectionName].sort(
+          ({ name: nameA }, { name: nameB }) => {
+            let yearA = trailingYearRegex.exec(nameA);
+            let yearB = trailingYearRegex.exec(nameB);
+            const namesComparison = () => nameA.localeCompare(nameB);
+            if (yearA === null || yearB === null) {
+              return namesComparison();
+            }
+            yearA = parseInt(yearA[0]);
+            yearB = parseInt(yearB[0]);
+            const yearsComparison = yearB - yearA;
+            return yearsComparison != 0 ? yearsComparison : namesComparison();
+          }
+        );
         return { picturesSections, picturesBySection };
       },
       { picturesSections: [], picturesBySection: {} }
     );
+
+  const picturesSectionsList =
+    Object.entries(picturesBySection)
+      .map(([sectionName, pictures]) => ({ name: sectionName, pictures: pictures.map(picture => picture.name) }));
 
   const navLinks = [
     { href: "index.html", text: "Accueil" },
@@ -81,7 +100,6 @@ module.exports = (_, { mode }) => {
   ];
 
   const pathToPicturesSection = require.resolve("./pictures-section.pug");
-  const trailingYearRegex = /\d{4}$/;
   const htmlPagesForPicuresSections = picturesSections.map(
     (pictureSection) =>
       new HtmlWebpackPlugin({
@@ -91,20 +109,7 @@ module.exports = (_, { mode }) => {
         filename: `${pictureSection}.html`,
         templateParameters: {
           pictureSection,
-          pictures: picturesBySection[pictureSection].sort(
-            ({ name: nameA }, { name: nameB }) => {
-              let yearA = trailingYearRegex.exec(nameA);
-              let yearB = trailingYearRegex.exec(nameB);
-              const namesComparison = () => nameA.localeCompare(nameB);
-              if (yearA === null || yearB === null) {
-                return namesComparison();
-              }
-              yearA = parseInt(yearA[0]);
-              yearB = parseInt(yearB[0]);
-              const yearsComparison = yearB - yearA;
-              return yearsComparison != 0 ? yearsComparison : namesComparison();
-            }
-          ),
+          pictures: picturesBySection[pictureSection],
           navLinks,
         },
       })
@@ -113,6 +118,7 @@ module.exports = (_, { mode }) => {
   const pathToIndex = require.resolve("./index.pug");
   const pathToContactForm = require.resolve("./contact-form.pug");
   const pathToCV = require.resolve("./CV.pug");
+  const pathToPicturesSectionsList = require.resolve("./pictures-sections-list.pug");
   return {
     entry: {
       index: "./index.js",
@@ -146,7 +152,7 @@ module.exports = (_, { mode }) => {
           ],
         },
         {
-          test: [pathToPicturesSection, pathToContactForm, pathToCV],
+          test: [pathToPicturesSection, pathToContactForm, pathToCV, pathToPicturesSectionsList],
           use: "pug-loader",
         },
         {
@@ -226,6 +232,12 @@ module.exports = (_, { mode }) => {
         inject: "body",
         chunks: ["cv"],
         templateParameters: { navLinks },
+      }),
+      new HtmlWebpackPlugin({
+        template: pathToPicturesSectionsList,
+        filename: "pictures-sections-list.html",
+        chunks: [],
+        templateParameters: { sections: picturesSectionsList }
       }),
       new CleanWebpackPlugin(),
     ].filter((plugin) => plugin),
