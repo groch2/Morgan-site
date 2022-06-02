@@ -24,75 +24,34 @@ const swiper = new Swiper("#swiper-container", {
   loop: true,
 });
 
-function getIndexFromHash() {
-  return parseInt(/(?<=#)\d+$/.exec(window.location.hash));
-}
-
-const menuMosaicContainer = document.getElementById("menu-mosaic-container");
-const thumbnails = menuMosaicContainer.querySelectorAll(".thumbnail");
-const nbTotalPictures = thumbnails.length;
-
-function incrementHashPictureIndex() {
-  const index = getIndexFromHash();
-  window.location.hash = index < nbTotalPictures ? `${index + 1}` : 1;
-}
-
-function decrementHashPictureIndex() {
-  const index = getIndexFromHash();
-  window.location.hash = index > 1 ? `${index - 1}` : nbTotalPictures;
-}
-
 document
   .querySelector(".swiper-button-prev")
-  .addEventListener("click", () => {
-    decrementHashPictureIndex();
-    swiper.slidePrev();
-  });
+  .addEventListener("click", () => swiper.slidePrev());
 
 document
   .querySelector(".swiper-button-next")
-  .addEventListener("click", () => {
-    incrementHashPictureIndex()
-    swiper.slideNext();
-  });
+  .addEventListener("click", () => swiper.slideNext());
 
 document.addEventListener("keydown", (event) => {
   switch (event.code) {
     case "ArrowRight":
-      incrementHashPictureIndex();
       swiper.slideNext();
       return;
     case "ArrowLeft":
-      decrementHashPictureIndex();
       swiper.slidePrev();
       return;
   }
 });
 
-function slideToIndexFromHash() {
-  const slideIndex = parseInt(window.location.hash.substring(1));
-  menuMosaicContainer.style.display = "none";
-  swiper.el.style.display = "block";
-  swiper.update();
-  swiper.slideTo(slideIndex, 0, false);
-}
-
-if (/^#\d+$/i.test(window.location.hash)) {
-  slideToIndexFromHash();
-}
-
-window.onhashchange = slideToIndexFromHash;
+const menuMosaicContainer = document.getElementById("menu-mosaic-container");
 
 document.getElementById("close-swiper").addEventListener("click", () => {
   menuMosaicContainer.style.display = "flex";
   swiper.el.style.display = "none";
   swiper.update();
-
-  window.location.href =
-    window.location.href.substring(0, window.location.href.lastIndexOf("#"));
 });
 
-thumbnails.forEach((thumbnail) => {
+menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
   thumbnail.addEventListener(
     "click",
     ({
@@ -106,9 +65,7 @@ thumbnails.forEach((thumbnail) => {
       menuMosaicContainer.style.display = "none";
       swiper.el.style.display = "block";
       swiper.update();
-      index = `${parseInt(index) + 1}`;
-      swiper.slideTo(index, 0, false);
-      window.location.hash = `${index}`;
+      swiper.slideTo(parseInt(index) + 1, 0, false);
     }
   );
 });
