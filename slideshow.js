@@ -1,4 +1,4 @@
-import Swiper from "swiper";
+import Swiper, { Navigation, HashNavigation } from "swiper";
 import { setupNav } from "./setupNav";
 import { headerAutoHideOnVerticalScroll } from "./header-auto-hide-on-vertical-scroll";
 
@@ -21,16 +21,16 @@ const { onNavChange, isNavOpen } = (function () {
 setupNav(onNavChange);
 
 const swiper = new Swiper("#swiper-container", {
+  modules: [Navigation, HashNavigation],
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  hashNavigation: {
+    watchState: true,
+  },
   loop: true,
 });
-
-document
-  .querySelector(".swiper-button-prev")
-  .addEventListener("click", () => swiper.slidePrev());
-
-document
-  .querySelector(".swiper-button-next")
-  .addEventListener("click", () => swiper.slideNext());
 
 document.addEventListener("keydown", (event) => {
   switch (event.code) {
