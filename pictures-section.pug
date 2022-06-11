@@ -32,8 +32,8 @@ html(lang="en")
     div(id="swiper-container" style="display: none;")
       span(id="close-swiper" class="w3-button w3-display-topright w3-xxlarge cursor")!="&#xD7;" 
       div(class="swiper-wrapper")
-        each picture in pictures
-          div(class="swiper-slide")
+        each picture, index in pictures
+          div(class="swiper-slide" data-hash=index + 1)
             div(class="picture-box")
               img(class="picture" src=picture.url srcset=picture.srcset alt=picture.name)
               label(class="picture-label")= picture.name

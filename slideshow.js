@@ -1,6 +1,28 @@
-import Swiper from "swiper";
+import Swiper, { Navigation, HashNavigation } from "swiper";
 import { setupNav } from "./setupNav";
 import { headerAutoHideOnVerticalScroll } from "./header-auto-hide-on-vertical-scroll";
+
+const swiper = new Swiper("#swiper-container", {
+  modules: [Navigation, HashNavigation],
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  hashNavigation: {
+    watchState: true,
+  },
+  loop: true,
+});
+
+const menuMosaicContainer = document.getElementById("menu-mosaic-container");
+
+const hash = new URL(window.location.href).hash.substring(1);
+const pictureIndex = parseInt(hash);
+if (!isNaN(pictureIndex)) {
+  menuMosaicContainer.style.display = "none";
+  swiper.el.style.display = "block";
+  openSlideShowToPosition(pictureIndex - 1);
+}
 
 const { onNavChange, isNavOpen } = (function () {
   const burgerMenuContainer = document.getElementById("burger-menu-container");
@@ -20,18 +42,6 @@ const { onNavChange, isNavOpen } = (function () {
 
 setupNav(onNavChange);
 
-const swiper = new Swiper("#swiper-container", {
-  loop: true,
-});
-
-document
-  .querySelector(".swiper-button-prev")
-  .addEventListener("click", () => swiper.slidePrev());
-
-document
-  .querySelector(".swiper-button-next")
-  .addEventListener("click", () => swiper.slideNext());
-
 document.addEventListener("keydown", (event) => {
   switch (event.code) {
     case "ArrowRight":
@@ -43,13 +53,18 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-const menuMosaicContainer = document.getElementById("menu-mosaic-container");
-
 document.getElementById("close-swiper").addEventListener("click", () => {
   menuMosaicContainer.style.display = "flex";
   swiper.el.style.display = "none";
   swiper.update();
 });
+
+function openSlideShowToPosition(index) {
+  menuMosaicContainer.style.display = "none";
+  swiper.el.style.display = "block";
+  swiper.update();
+  swiper.slideTo(parseInt(index) + 1, 0, false);
+}
 
 menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
   thumbnail.addEventListener(
@@ -62,10 +77,7 @@ menuMosaicContainer.querySelectorAll(".thumbnail").forEach((thumbnail) => {
       if (isNavOpen()) {
         return;
       }
-      menuMosaicContainer.style.display = "none";
-      swiper.el.style.display = "block";
-      swiper.update();
-      swiper.slideTo(parseInt(index) + 1, 0, false);
+      openSlideShowToPosition(index);
     }
   );
 });
