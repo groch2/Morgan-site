@@ -13,11 +13,11 @@ html(lang="fr")
     -
       var contactLinkPosition = navLinks.findIndex(({ text }) => /contact/i.test(text))
     nav(id="left-side-nav-links")
-      h1= "Morgan BANCON"
+      h1 Morgan&nbsp;BANCON
       each link, index in navLinks
         a(href=link.href style=index === contactLinkPosition ? 'text-decoration: underline' : '')= link.text
     header
-      h1= "Morgan BANCON"
+      h1 Morgan&nbsp;BANCON
       div(id="header-links")
         each link, index in navLinks
           a(href=link.href style=index === contactLinkPosition ? 'text-decoration: underline' : '')= link.text

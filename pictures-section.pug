@@ -11,11 +11,11 @@ html(lang="en")
   body
     div(id="menu-mosaic-container")
       nav(id="left-side-nav-links")
-        h1= "Morgan BANCON"
+        h1 Morgan&nbsp;BANCON
         each link in navLinks
           a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text
       header
-        h1= "Morgan BANCON"
+        h1 Morgan&nbsp;BANCON
         div(id="header-links")
           each link, index in navLinks
             a(href=link.href class=link.text === pictureSection ? 'underline' : '')= link.text

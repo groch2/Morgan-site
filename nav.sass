@@ -29,13 +29,15 @@ main
 #left-side-nav-links > *
   white-space: nowrap
 header
-  display: flex  
+  display: flex
+  gap: 10px
   h1
     transition: opacity var(--transition-duration)
     flex: 1
 $width-breakpoint: 800px
 #header-links
   display: flex
+  flex-wrap: wrap
   align-items: center
   column-gap: 20px
   font-size: x-large
