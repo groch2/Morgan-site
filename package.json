@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This is a static website generator, with an empty home page, multiple pictures galleries, a contact form, and a CV",
   "private": true,
-  "main": "morgan-site.js",
+  "main": "index.js",
   "scripts": {
     "bundle": "webpack --config=webpack.config.js --mode=production",
     "prestart": "npm run bundle",
