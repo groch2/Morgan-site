@@ -28,14 +28,14 @@ html(lang="en")
         div(id="overlay")
         each picture, index in pictures
           div(class="thumbnail")
-            img(src=picture.url data-index=index loading=(index > 7 ? "lazy" : false))
+            img(src=picture.url data-index=index loading=(index > 9 ? "lazy" : false))
     div(id="swiper-container" style="display: none;")
       span(id="close-swiper" class="w3-button w3-display-topright w3-xxlarge cursor")!="&#xD7;" 
       div(class="swiper-wrapper")
         each picture, index in pictures
           div(class="swiper-slide" data-hash=index + 1)
             div(class="picture-box")
-              img(class="picture" src=picture.url srcset=picture.srcset alt=picture.name)
+              img(class="picture" src=picture.url srcset=picture.srcset alt=picture.name loading="lazy")
               label(class="picture-label")= picture.name
       div(class="swiper-button-prev")
       div(class="swiper-button-next")
