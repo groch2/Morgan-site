@@ -88,14 +88,14 @@ module.exports = (_, { mode }) => {
       .map(([sectionName, pictures]) => ({ name: sectionName, pictures: pictures.map(picture => picture.name) }));
 
   const navLinks = [
-    { href: "/", text: "Accueil" },
+    { href: "index.html", text: "Accueil" },
     ...picturesSections.map((ps) => ({
-      href: ps,
+      href: `${ps}.html`,
       text: ps,
     })),
     ...[
-      { href: "CV", text: "Bio" },
-      { href: "contact-form", text: "Contact" },
+      { href: "CV.html", text: "Bio" },
+      { href: "contact-form.html", text: "Contact" },
     ],
   ];
 
